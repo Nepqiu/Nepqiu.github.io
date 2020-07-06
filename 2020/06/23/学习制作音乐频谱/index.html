@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="整体思路：1.使用ADC采集音频信号 2.使用官方提供的FFT函数对采集到的信号进行处理 3.量化显示 前言： 在人耳能听到的频率范围（20-20KHz）中，各类乐器和人声的频率大部分在5KHz以下。主要是在0-5KHz这段频率的频谱变化明显一些，所以观赏性更好。故我们设置采样频率为10KHz（根据采样定理，采样频率要大于信号最大频率的两倍，才能保证不失真）来采集这0-5KHz的音频信号。显示是使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习之制作音乐频谱">
+<meta property="og:url" content="http://yoursite.com/2020/06/23/%E5%AD%A6%E4%B9%A0%E5%88%B6%E4%BD%9C%E9%9F%B3%E4%B9%90%E9%A2%91%E8%B0%B1/index.html">
+<meta property="og:site_name" content="Nep的博客">
+<meta property="og:description" content="整体思路：1.使用ADC采集音频信号 2.使用官方提供的FFT函数对采集到的信号进行处理 3.量化显示 前言： 在人耳能听到的频率范围（20-20KHz）中，各类乐器和人声的频率大部分在5KHz以下。主要是在0-5KHz这段频率的频谱变化明显一些，所以观赏性更好。故我们设置采样频率为10KHz（根据采样定理，采样频率要大于信号最大频率的两倍，才能保证不失真）来采集这0-5KHz的音频信号。显示是使">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images0.cnblogs.com/blog/430074/201412/092014394315467.png">
+<meta property="og:image" content="c:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200706105441305.png">
+<meta property="article:published_time" content="2020-06-23T03:26:16.000Z">
+<meta property="article:modified_time" content="2020-06-23T14:33:52.000Z">
+<meta property="article:author" content="Nep球">
+<meta property="article:tag" content="Stm32">
+<meta property="article:tag" content="DSP库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images0.cnblogs.com/blog/430074/201412/092014394315467.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/23/%E5%AD%A6%E4%B9%A0%E5%88%B6%E4%BD%9C%E9%9F%B3%E4%B9%90%E9%A2%91%E8%B0%B1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>学习之制作音乐频谱 | Nep的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nep的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">響け！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/%E5%AD%A6%E4%B9%A0%E5%88%B6%E4%BD%9C%E9%9F%B3%E4%B9%90%E9%A2%91%E8%B0%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxian.jpg">
+      <meta itemprop="name" content="Nep球">
+      <meta itemprop="description" content="人真的要自己争气，一做出成绩来，全世界和颜悦色">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nep的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学习之制作音乐频谱
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-23 11:26:16 / 修改时间：22:33:52" itemprop="dateCreated datePublished" datetime="2020-06-23T11:26:16+08:00">2020-06-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/" itemprop="url" rel="index"><span itemprop="name">Stm32</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/23/%E5%AD%A6%E4%B9%A0%E5%88%B6%E4%BD%9C%E9%9F%B3%E4%B9%90%E9%A2%91%E8%B0%B1/" class="post-meta-item leancloud_visitors" data-flag-title="学习之制作音乐频谱" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/23/%E5%AD%A6%E4%B9%A0%E5%88%B6%E4%BD%9C%E9%9F%B3%E4%B9%90%E9%A2%91%E8%B0%B1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/%E5%AD%A6%E4%B9%A0%E5%88%B6%E4%BD%9C%E9%9F%B3%E4%B9%90%E9%A2%91%E8%B0%B1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="整体思路："><a href="#整体思路：" class="headerlink" title="整体思路："></a>整体思路：</h1><p>1.使用ADC采集音频信号</p>
+<p>2.使用官方提供的FFT函数对采集到的信号进行处理</p>
+<p>3.量化显示</p>
+<p>前言：</p>
+<p>在人耳能听到的频率范围（20-20KHz）中，各类乐器和人声的频率大部分在5KHz以下。主要是在0-5KHz这段频率的频谱变化明显一些，所以观赏性更好。故我们设置采样频率为10KHz（根据采样定理，采样频率要大于信号最大频率的两倍，才能保证不失真）来采集这0-5KHz的音频信号。显示是使用的OLED12864屏，分辨率为128*64，在x轴方向上最多显示128个点，所以我们把采样点数设置为256个点，因为FFT计算出来的数据是对称的，我们只取一半，128个点刚刚好。</p>
+<p>采样频率：Fs = 10KHz</p>
+<p>样本数量：NPT = 256</p>
+<p>这两个参数是FFT计算时候要用到的。</p>
+<p>深入研究FFT可参考这位大大的博客（强烈推荐）：</p>
+<p><a href="http://www.opticsjournal.net/Mobile/postdetails/PT160728000122iOlRn?code=3&amp;from=singlemessage&amp;isappinstalled=0" target="_blank" rel="noopener">http://www.opticsjournal.net/Mobile/postdetails/PT160728000122iOlRn?code=3&amp;from=singlemessage&amp;isappinstalled=0</a></p>
+<p><strong>1.FFT运算效率</strong></p>
+<p>　　使用STM32官方提供的DSP库进行FFT，虽然在使用上有些不灵活（因为它是基4的FFT，所以FFT的点数必须是4^n），但其执行效率确实非常高效，看图1所示的FFT运算效率测试数据便可见一斑。该数据来自STM32 DSP库使用文档。</p>
+<p><img src="https://images0.cnblogs.com/blog/430074/201412/092014394315467.png" alt="img"></p>
+<p> 图1 FFT运算效率测试数据</p>
+<p>　　由图1可见，在STM32F10x系列处理器上，如果使用72M的系统主频，进行64点的FFT运算，仅仅需要0.078ms而已。如果是进行1024点的FFT运算，也才需要2.138ms。</p>
+<p><strong>2.如何使用STM32提供的DSP库函数</strong></p>
+<p><strong>2.1下载STM32的DSP库</strong></p>
+<p>　　大家可以从网上搜索下载得到STM32的DSP库，这里提供一个下载的地址：</p>
+<p>   <a href="https://download.csdn.net/download/helenie/9700505" target="_blank" rel="noopener">https://download.csdn.net/download/helenie/9700505</a></p>
+<p><strong>2.2添加DSP库到自己的工程项目中</strong></p>
+<p>　　下载得到STM32的DSP库之后，就可以将其添加到自己的工程项目中了。</p>
+<p>　　其中，inc文件夹下的stm32_dsp.h和table_fft.h两个文件是必须添加的。stm32_dsp.h是STM32的DSP库的头文件。</p>
+<p>　　src文件夹下的文件可以有选择的添加（用到那个添加那个即可）。因为我只用到了256点的FFT，所以这里我只添加了cr4_fft_256_stm32.s文件。添加完成后的项目框架如图2所示。</p>
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200706105441305.png" alt="image-20200706105441305"></p>
+<p>图2 项目框架</p>
+<p><strong>2.3模拟采样数据</strong></p>
+<p>　　根据采样定理，采样频率必须是被采样信号最高频率的2倍。这里，我要采集的是音频信号，音频信号的频率范围是20Hz到20KHz，所以我使用的采用频率是44800Hz。那么在进行256点FFT时，将得到44800Hz / 256 = 175Hz的频率分辨率。</p>
+<p>　　为了验证FFT运算结果的正确性，这里我模拟了一组采样数据，并将该采样数据存放到了long类型的lBufInArray数组中，且该数组中每个元素的高16位存储采样数据的实部，低16位存储采样数据的虚部(总是为0)。</p>
+<p>　　为什么要这样做呢？是因为后面要调用STM32的DSP库函数，需要传入的参数规定了必须是这样的数据格式。</p>
+<p>　　下面是具体的实现代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******************************************************************</span></span><br><span class="line"><span class="comment">函数名称:InitBufInArray()</span></span><br><span class="line"><span class="comment">函数功能:模拟采样数据，采样数据中包含3种频率正弦波(350Hz，8400Hz，18725Hz)</span></span><br><span class="line"><span class="comment">参数说明:</span></span><br><span class="line"><span class="comment">备    注:在lBufInArray数组中，每个数据的高16位存储采样数据的实部，</span></span><br><span class="line"><span class="comment">          低16位存储采样数据的虚部(总是为0)</span></span><br><span class="line"><span class="comment">作　　者:博客园 依旧淡然（http://www.cnblogs.com/menlsh/）</span></span><br><span class="line"><span class="comment">*******************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitBufInArray</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> short i;</span><br><span class="line">    <span class="keyword">float</span> fx;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;NPT; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        fx = <span class="number">1500</span> * <span class="built_in">sin</span>(PI2 * i * <span class="number">350.0</span> / Fs) +</span><br><span class="line">             <span class="number">2700</span> * <span class="built_in">sin</span>(PI2 * i * <span class="number">8400.0</span> / Fs) +</span><br><span class="line">             <span class="number">4000</span> * <span class="built_in">sin</span>(PI2 * i * <span class="number">18725.0</span> / Fs);</span><br><span class="line">        lBufInArray[i] = ((<span class="keyword">signed</span> short)fx) &lt;&lt; <span class="number">16</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>　其中，NPT是采样点数256，PI2是2π（即6.28318530717959），Fs是采样频率44800。可以看到采样数据中包含了3种频率的正弦波，分别为350Hz，8400Hz和18725Hz。</p>
+<p><strong>2.4调用DSP库函数进行FFT</strong></p>
+<p>　　进行256点的FFT，只需要调用STM32 DSP库函数中的cr4_fft_256_stm32()函数即可。该函数的原型为：</p>
+<p>　　void cr4_fft_256_stm32(void *pssOUT, void *pssIN, uint16_t Nbin);</p>
+<p>　　其中，参数pssOUT表示FFT输出数组指针，参数pssIN表示要进行FFT运算的输入数组指针，参数Nbin表示了点数。至于该函数的具体实现，因为是用汇编语言编写的，我也不懂，这里就不妄谈了。</p>
+<p>　　下面是具体的调用实例：</p>
+<p>　　cr4_fft_256_stm32(lBufOutArray, lBufInArray, NPT);</p>
+<p>　　其中，参数lBufOutArray同样是一个long类型的数组，参数lBufInArray就是存放模拟采样数据的采样数组，NPT为采样点数256。</p>
+<p>　　调用该函数之后，在lBufOutArray数组中就存放了进行FFT运算之后的结果数据。该数组中每个元素的数据格式为；高16位存储虚部，低16位存储实部。</p>
+<p><strong>2.5计算各次谐波幅值</strong></p>
+<p>　　得到FFT运算之后的结果数据之后，就可以计算各次谐波的幅值了。</p>
+<p>　　下面是具体的实现代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/******************************************************************</span></span><br><span class="line"><span class="comment">函数名称:GetPowerMag()</span></span><br><span class="line"><span class="comment">函数功能:计算各次谐波幅值</span></span><br><span class="line"><span class="comment">参数说明:</span></span><br><span class="line"><span class="comment">备　　注:先将lBufOutArray分解成实部(X)和虚部(Y)，然后计算幅值(sqrt(X*X+Y*Y)</span></span><br><span class="line"><span class="comment">作　　者:博客园 依旧淡然（http://www.cnblogs.com/menlsh/）</span></span><br><span class="line"><span class="comment">*******************************************************************/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetPowerMag</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">signed</span> short lX,lY;</span><br><span class="line">    <span class="keyword">float</span> X,Y,Mag;</span><br><span class="line">    <span class="keyword">unsigned</span> short i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;NPT/<span class="number">2</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        lX  = (lBufOutArray[i] &lt;&lt; <span class="number">16</span>) &gt;&gt; <span class="number">16</span>;</span><br><span class="line">        lY  = (lBufOutArray[i] &gt;&gt; <span class="number">16</span>);</span><br><span class="line">        X = NPT * ((<span class="keyword">float</span>)lX) / <span class="number">32768</span>;</span><br><span class="line">        Y = NPT * ((<span class="keyword">float</span>)lY) / <span class="number">32768</span>;</span><br><span class="line">        Mag = <span class="built_in">sqrt</span>(X * X + Y * Y) / NPT;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">0</span>)</span><br><span class="line">            lBufMagArray[i] = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)(Mag * <span class="number">32768</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            lBufMagArray[i] = (<span class="keyword">unsigned</span> <span class="keyword">long</span>)(Mag * <span class="number">65536</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，数组lBufMagArray存储了各次谐波的幅值。</p>
+<p><strong>2.6实验结果</strong></p>
+<p>　　通过串口，我们可以将lBufMagArray数组中各次谐波的幅值（即各个频率分量的幅值）输出打印出来，具体实验数据如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">i,         P,       Mag,         X,         Y</span><br><span class="line">   0,         0,         4,         0,        -4</span><br><span class="line">   1,       175,        14,        -6,        -4</span><br><span class="line">   2,       350,      1492,       746,        -3</span><br><span class="line">   3,       525,        11,        -5,        -3</span><br><span class="line">   4,       700,         8,        -3,        -3</span><br><span class="line">   5,       875,         8,        -4,        -2</span><br><span class="line">   6,      1050,         6,        -3,         0</span><br><span class="line">   7,      1225,         6,        -3,         0</span><br><span class="line">   8,      1400,         8,        -4,        -2</span><br><span class="line">   9,      1575,         8,        -4,         0</span><br><span class="line">  10,      1750,         4,        -2,         0</span><br><span class="line">  11,      1925,         8,        -4,        -1</span><br><span class="line">  12,      2100,         6,        -3,         0</span><br><span class="line">  13,      2275,         5,        -2,        -2</span><br><span class="line">  14,      2450,         6,        -3,        -1</span><br><span class="line">  15,      2625,         8,        -3,        -3</span><br><span class="line">  16,      2800,         4,        -2,         0</span><br><span class="line">  17,      2975,         6,        -3,        -1</span><br><span class="line">  18,      3150,         6,        -3,         0</span><br><span class="line">  19,      3325,         6,        -3,         0</span><br><span class="line">  20,      3500,         2,        -1,         0</span><br><span class="line">  21,      3675,         4,        -2,         0</span><br><span class="line">  22,      3850,         4,        -2,         0</span><br><span class="line">  23,      4025,         4,        -2,         0</span><br><span class="line">  24,      4200,         6,        -3,         0</span><br><span class="line">  25,      4375,         6,        -3,         0</span><br><span class="line">  26,      4550,         4,        -2,         0</span><br><span class="line">  27,      4725,         6,        -3,         0</span><br><span class="line">  28,      4900,         2,        -1,         0</span><br><span class="line">  29,      5075,         4,        -2,        -1</span><br><span class="line">  30,      5250,         4,        -2,         0</span><br><span class="line">  31,      5425,         2,        -1,         0</span><br><span class="line">  32,      5600,         4,        -2,        -1</span><br><span class="line">  33,      5775,         6,        -3,        -1</span><br><span class="line">  34,      5950,         2,        -1,        -1</span><br><span class="line">  35,      6125,         6,        -3,        -1</span><br><span class="line">  36,      6300,         2,        -1,         0</span><br><span class="line">  37,      6475,         6,        -3,         0</span><br><span class="line">  38,      6650,         4,        -2,         0</span><br><span class="line">  39,      6825,         4,        -2,        -1</span><br><span class="line">  40,      7000,         2,        -1,         0</span><br><span class="line">  41,      7175,         6,        -3,         0</span><br><span class="line">  42,      7350,         2,        -1,         0</span><br><span class="line">  43,      7525,         2,        -1,         0</span><br><span class="line">  44,      7700,         2,        -1,         0</span><br><span class="line">  45,      7875,         2,        -1,         0</span><br><span class="line">  46,      8050,         4,        -2,         0</span><br><span class="line">  47,      8225,         2,        -1,         0</span><br><span class="line">  48,      8400,      2696,      1348,         0</span><br><span class="line">  49,      8575,         2,        -1,        -1</span><br><span class="line">  50,      8750,         0,         0,         0</span><br><span class="line">  51,      8925,         4,        -2,        -1</span><br><span class="line">  52,      9100,         2,         0,        -1</span><br><span class="line">  53,      9275,         0,         0,         0</span><br><span class="line">  54,      9450,         2,        -1,        -1</span><br><span class="line">  55,      9625,         2,        -1,         0</span><br><span class="line">  56,      9800,         2,        -1,         0</span><br><span class="line">  57,      9975,         2,        -1,        -1</span><br><span class="line">  58,     10150,         2,        -1,        -1</span><br><span class="line">  59,     10325,         2,        -1,         0</span><br><span class="line">  60,     10500,         0,         0,         0</span><br><span class="line">  61,     10675,         2,        -1,         0</span><br><span class="line">  62,     10850,         4,        -2,        -1</span><br><span class="line">  63,     11025,         2,        -1,        -1</span><br><span class="line">  64,     11200,         0,         0,         0</span><br><span class="line">  65,     11375,         2,        -1,         0</span><br><span class="line">  66,     11550,         0,         0,         0</span><br><span class="line">  67,     11725,         2,        -1,        -1</span><br><span class="line">  68,     11900,         2,        -1,        -1</span><br><span class="line">  69,     12075,         2,        -1,         1</span><br><span class="line">  70,     12250,         2,        -1,         1</span><br><span class="line">  71,     12425,         4,        -2,         1</span><br><span class="line">  72,     12600,         4,        -2,        -1</span><br><span class="line">  73,     12775,         2,        -1,         1</span><br><span class="line">  74,     12950,         0,         0,         0</span><br><span class="line">  75,     13125,         4,        -2,         0</span><br><span class="line">  76,     13300,         4,        -2,         0</span><br><span class="line">  77,     13475,         2,        -1,         0</span><br><span class="line">  78,     13650,         2,        -1,         0</span><br><span class="line">  79,     13825,         4,        -2,        -1</span><br><span class="line">  80,     14000,         2,        -1,         0</span><br><span class="line">  81,     14175,         4,        -2,         0</span><br><span class="line">  82,     14350,         2,        -1,         1</span><br><span class="line">  83,     14525,         4,        -2,         1</span><br><span class="line">  84,     14700,         4,        -2,         1</span><br><span class="line">  85,     14875,         2,        -1,         1</span><br><span class="line">  86,     15050,         4,        -2,         0</span><br><span class="line">  87,     15225,         2,        -1,         0</span><br><span class="line">  88,     15400,         4,        -2,         1</span><br><span class="line">  89,     15575,         4,        -2,         1</span><br><span class="line">  90,     15750,         2,        -1,         0</span><br><span class="line">  91,     15925,         2,        -1,         1</span><br><span class="line">  92,     16100,         2,        -1,         1</span><br><span class="line">  93,     16275,         2,        -1,         1</span><br><span class="line">  94,     16450,         4,        -2,         1</span><br><span class="line">  95,     16625,         2,        -1,         1</span><br><span class="line">  96,     16800,         2,        -1,        -1</span><br><span class="line">  97,     16975,         4,        -2,         0</span><br><span class="line">  98,     17150,         2,        -1,         0</span><br><span class="line">  99,     17325,         4,        -2,         0</span><br><span class="line"> 100,     17500,         4,        -2,         1</span><br><span class="line"> 101,     17675,         4,        -2,         0</span><br><span class="line"> 102,     17850,         4,        -2,         1</span><br><span class="line"> 103,     18025,         4,        -2,        -1</span><br><span class="line"> 104,     18200,         2,        -1,         1</span><br><span class="line"> 105,     18375,         4,        -2,         0</span><br><span class="line"> 106,     18550,         2,        -1,         1</span><br><span class="line"> 107,     18725,      3996,      1998,         1</span><br><span class="line"> 108,     18900,         2,        -1,         0</span><br><span class="line"> 109,     19075,         2,        -1,         1</span><br><span class="line"> 110,     19250,         4,        -2,         1</span><br><span class="line"> 111,     19425,         4,        -2,         1</span><br><span class="line"> 112,     19600,         2,         0,         1</span><br><span class="line"> 113,     19775,         2,        -1,         0</span><br><span class="line"> 114,     19950,         0,         0,         0</span><br><span class="line"> 115,     20125,         4,        -2,         1</span><br><span class="line"> 116,     20300,         2,         0,         1</span><br><span class="line"> 117,     20475,         2,         0,         1</span><br><span class="line"> 118,     20650,         2,        -1,         1</span><br><span class="line"> 119,     20825,         2,        -1,         1</span><br><span class="line"> 120,     21000,         2,        -1,         1</span><br><span class="line"> 121,     21175,         2,        -1,         0</span><br><span class="line"> 122,     21350,         2,         0,         1</span><br><span class="line"> 123,     21525,         2,        -1,         0</span><br><span class="line"> 124,     21700,         0,         0,         0</span><br><span class="line"> 125,     21875,         2,        -1,         1</span><br><span class="line"> 126,     22050,         2,        -1,         1</span><br><span class="line"> 127,     22225,         2,         0,         1</span><br></pre></td></tr></table></figure>
+
+<p>在以上的实验数据中，我们分别打印出来了点数、频率、幅值、实部、虚部信息。</p>
+<p>　　由以上的实验数据，我们可以看出，在频率为350Hz，8400Hz和18725Hz时，幅值出现峰值，分别为1492、2696和3996，这与我们所预期的结果正好相符，从而验证了实验结果的正确性。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Stm32/" rel="tag"># Stm32</a>
+              <a href="/tags/DSP%E5%BA%93/" rel="tag"># DSP库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/23/%E7%BD%91%E7%AB%99/" rel="prev" title="test1">
+      <i class="fa fa-chevron-left"></i> test1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/23/%E6%97%A5%E8%AF%AD/" rel="next" title="日语(N2)">
+      日语(N2) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#整体思路："><span class="nav-number">1.</span> <span class="nav-text">整体思路：</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nep球"
+      src="/images/touxian.jpg">
+  <p class="site-author-name" itemprop="name">Nep球</p>
+  <div class="site-description" itemprop="description">人真的要自己争气，一做出成绩来，全世界和颜悦色</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nep球</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true# 验证码 默认为false,
+      notify     : true# 邮箱通知 , https://github.com/xCss/Valine/wiki，默认为false,
+      appId      : 'Id1Ow31fSkW4XBVcrA0zSwBs-gzGzoHsz',
+      appKey     : 'v54TjNNeEOrwuTgpdmEcJk9y',
+      placeholder: "请输入您的留言",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":150,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

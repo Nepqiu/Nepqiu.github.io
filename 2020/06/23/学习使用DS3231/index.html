@@ -38,6 +38,9 @@
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1309643/201801/1309643-20180130204721843-1129628838.png">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1309643/201801/1309643-20180130204918765-1007538508.png">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1309643/201801/1309643-20180130210210625-1249616586.png">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200630235456.png">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200630235902.png">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200701001800.png">
 <meta property="article:published_time" content="2020-06-23T03:26:16.000Z">
 <meta property="article:modified_time" content="2020-06-23T14:33:52.000Z">
 <meta property="article:author" content="Nep球">
@@ -387,30 +390,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h1 id="闹钟功能"><a href="#闹钟功能" class="headerlink" title="闹钟功能"></a>闹钟功能</h1><p>可以使能INT/SQW产生由闹钟条件决定的中断信号或 者1Hz方波信号，功能选择由控制寄存器中的INTCN位控制。</p>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200630235456.png" alt=""></p>
+<p>该器件包含两个星期/日期闹钟。闹钟1可通过写入寄存器 07h至0Ah来设定。闹钟2可通过写入寄存器0Bh至0Dh来 设定，参见表2。可对闹钟进行编程(通过控制寄存器的闹 钟使能位和INTCN位)，从而在闹钟匹配条件下触发INT/ SQW输出。每个星期/日期闹钟寄存器的第7位是屏蔽位(表 2)。当每个闹钟的屏蔽位均为逻辑0时，闹钟只有在计时寄 存器中的值与存储于星期/日期闹钟寄存器的对应值相匹配 时才会告警。闹钟也可以编程为每秒、分、时、星期或日期 重复告警。</p>
+<p>表3给出了可能的设置。如果不按照表中配置， 会导致不合逻辑的操作。DY/DT位(闹钟星期/日期寄存器的 第6位)用于控制存储于寄存器第0位至第5位的闹钟值是 反映星期几还是月份中的日期。如果DY/DT设为逻辑0，闹 钟将是与月份日期匹配的结果。如果DY/DT设为逻辑1，闹 钟则是与星期几匹配的结果。当RTC寄存器值与闹钟寄存器 的设定值相匹配时，相应的闹钟标志位A1F或A2F置为逻 辑1。如果对应的闹钟中断使能A1IE或A2IE位也设定为逻 辑1，并且INTCN位设定为逻辑1时，闹钟条件将会触发 INT/SQW信号。在时间和日期寄存器每秒更新时都会检测 匹配情况。</p>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200630235902.png" alt=""></p>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200701001800.png" alt=""></p>
 
     </div>
 
@@ -495,7 +480,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部结构"><span class="nav-number">2.</span> <span class="nav-text">内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部结构图"><span class="nav-number">2.1.</span> <span class="nav-text">内部结构图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#32-kHz的TCXO"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">32 kHz的TCXO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的电源控制"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">DS3231的电源控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的时钟和日历RTC"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">DS3231的时钟和日历RTC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的复位按钮"><span class="nav-number">2.1.0.4.</span> <span class="nav-text">DS3231的复位按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的闹钟和报警功能"><span class="nav-number">2.1.0.5.</span> <span class="nav-text">DS3231的闹钟和报警功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的控制寄存器及功能"><span class="nav-number">2.1.0.6.</span> <span class="nav-text">DS3231的控制寄存器及功能</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IIC的使用及源码实现"><span class="nav-number">3.</span> <span class="nav-text">IIC的使用及源码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DS3231实现："><span class="nav-number">3.0.1.</span> <span class="nav-text">DS3231实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BCD码"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">BCD码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231传输时序图："><span class="nav-number">3.0.1.2.</span> <span class="nav-text">DS3231传输时序图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写命令"><span class="nav-number">3.0.1.3.</span> <span class="nav-text">读写命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取和修改时间"><span class="nav-number">3.0.1.4.</span> <span class="nav-text">获取和修改时间</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部结构"><span class="nav-number">2.</span> <span class="nav-text">内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内部结构图"><span class="nav-number">2.1.</span> <span class="nav-text">内部结构图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#32-kHz的TCXO"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">32 kHz的TCXO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的电源控制"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">DS3231的电源控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的时钟和日历RTC"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">DS3231的时钟和日历RTC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的复位按钮"><span class="nav-number">2.1.0.4.</span> <span class="nav-text">DS3231的复位按钮</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的闹钟和报警功能"><span class="nav-number">2.1.0.5.</span> <span class="nav-text">DS3231的闹钟和报警功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231的控制寄存器及功能"><span class="nav-number">2.1.0.6.</span> <span class="nav-text">DS3231的控制寄存器及功能</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IIC的使用及源码实现"><span class="nav-number">3.</span> <span class="nav-text">IIC的使用及源码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DS3231实现："><span class="nav-number">3.0.1.</span> <span class="nav-text">DS3231实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BCD码"><span class="nav-number">3.0.1.1.</span> <span class="nav-text">BCD码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DS3231传输时序图："><span class="nav-number">3.0.1.2.</span> <span class="nav-text">DS3231传输时序图：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写命令"><span class="nav-number">3.0.1.3.</span> <span class="nav-text">读写命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取和修改时间"><span class="nav-number">3.0.1.4.</span> <span class="nav-text">获取和修改时间</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闹钟功能"><span class="nav-number">4.</span> <span class="nav-text">闹钟功能</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -511,20 +496,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
