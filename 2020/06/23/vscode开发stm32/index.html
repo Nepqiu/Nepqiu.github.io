@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;61519415   参考文章： https:&#x2F;&#x2F;blog.csdn.net&#x2F;for_dream1205&#x2F;article&#x2F;details&#x2F;97893066 https:&#x2F;&#x2F;blog.csdn.net&#x2F;Attack_on_cc&#x2F;article&#x2F;details&#x2F;105514735  写在前面本文了搭建一个用VSCode + 开源 arm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vscode开发stm32">
+<meta property="og:url" content="http://yoursite.com/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/index.html">
+<meta property="og:site_name" content="Nep的博客">
+<meta property="og:description" content="转自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;61519415   参考文章： https:&#x2F;&#x2F;blog.csdn.net&#x2F;for_dream1205&#x2F;article&#x2F;details&#x2F;97893066 https:&#x2F;&#x2F;blog.csdn.net&#x2F;Attack_on_cc&#x2F;article&#x2F;details&#x2F;105514735  写在前面本文了搭建一个用VSCode + 开源 arm">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-964e284ce631d8cb3f56a8eb5c3e04d9_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-1b7ce9dff14ef4e2d0c30e4b4c9e6869_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-147a3111424cf66fc0abad717658bd3f_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-5c811e3e49a03d708ff69860ba14ca34_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-cfb66362af4e53c82d3d05ebae420e8c_hd.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-64fc67918156f15e1a0a82b973cebf53_720w.jpg">
+<meta property="og:image" content="https://picb.zhimg.com/80/v2-9a7f61d4919851e5fa1b6e50ac920bd8_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-8a8efb4fc7a3c5eeabf27f40b4340d23_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-5337c4cc0075349d067fe4ccd17b85c2_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-bc0ab81fe78b8242991a43ab100b26c7_720w.jpg">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200712234255.png">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200712234422.png">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200712233816.png">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-cd4cebbfd0cd2dd3eb7018ce87286967_720w.jpg">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200713130429.png">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200713130444.png">
+<meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200713130611.png">
+<meta property="article:published_time" content="2020-06-23T03:26:16.000Z">
+<meta property="article:modified_time" content="2020-06-23T14:33:52.000Z">
+<meta property="article:author" content="Nep球">
+<meta property="article:tag" content="Stm32">
+<meta property="article:tag" content="vsvode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-964e284ce631d8cb3f56a8eb5c3e04d9_hd.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vscode开发stm32 | Nep的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nep的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">響け！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxian.jpg">
+      <meta itemprop="name" content="Nep球">
+      <meta itemprop="description" content="人真的要自己争气，一做出成绩来，全世界和颜悦色">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nep的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vscode开发stm32
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-23 11:26:16 / 修改时间：22:33:52" itemprop="dateCreated datePublished" datetime="2020-06-23T11:26:16+08:00">2020-06-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/" itemprop="url" rel="index"><span itemprop="name">Stm32</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/vsvode/" itemprop="url" rel="index"><span itemprop="name">vsvode</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/" class="post-meta-item leancloud_visitors" data-flag-title="vscode开发stm32" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>转自：<a href="https://zhuanlan.zhihu.com/p/61519415" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/61519415</a></p>
+</blockquote>
+<blockquote>
+<p>参考文章：</p>
+<p><a href="https://blog.csdn.net/for_dream1205/article/details/97893066" target="_blank" rel="noopener">https://blog.csdn.net/for_dream1205/article/details/97893066</a></p>
+<p><a href="https://blog.csdn.net/Attack_on_cc/article/details/105514735" target="_blank" rel="noopener">https://blog.csdn.net/Attack_on_cc/article/details/105514735</a></p>
+</blockquote>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>本文了搭建一个用<strong>VSCode + 开源 arm 工具链 + OpenOCD</strong>开发STM32的环境。此方案跨平台，Windows，linux，OSX都可以用。本文以Windows 10为例进行配置，在linux和macOS上的配置应该会更简单。</p>
+<p>以下所有的路径都最好不要有中文。</p>
+<a id="more"></a>
+
+
+
+<h1 id="CubeMX"><a href="#CubeMX" class="headerlink" title="CubeMX"></a>CubeMX</h1><blockquote>
+<p>转自：<a href="https://blog.csdn.net/ybhuangfugui/article/details/94363006" target="_blank" rel="noopener">https://blog.csdn.net/ybhuangfugui/article/details/94363006</a></p>
+</blockquote>
+<h3 id="安装HAL库"><a href="#安装HAL库" class="headerlink" title="安装HAL库"></a><strong>安装HAL库</strong></h3><p>HAL库，也可理解为软件包，有<strong>在线安装、离线安装</strong>两种方式。</p>
+<h3 id="在线安装"><a href="#在线安装" class="headerlink" title="在线安装"></a><strong>在线安装</strong></h3><p>打开安装好的 STM32CubeMX 软件， 进入库管理界面（Help -&gt; Manage embedded…），会有一个列表， 勾选上你要安装的HAL库， 点击“Install Now” 直到安装成功。 如下图：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-964e284ce631d8cb3f56a8eb5c3e04d9_hd.jpg" alt="img"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-1b7ce9dff14ef4e2d0c30e4b4c9e6869_hd.jpg" alt="img"></p>
+<p>这种方式比较简单，需要联网在线下载，可能需要等待一段时间。如果刷新之后，可以看到最新版本，以及一些老版本HAL库。</p>
+<h3 id="离线安装"><a href="#离线安装" class="headerlink" title="离线安装"></a><strong>离线安装</strong></h3><p>离线安装的前提是需要下载好离线包，方法有两种：1.从库管理界面直接导入离线包。2.直接解压离线包到指定路径下。</p>
+<p><strong>1.导入离线包</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-147a3111424cf66fc0abad717658bd3f_hd.jpg" alt="img"></p>
+<p><strong>2.直接解压</strong> Help -&gt; Updater Settings得到HAL库路径</p>
+<p><img src="https://pic1.zhimg.com/80/v2-5c811e3e49a03d708ff69860ba14ca34_hd.jpg" alt="img"></p>
+<p>直接解压HAL库离线包，注意路径、文件夹名需一致：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-cfb66362af4e53c82d3d05ebae420e8c_hd.jpg" alt="img"></p>
+<h1 id="vscode开发"><a href="#vscode开发" class="headerlink" title="vscode开发"></a>vscode开发</h1><h2 id="1-需要的软件和工具"><a href="#1-需要的软件和工具" class="headerlink" title="1.需要的软件和工具"></a>1.需要的软件和工具</h2><p>(1) <a href="https://link.zhihu.com/?target=http%3A//www.stm32cube.com/">STM32CubeMX</a>：用于生成带makefile的HAL库工程（给的链接是国内的论坛，因为官网下载太麻烦了还要注册账号）。注意STM32CubeMX是依赖Java的，所以要确保你电脑上安装了<a href="https://link.zhihu.com/?target=https%3A//www.oracle.com/java/technologies/javase-jre8-downloads.html">JRE</a>（Ubuntu用sudo apt install default-jre来安装）；</p>
+<p>(2) <a href="https://link.zhihu.com/?target=https%3A//code.visualstudio.com/">VSCode</a>：很好用的编辑器，现在已经有64位的版本；</p>
+<p>(3) <a href="https://link.zhihu.com/?target=https%3A//developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads">GNU Arm Embedded Toolchain</a>：arm用的GNU工具链，包括编译器(gcc)，调试器(gdb），链接器(ld)和其它工具。</p>
+<p>(4) <a href="https://link.zhihu.com/?target=https%3A//gnutoolchains.com/arm-eabi/openocd/">OpenOCD ( windows版 )</a>：一个开源的片上调试器(Open On-Chip Debugger)。linux可以直接 <code>apt install openocd</code>。</p>
+<p>(5) <a href="https://link.zhihu.com/?target=https%3A//zadig.akeo.ie/">Zadig</a>：用来装USB驱动的，虽然Jlink插上就能装驱动，但是直接装的OpenOCD识别不到。<strong>Linux系统无视这条就行。</strong></p>
+<p>(6) <a href="https://link.zhihu.com/?target=https%3A//git-scm.com/">Git</a>：git版本管理不用多介绍了吧，但是我们这里要使用的是下载git附带的git bash。这个bash是基于mingw的，非常轻量了，甚至于make都没有。但是问题不大，<strong>给git bash增加make，wget等工具的方法，见<a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/z69183787/article/details/96290717">这篇文章</a>。</strong></p>
+<p>(7) <a href="https://releases.llvm.org/download.html" target="_blank" rel="noopener">下载安装LLVM</a>：<br>    LLVM能够对代码进行有效补全，可以理解为Clang。安装完毕后，需要手动添加环境变量。方法如下：右击电脑属性-高级系统设置-高级-环境变量-系统变量，打开变量path，添加C:\Program Files\LLVM\bin。</p>
+<p>(8) <a href="https://gitforwindows.org/" target="_blank" rel="noopener">下载安装git for windows</a>：<br>    git for windows提供git的支持和MINGW64指令终端。下载安装完毕后，打开VSCode，在<code>.vscode</code>文件的<code>setting.json</code>文件下加入</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"terminal.integrated.automationShell.windows"</span>: <span class="string">"G:\\Git\\bin\\bash.exe"</span>,</span><br><span class="line">    <span class="attr">"terminal.integrated.shell.windows"</span>: <span class="string">"G:\\Git\\bin\\bash.exe"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以直接修改下面的中断为<code>git bash</code></p>
+<p>或者也可以不修改<code>setting.json</code>文件直接，使用 <kbd>Ctrl</kbd> + <kbd>P</kbd> 输入<code>task</code>然后<code>空格</code>，启动<strong>“build”</strong>任务和<strong>“clean”</strong>任务</p>
+<p>不使用mingw的原因是，mingw有时会安装失败，很烦。</p>
+<p><strong>linux自带bash，不用管。</strong></p>
+<h2 id="2-软件安装"><a href="#2-软件安装" class="headerlink" title="2.软件安装"></a>2.软件安装</h2><p>STM32CubeMX、ARM工具链、VS Code、Git都是安装包，一路next就行了。Zadig是免安装，就不说了。注意一下arm工具链安装时有个选项是把bin文件夹添加到系统Path环境变量。如果忘了勾选，后面手动加也可以。</p>
+<p>OpenOCD还是推荐直接下载编译好的可执行文件，免得麻烦。Windows戳<a href="https://link.zhihu.com/?target=https%3A//gnutoolchains.com/arm-eabi/openocd/">&lt;这个链接&gt;</a>，linux直接<code>apt install openocd</code>。下载完后解压到C盘根目录或者别的任何你喜欢的地方。</p>
+<h2 id="3-添加环境变量"><a href="#3-添加环境变量" class="headerlink" title="3.添加环境变量"></a>3.添加环境变量</h2><p>把Arm工具链安装目录下的bin文件夹和openOCD安装目录下的bin文件夹都添加到PATH环境变量中。添加环境变量的方法就不赘述了。linux也要加，但如果你的openocd是用apt-get装的，就不用加openocd的了。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-64fc67918156f15e1a0a82b973cebf53_720w.jpg" alt="img"></p>
+<p>环境变量修改完毕后，需要<strong>重启电脑</strong>才能生效。然后打开Power Shell，输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arm-none-eabi-gcc --version</span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openocd --version</span><br></pre></td></tr></table></figure>
+
+<p>可以看到版本信息，说明安装成功。</p>
+<p>这两个命令也可以在git bash中运行：</p>
+<p><img src="https://picb.zhimg.com/80/v2-9a7f61d4919851e5fa1b6e50ac920bd8_720w.jpg" alt="img"></p>
+<p>【注】如果是Ubuntu系统，最好把gdb也试一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arm-none-eabi-gdb -v</span><br></pre></td></tr></table></figure>
+
+<p>如果出现了报错，说缺什么库就用apt装什么库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#报错</span><br><span class="line">arm-none-eabi-gdb：error while loading shared libraries: </span><br><span class="line">libncurses.so.5: cannot open shared object file: No such file or directory</span><br><span class="line"></span><br><span class="line">#手动安装</span><br><span class="line">sudo apt install libncurses5</span><br></pre></td></tr></table></figure>
+
+<p>能早在命令行发现的问题早解决。不然后面图形化运行，出了错都不知道为啥。</p>
+<h2 id="4-使用Zadig修改J-link驱动（Linux无视这条）"><a href="#4-使用Zadig修改J-link驱动（Linux无视这条）" class="headerlink" title="4.使用Zadig修改J-link驱动（Linux无视这条）"></a>4.使用Zadig修改J-link驱动（Linux无视这条）</h2><p>当我们直接插上Jlink，自动安装完驱动后，打开设备管理器，是这样的：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-8a8efb4fc7a3c5eeabf27f40b4340d23_720w.jpg" alt="img"></p>
+<p>我们在Keil中用的很好，但是它是“<strong>通用串行总线控制器</strong>”，OpenOCD识别不到。因此我们插上Jlink后，打开Zadig，选择Options—List All Devices，下拉菜单中选择J-link，然后在右侧选择WinUSB，点击Reinstall Driver。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-5337c4cc0075349d067fe4ccd17b85c2_720w.jpg" alt="img"></p>
+<p>然后，打开设备管理器，就看到J-link从<strong>“通用串行总线控制器”</strong>变成了<strong>“通用串行总线设备”</strong>。这样就修改完成了。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-bc0ab81fe78b8242991a43ab100b26c7_720w.jpg" alt="img"></p>
+<h1 id="配置文件-vscode"><a href="#配置文件-vscode" class="headerlink" title="配置文件.vscode"></a>配置文件<code>.vscode</code></h1><h2 id="c-cpp-properties-json文件"><a href="#c-cpp-properties-json文件" class="headerlink" title="c_cpp_properties.json文件"></a>c_cpp_properties.json文件</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"Win32"</span>,</span><br><span class="line">            <span class="attr">"includePath"</span>: [</span><br><span class="line">                <span class="string">"$&#123;workspaceFolder&#125;/**"</span>,</span><br><span class="line">                <span class="string">"G:/GNU_ARM/9 2020-q2-update/lib/gcc/arm-none-eabi/9.3.1/include"</span>,</span><br><span class="line">                <span class="string">"G:/GNU_ARM/9 2020-q2-update/lib/gcc/arm-none-eabi/9.3.1"</span>,</span><br><span class="line">                <span class="string">"G:/GNU_ARM/9 2020-q2-update/lib/gcc/arm-none-eabi/9.3.1/include-fixed"</span>,</span><br><span class="line">                <span class="string">"Drivers/CMSIS/Include"</span>,</span><br><span class="line">                <span class="string">"Drivers/CMSIS/Device/ST/STM32F4xx/Include"</span>,</span><br><span class="line">                <span class="string">"Drivers/STM32F4xx_HAL_Driver/Inc"</span>,</span><br><span class="line">                <span class="string">"Drivers/STM32F4xx_HAL_Driver/Inc/Legacy"</span>,</span><br><span class="line">                <span class="string">"Drivers/STM32F4xx_HAL_Driver/Src"</span>,</span><br><span class="line">                <span class="string">"Inc"</span>,</span><br><span class="line">                <span class="string">"Src"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"defines"</span>: [</span><br><span class="line">                <span class="string">"_DEBUG"</span>,</span><br><span class="line">                <span class="string">"UNICODE"</span>,</span><br><span class="line">                <span class="string">"_UNICODE"</span>,</span><br><span class="line">                <span class="string">"USE_HAL_DRIVER"</span>,</span><br><span class="line">                <span class="string">"STM32F407xx"</span>  </span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"compilerPath"</span>: <span class="string">"G:/GNU_ARM/9 2020-q2-update/bin/arm-none-eabi-gcc.exe"</span>,</span><br><span class="line">            <span class="attr">"intelliSenseMode"</span>: <span class="string">"gcc-x64"</span>,</span><br><span class="line">            <span class="attr">"browse"</span>: &#123;</span><br><span class="line">                <span class="attr">"limitSymbolsToIncludedHeaders"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="attr">"databaseFilename"</span>: <span class="string">""</span>,</span><br><span class="line">                <span class="attr">"path"</span>: [</span><br><span class="line">                    <span class="string">"$&#123;workspaceFolder&#125;"</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"version"</span>: <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>其中<code>includePath</code>中</li>
+</ul>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200712234255.png" alt=""></p>
+<p>值基本上不变</p>
+<p>但是，</p>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200712234422.png" alt=""></p>
+<p>这些值随使用的stm32芯片不一样需要改（查看文件夹）</p>
+<ul>
+<li>其中<code>define</code>中<code>STM32F407xx</code>的值随使用的stm32芯片不一样需要改，在下面这里查看</li>
+</ul>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200712233816.png" alt=""></p>
+<h2 id="launch-json文件"><a href="#launch-json文件" class="headerlink" title="launch.json文件"></a>launch.json文件</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">    <span class="attr">"configurations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"(gdb) 启动"</span>,<span class="comment">//配置名称；显示在启动配置下拉菜单中。</span></span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"cppdbg"</span>,   <span class="comment">//配置类型。</span></span><br><span class="line">            <span class="attr">"request"</span>: <span class="string">"launch"</span>,<span class="comment">//请求配置类型。可以是“启动”或“附加”。</span></span><br><span class="line">            <span class="attr">"program"</span>: <span class="string">"$&#123;workspaceFolder&#125;/build/$&#123;workspaceRootFolderName&#125;.elf"</span>,   <span class="comment">//需要运行的是当前打开文件的目录中/build/中的，</span></span><br><span class="line">                                                                                    <span class="comment">//名字和当前文件相同，但扩展名为elf的程序</span></span><br><span class="line">                                                                                    <span class="comment">//即程序可执行文件的完整路径。</span></span><br><span class="line">            <span class="attr">"args"</span>: [],<span class="comment">//传递给程序的命令行参数。</span></span><br><span class="line">            <span class="attr">"stopAtEntry"</span>: <span class="literal">false</span>,<span class="comment">//可选参数。如果为 true，则调试程序应在目标的入口点处停止。如果传递了 processId，则不起任何作用。</span></span><br><span class="line">            <span class="attr">"cwd"</span>: <span class="string">"$&#123;workspaceFolder&#125;"</span>,<span class="comment">//目标的工作目录</span></span><br><span class="line">            <span class="attr">"environment"</span>: [],<span class="comment">//要添加到程序环境的环境变量。示例: [ &#123; "name": "squid", "value": "clam" &#125; ]。</span></span><br><span class="line">            <span class="attr">"externalConsole"</span>: <span class="literal">false</span>,<span class="comment">//如果为 true，则为调试对象启动控制台。如果为 false，它在 Linux 和 Windows 上会显示在集成控制台中。</span></span><br><span class="line">            <span class="attr">"MIMode"</span>: <span class="string">"gdb"</span>,<span class="comment">//指示 MIDebugEngine 要连接到的控制台调试程序。允许的值为 "gdb"、"lldb"。</span></span><br><span class="line">            <span class="attr">"miDebuggerPath"</span>: <span class="string">"arm-none-eabi-gdb.exe"</span>,<span class="comment">//MI 调试程序(如 gdb)的路径。如果未指定，将首先在路径中搜索调试程序</span></span><br><span class="line">            <span class="attr">"setupCommands"</span>: [  <span class="comment">//为了安装基础调试程序而执行的一个或多个 GDB/LLDB 命令。</span></span><br><span class="line">                                <span class="comment">//示例: "setupCommands": [ </span></span><br><span class="line">                                <span class="comment">//&#123; "text": "-enable-pretty-printing", </span></span><br><span class="line">                                <span class="comment">//"description": "Enable GDB pretty printing",</span></span><br><span class="line">                                <span class="comment">// "ignoreFailures": true &#125;</span></span><br><span class="line">                                <span class="comment">//]</span></span><br><span class="line">                &#123;<span class="attr">"text"</span>: <span class="string">"cd $&#123;workspaceFolder&#125;/build"</span>&#125;,</span><br><span class="line">                &#123;<span class="attr">"text"</span>: <span class="string">"file $&#123;workspaceRootFolderName&#125;.elf"</span>&#125;,</span><br><span class="line">                &#123;<span class="attr">"text"</span>: <span class="string">"target remote localhost:3333"</span>&#125;,</span><br><span class="line">                &#123;<span class="attr">"text"</span>: <span class="string">"monitor reset"</span>&#125;,</span><br><span class="line">                &#123;<span class="attr">"text"</span>: <span class="string">"monitor halt"</span>&#125;,</span><br><span class="line">                &#123;<span class="attr">"text"</span>: <span class="string">"load"</span>&#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="tasks-json文件"><a href="#tasks-json文件" class="headerlink" title="tasks.json文件"></a>tasks.json文件</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span></span><br><span class="line">    <span class="comment">// for the documentation about the tasks.json format</span></span><br><span class="line">        <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">        <span class="attr">"tasks"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"label"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"make"</span>,</span><br><span class="line">                <span class="attr">"args"</span>: [</span><br><span class="line">                    <span class="string">"-j4"</span></span><br><span class="line">                ] </span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"label"</span>: <span class="string">"clean"</span>,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"make"</span>,</span><br><span class="line">                <span class="attr">"args"</span>: [</span><br><span class="line">                    <span class="string">"clean"</span></span><br><span class="line">                ] </span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="setting-json文件"><a href="#setting-json文件" class="headerlink" title="setting.json文件"></a>setting.json文件</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"terminal.integrated.automationShell.windows"</span>: <span class="string">"G:\\Git\\bin\\bash.exe"</span>,</span><br><span class="line">    <span class="attr">"terminal.integrated.shell.windows"</span>: <span class="string">"G:\\Git\\bin\\bash.exe"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="配置build文件"><a href="#配置build文件" class="headerlink" title="配置build文件"></a>配置build文件</h2><p>直接在终端里敲一个make，就会根据makefile的内容，在当前目录下创建一个build文件夹，在里面生成每个源文件生成的.o文件，以及最终链接得到的elf文件（用于调试），以及用于直接下载用的十六进制文件(.hex)和二进制文件(.bin)。编译成功的话看起来就像这样：</p>
+<p>（在文件目录下右键，<code>Git Bash Here</code>，然后输入<code>make</code>）</p>
+<p><img src="https://pic2.zhimg.com/80/v2-cd4cebbfd0cd2dd3eb7018ce87286967_720w.jpg" alt="img"></p>
+<p><strong>【注】如果你没有看前一篇文章，git bash里没有make，可以从<a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/z69183787/article/details/96290717">这个链接</a>搞</strong></p>
+<p>为了方便后面的操作，我们在.vscode目录下创建<strong>tasks.json</strong>文件(文件名里别少了s！)，内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span></span><br><span class="line">    <span class="comment">// for the documentation about the tasks.json format</span></span><br><span class="line">        <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">        <span class="attr">"tasks"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"label"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"make"</span>,</span><br><span class="line">                <span class="attr">"args"</span>: [</span><br><span class="line">                    <span class="string">"-j4"</span></span><br><span class="line">                ] </span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"label"</span>: <span class="string">"clean"</span>,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"make"</span>,</span><br><span class="line">                <span class="attr">"args"</span>: [</span><br><span class="line">                    <span class="string">"clean"</span></span><br><span class="line">                ] </span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个文件创建了两个任务，分别叫做build和clean:</p>
+<ul>
+<li><p>build任务就是在bash里执行了make -j4</p>
+</li>
+<li><p>clean任务就是在bash里执行了make clean。</p>
+</li>
+</ul>
+<p>VS Code是可以给任务绑定快捷键的，具体就不介绍了，有兴趣可以自己搜索。</p>
+<p>不使用快捷键而执行task的方法：按Ctrl + P，然后输入”task[空格]“，就会出现可用的任务列表。</p>
+<h1 id="第一个版本配置"><a href="#第一个版本配置" class="headerlink" title="第一个版本配置"></a>第一个版本配置</h1><h2 id="配置文件openocd-cfg文件"><a href="#配置文件openocd-cfg文件" class="headerlink" title="配置文件openocd.cfg文件"></a>配置文件<code>openocd.cfg</code>文件</h2><p>直接在项目文件夹下新建一个openocd.cfg文件，内容如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选择调试器为jlink</span></span><br><span class="line"><span class="built_in">source</span> [find interface/jlink.cfg]</span><br><span class="line"><span class="comment">#source [find interface/cmsis-dap.cfg]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择接口为SWD</span></span><br><span class="line">transport select swd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择目标芯片</span></span><br><span class="line"><span class="built_in">source</span> [find target/stm32f4x.cfg]</span><br></pre></td></tr></table></figure>
+
+<p>openocd启动时，会自动在当前目录下寻找名为openocd.cfg的文件作为配置文件。</p>
+<p>本配置文件中引用到的其他配置文件，都在openocd安装目录下的share/openocd/scripts目录下。其中interface目录下都是接口相关配置文件、target目录下都是芯片相关的配置文件。</p>
+<h2 id="下载svd文件"><a href="#下载svd文件" class="headerlink" title="下载svd文件"></a>下载svd文件</h2><p>在<a href="https://link.zhihu.com/?target=https%3A//github.com/posborne/cmsis-svd">&lt;这个链接&gt;</a>寻找STM32F4的svd文件。CMSIS-SVD是CMSIS的一个组件，它包含完整微控制器系统（包括外设）的程序员视图的系统视图描述 XML 文件。简单来说，<strong>VS Code可以通过它来知道外设寄存器的地址分布，从而把寄存器内容展示到窗口中</strong>。</p>
+<p>下载好的STM32F407.svd文件放在项目文件夹根目录即可。</p>
+<h2 id="配置VS-Code的调试功能"><a href="#配置VS-Code的调试功能" class="headerlink" title="配置VS Code的调试功能"></a>配置VS Code的调试功能</h2><p>在.vscode文件夹中新建一个launch.json，内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F; 使用 IntelliSense 了解相关属性。 </span><br><span class="line">    &#x2F;&#x2F; 悬停以查看现有属性的描述。</span><br><span class="line">    &#x2F;&#x2F; 欲了解更多信息，请访问: https:&#x2F;&#x2F;go.microsoft.com&#x2F;fwlink&#x2F;?linkid&#x3D;830387</span><br><span class="line">    &quot;version&quot;: &quot;0.2.0&quot;,</span><br><span class="line">    &quot;configurations&quot;: [</span><br><span class="line">        </span><br><span class="line">        &#123;</span><br><span class="line">            &quot;name&quot;: &quot;Cortex Debug&quot;,</span><br><span class="line">            &quot;cwd&quot;: &quot;$&#123;workspaceRoot&#125;&quot;,</span><br><span class="line">            &quot;executable&quot;: &quot;$&#123;workspaceRoot&#125;&#x2F;build&#x2F;$&#123;workspaceFolderBasename&#125;.elf&quot;,</span><br><span class="line">            &quot;request&quot;: &quot;launch&quot;,</span><br><span class="line">            &quot;type&quot;: &quot;cortex-debug&quot;,</span><br><span class="line">            </span><br><span class="line">            &quot;device&quot;:&quot;STM32F407VE&quot;,        &#x2F;&#x2F;使用J-link GDB Server时必须；其他GBD Server时可选（有可能帮助自动选择SVD文件）。支持的设备见 https:&#x2F;&#x2F;www.segger.com&#x2F;downloads&#x2F;supported-devices.php</span><br><span class="line">            &quot;svdFile&quot;: &quot;.&#x2F;STM32F407.svd&quot;,  &#x2F;&#x2F;svd文件，有这个文件才能查看寄存器的值，每个单片机都不同。可以在以下地址找到 https:&#x2F;&#x2F;github.com&#x2F;posborne&#x2F;cmsis-svd</span><br><span class="line">            &quot;servertype&quot;: &quot;openocd&quot;,       &#x2F;&#x2F;使用的GDB Server</span><br><span class="line">            &quot;configFiles&quot;: [                  </span><br><span class="line">                &quot;$&#123;workspaceRoot&#125;&#x2F;openocd.cfg&quot;</span><br><span class="line">            ],</span><br><span class="line">            &quot;preLaunchTask&quot;: &quot;build&quot;</span><br><span class="line">            &quot;armToolchainPath&quot;: &quot;C:&#x2F;Program Files (x86)&#x2F;GNU Arm Embedded Toolchain&#x2F;9 2020-q2-update&#x2F;bin&#x2F;&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解释几个重要选项：</p>
+<ul>
+<li>“executable”：编译出的二进制文件，也就是最终烧录到单片机中的，这里是elf文件。根据芯片的不同，可能产生不同的名称和后缀（例如TI的TM4C123芯片编译出来的名称是”main.axf”）</li>
+<li>“request”：可以选launch或attach。launch是指启动调试时同时开始执行程序；attcah是指程序已经在运行了，然后开始调试。我没测试过attach。</li>
+<li>“type”：调试的类型，选cortex-debug，这是我们装的插件。其实也可以填cppdbg之类的，但是那样我们就得自己配置gdb了，配置起来将会非常麻烦。</li>
+<li>“device”：目标芯片。如果你使用J-LINK GDB Server时必须要设置这个选项。然而我们的GDB Server是openocd，J-Link只用来连接芯片。</li>
+<li>“svdFile”：svd文件的路径。</li>
+<li>“servertype”：要选择的gdb server。我们用openocd。</li>
+<li>“configFiles”：gdb server的配置文件路径。其实openocd会自动读当前目录下的openocd.cfg文件，这个选项不填也行。但是如果你想把openocd.cfg放在别处，就可以用这个选项指定配置文件的路径。</li>
+<li>“preLaunchTask”：在启动调试前，预先执行的任务。在这里我们设置为前一篇文章里配置的build任务。这样每次调试前都会先自动编译好</li>
+<li>“armToolchainPath”：工具链的路径。配置了全局环境变量的情况下好像不设置也行。</li>
+</ul>
+<h2 id="测试使用"><a href="#测试使用" class="headerlink" title="测试使用"></a>测试使用</h2><p>保存以上所有文件后，目录结构应该是这样：</p>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200713130429.png" alt=""></p>
+<p>直接按F5，或者左边的Debug按钮：</p>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200713130444.png" alt=""></p>
+<p>点击运行：</p>
+<p><img src="http://qcev8hlsw.bkt.clouddn.com//20200713130611.png" alt=""></p>
+<p>应该已经可以设置断点、单步执行和暂停了。</p>
+<p>左边可以看到<strong>变量窗口、调用堆栈、断点、外设寄存器、CPU寄存器。</strong></p>
+<h1 id="第二个版本配置"><a href="#第二个版本配置" class="headerlink" title="第二个版本配置"></a>第二个版本配置</h1><p>以stm32f103为例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span></span><br><span class="line">    <span class="comment">// for the documentation about the tasks.json format</span></span><br><span class="line">        <span class="attr">"version"</span>: <span class="string">"2.0.0"</span>,</span><br><span class="line">        <span class="attr">"tasks"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"label"</span>: <span class="string">"build"</span>,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"make"</span>,</span><br><span class="line">                <span class="attr">"args"</span>: [</span><br><span class="line">                    <span class="string">"-j4"</span></span><br><span class="line">                ] </span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"label"</span>: <span class="string">"clean"</span>,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"make"</span>,</span><br><span class="line">                <span class="attr">"args"</span>: [</span><br><span class="line">                    <span class="string">"clean"</span></span><br><span class="line">                ] </span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"label"</span>: <span class="string">"启动调试下载器"</span>,</span><br><span class="line">                <span class="attr">"type"</span>: <span class="string">"shell"</span>,</span><br><span class="line">                <span class="attr">"command"</span>: <span class="string">"openocd -f interface/jlink.cfg -c 'transport select swd' -f target/stm32f1x.cfg"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>编译——<code>make -j4</code>，这在文件路径下打开，右键，<code>Git Bash Here</code>，然后输入<code>make</code></li>
+<li><kbd>Ctrl</kbd> + <kbd>P</kbd> 输入<code>task</code>然后<code>空格</code>，启动<strong>“启动调试下载器”</strong>任务</li>
+</ol>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><h1 id="Jlink-OB"><a href="#Jlink-OB" class="headerlink" title="Jlink OB"></a>Jlink OB</h1><p>通过<code>zadig-2.5</code>修改不了，也就是现在还用不了jlinkob+vscode</p>
+<p>只能用jlink+vscode</p>
+<p>（改错了可以参考这篇文章改回来：<a href="https://blog.csdn.net/whik1194/article/details/90582724）" target="_blank" rel="noopener">https://blog.csdn.net/whik1194/article/details/90582724）</a></p>
+<h3 id="printf函数"><a href="#printf函数" class="headerlink" title="printf函数"></a><code>printf</code>函数</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Stm32/" rel="tag"># Stm32</a>
+              <a href="/tags/vsvode/" rel="tag"># vsvode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/23/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F/" rel="prev" title="npm——taobao镜像">
+      <i class="fa fa-chevron-left"></i> npm——taobao镜像
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/23/PlatformIO%20IDE(VSCode)%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="next" title="test1">
+      test1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CubeMX"><span class="nav-number">2.</span> <span class="nav-text">CubeMX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装HAL库"><span class="nav-number">2.0.1.</span> <span class="nav-text">安装HAL库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线安装"><span class="nav-number">2.0.2.</span> <span class="nav-text">在线安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线安装"><span class="nav-number">2.0.3.</span> <span class="nav-text">离线安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vscode开发"><span class="nav-number">3.</span> <span class="nav-text">vscode开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需要的软件和工具"><span class="nav-number">3.1.</span> <span class="nav-text">1.需要的软件和工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-软件安装"><span class="nav-number">3.2.</span> <span class="nav-text">2.软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-添加环境变量"><span class="nav-number">3.3.</span> <span class="nav-text">3.添加环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-使用Zadig修改J-link驱动（Linux无视这条）"><span class="nav-number">3.4.</span> <span class="nav-text">4.使用Zadig修改J-link驱动（Linux无视这条）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件-vscode"><span class="nav-number">4.</span> <span class="nav-text">配置文件.vscode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#c-cpp-properties-json文件"><span class="nav-number">4.1.</span> <span class="nav-text">c_cpp_properties.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#launch-json文件"><span class="nav-number">4.2.</span> <span class="nav-text">launch.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tasks-json文件"><span class="nav-number">4.3.</span> <span class="nav-text">tasks.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setting-json文件"><span class="nav-number">4.4.</span> <span class="nav-text">setting.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置build文件"><span class="nav-number">4.5.</span> <span class="nav-text">配置build文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个版本配置"><span class="nav-number">5.</span> <span class="nav-text">第一个版本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件openocd-cfg文件"><span class="nav-number">5.1.</span> <span class="nav-text">配置文件openocd.cfg文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载svd文件"><span class="nav-number">5.2.</span> <span class="nav-text">下载svd文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置VS-Code的调试功能"><span class="nav-number">5.3.</span> <span class="nav-text">配置VS Code的调试功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试使用"><span class="nav-number">5.4.</span> <span class="nav-text">测试使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个版本配置"><span class="nav-number">6.</span> <span class="nav-text">第二个版本配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">7.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jlink-OB"><span class="nav-number">8.</span> <span class="nav-text">Jlink OB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#printf函数"><span class="nav-number">8.0.1.</span> <span class="nav-text">printf函数</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nep球"
+      src="/images/touxian.jpg">
+  <p class="site-author-name" itemprop="name">Nep球</p>
+  <div class="site-description" itemprop="description">人真的要自己争气，一做出成绩来，全世界和颜悦色</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nep球</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true# 验证码 默认为false,
+      notify     : true# 邮箱通知 , https://github.com/xCss/Valine/wiki，默认为false,
+      appId      : 'Id1Ow31fSkW4XBVcrA0zSwBs-gzGzoHsz',
+      appKey     : 'v54TjNNeEOrwuTgpdmEcJk9y',
+      placeholder: "请输入您的留言",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":150,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
