@@ -374,12 +374,16 @@
 <p>安装完成后，运行时出现了错误</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Modele build failed: TypeError: this.getResolve is not a function at Object.loader...</span><br></pre></td></tr></table></figure>
 
-<p>这是因为当前sass的版本太高，webpack编译时出现了错误，这个时候只需要换成低版本的就行，下面说一下修改方法，很简单，如下，找到package.json文件，里面的 “sass-loader”的版本更换掉 就行了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我本地是将    &quot;sass-loader&quot;: &quot;^8.0.0&quot;，更换成了 &quot;sass-loader&quot;: &quot;^7.3.1&quot;,</span><br></pre></td></tr></table></figure>
-
+<p>这是因为当前sass的版本太高，webpack编译时出现了错误，这个时候只需要换成低版本的就行，下面说一下修改方法，很简单，如下</p>
+<p>找到<code>package.json</code>文件，里面的 “<code>sass-loader</code>“的版本更换掉 就行了。</p>
+<p>我本地是将    “<code>sass-loader&quot;: &quot;^8.0.0</code>“，更换成了 “<code>sass-loader&quot;: &quot;^7.3.1</code>“</p>
 <p>这时候重新跑项目，就运行成功了。</p>
-<p>也可以先卸载当前版本，然后安装指定的版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">卸载当前版本   npm uninstall sass-loader</span><br><span class="line">安装     npm install sass-loader@7.3.1 --save-dev</span><br></pre></td></tr></table></figure>
+<p><strong>也可以</strong>先卸载当前版本，然后安装指定的版本</p>
+<p>卸载当前版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall sass-loader</span><br></pre></td></tr></table></figure>
+
+<p>安装指定版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install sass-loader@7.3.1 --save-dev</span><br></pre></td></tr></table></figure>
 
 
 

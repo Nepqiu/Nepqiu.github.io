@@ -325,7 +325,7 @@
 <p>(8) <a href="https://gitforwindows.org/" target="_blank" rel="noopener">下载安装git for windows</a>：<br>    git for windows提供git的支持和MINGW64指令终端。下载安装完毕后，打开VSCode，在<code>.vscode</code>文件的<code>setting.json</code>文件下加入</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"terminal.integrated.automationShell.windows"</span>: <span class="string">"G:\\Git\\bin\\bash.exe"</span>,</span><br><span class="line">    <span class="attr">"terminal.integrated.shell.windows"</span>: <span class="string">"G:\\Git\\bin\\bash.exe"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这样就可以直接修改下面的中断为<code>git bash</code></p>
+<p>这样就可以直接修改下面的终端为<code>git bash</code></p>
 <p>或者也可以不修改<code>setting.json</code>文件直接，使用 <kbd>Ctrl</kbd> + <kbd>P</kbd> 输入<code>task</code>然后<code>空格</code>，启动<strong>“build”</strong>任务和<strong>“clean”</strong>任务</p>
 <p>不使用mingw的原因是，mingw有时会安装失败，很烦。</p>
 <p><strong>linux自带bash，不用管。</strong></p>
