@@ -23,7 +23,7 @@
   <meta name="description" content="转自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;61519415   参考文章： https:&#x2F;&#x2F;blog.csdn.net&#x2F;for_dream1205&#x2F;article&#x2F;details&#x2F;97893066 https:&#x2F;&#x2F;blog.csdn.net&#x2F;Attack_on_cc&#x2F;article&#x2F;details&#x2F;105514735  写在前面本文了搭建一个用VSCode + 开源 arm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vscode开发stm32">
-<meta property="og:url" content="http://yoursite.com/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/06/23/STM32/vscode%E5%BC%80%E5%8F%91stm32/index.html">
 <meta property="og:site_name" content="Nep的博客">
 <meta property="og:description" content="转自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;61519415   参考文章： https:&#x2F;&#x2F;blog.csdn.net&#x2F;for_dream1205&#x2F;article&#x2F;details&#x2F;97893066 https:&#x2F;&#x2F;blog.csdn.net&#x2F;Attack_on_cc&#x2F;article&#x2F;details&#x2F;105514735  写在前面本文了搭建一个用VSCode + 开源 arm">
 <meta property="og:locale" content="zh_CN">
@@ -32,6 +32,8 @@
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-147a3111424cf66fc0abad717658bd3f_hd.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-5c811e3e49a03d708ff69860ba14ca34_hd.jpg">
 <meta property="og:image" content="https://pic1.zhimg.com/80/v2-cfb66362af4e53c82d3d05ebae420e8c_hd.jpg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16148197-f509f6dcbe0046c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/466/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/16148197-52800dbd62b7296b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/542/format/webp">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-64fc67918156f15e1a0a82b973cebf53_720w.jpg">
 <meta property="og:image" content="https://picb.zhimg.com/80/v2-9a7f61d4919851e5fa1b6e50ac920bd8_720w.jpg">
 <meta property="og:image" content="https://pic3.zhimg.com/80/v2-8a8efb4fc7a3c5eeabf27f40b4340d23_720w.jpg">
@@ -44,6 +46,7 @@
 <meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200713130429.png">
 <meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200713130444.png">
 <meta property="og:image" content="http://qcev8hlsw.bkt.clouddn.com//20200713130611.png">
+<meta property="og:image" content="c:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200716160605341.png">
 <meta property="article:published_time" content="2020-06-23T03:26:16.000Z">
 <meta property="article:modified_time" content="2020-06-23T14:33:52.000Z">
 <meta property="article:author" content="Nep球">
@@ -52,7 +55,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-964e284ce631d8cb3f56a8eb5c3e04d9_hd.jpg">
 
-<link rel="canonical" href="http://yoursite.com/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/">
+<link rel="canonical" href="http://yoursite.com/2020/06/23/STM32/vscode%E5%BC%80%E5%8F%91stm32/">
 
 
 <script id="page-configurations">
@@ -214,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/STM32/vscode%E5%BC%80%E5%8F%91stm32/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxian.jpg">
@@ -255,7 +258,7 @@
             </span>
 
           
-            <span id="/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/" class="post-meta-item leancloud_visitors" data-flag-title="vscode开发stm32" title="阅读次数">
+            <span id="/2020/06/23/STM32/vscode%E5%BC%80%E5%8F%91stm32/" class="post-meta-item leancloud_visitors" data-flag-title="vscode开发stm32" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -270,8 +273,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/vscode%E5%BC%80%E5%8F%91stm32/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/06/23/STM32/vscode%E5%BC%80%E5%8F%91stm32/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/STM32/vscode%E5%BC%80%E5%8F%91stm32/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -329,6 +332,42 @@
 <p>或者也可以不修改<code>setting.json</code>文件直接，使用 <kbd>Ctrl</kbd> + <kbd>P</kbd> 输入<code>task</code>然后<code>空格</code>，启动<strong>“build”</strong>任务和<strong>“clean”</strong>任务</p>
 <p>不使用mingw的原因是，mingw有时会安装失败，很烦。</p>
 <p><strong>linux自带bash，不用管。</strong></p>
+<h3 id="VSCode集成终端和Bash-Shell交互"><a href="#VSCode集成终端和Bash-Shell交互" class="headerlink" title="VSCode集成终端和Bash Shell交互"></a>VSCode集成终端和Bash Shell交互</h3><blockquote>
+<p>转自：<a href="https://www.jianshu.com/p/4af5687fe58c" target="_blank" rel="noopener">https://www.jianshu.com/p/4af5687fe58c</a></p>
+</blockquote>
+<p>我这里会介绍有关如何让VSCode自带的命令行窗口和Bash脚本交互自动化地完成项目(调试前)的一些设置操作.例如版本控制和调试前的备份操作,重新初始化测试数据库等一系列操作,我们都可以通过Bash脚本或者Python脚本和VSCode交互来完成,阅读本文前.</p>
+<ul>
+<li>我假设你有基本的Bash脚本或者Python脚本编写能力</li>
+<li>CMake的基本配置</li>
+<li>熟悉VSCode的操作</li>
+</ul>
+<p>首先VSCode刚完成一个工程项目创建的话,在当前工作空间新建一个叫.vscode的文件夹并会自动生成三个json文件</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/16148197-f509f6dcbe0046c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/466/format/webp" alt="img"></p>
+<p>一个较为完善的工程项目结构</p>
+<ul>
+<li>c_cpp_properties.json:这是C/C++程序开发的环境设置,例如include头文件的设置.</li>
+<li>launch.json:这个文件跟调试器或程序运行的设置有关</li>
+<li>tasks.json: 这个文件项目的编译器的配置有关</li>
+<li><strong>setting.json:这个文件跟当前工作空间的环境设置有关</strong></li>
+</ul>
+<p>我们这里的重点是讲述setting.json这个配置文档,因为这个配置与terminal.integrated有关,我们先打开settings.json这个文档</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/16148197-52800dbd62b7296b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/542/format/webp" alt="img"></p>
+<p>2019-09-07 20-02-07屏幕截图.png</p>
+<p>首先我们按照VSCode的帮助文档将以下命令copy到settings.json中然后保存即可.而我这里要解释的是这里配置指令,每当我们在VSCode打开集成的终端窗口,就会触发以下的配置指令.</p>
+<blockquote>
+<p>“terminal.integrated.shellArgs.linux”: [“-l”]</p>
+</blockquote>
+<p>这条这令所作的动作其实等价于以下bash的操作,如果在当前用户的配置目录下存在<strong>~/.bash_profile</strong>,它会加载bash_profile里面的脚本设置,并完成一个bash终端会话的环境设置.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;bin&#x2F;bash  -l</span><br></pre></td></tr></table></figure>
+
+<h4 id="工程项目自动初始化"><a href="#工程项目自动初始化" class="headerlink" title="工程项目自动初始化"></a>工程项目自动初始化</h4><p>我们在C/C++项目中经常要用到CMake重建项目,那么我们可以在~/.bash_profile文件中,将平时经常执行的操作写成脚本条目,让我们启动一个终端会话的时候自动执行这些初始化设置.</p>
+<p>下面的脚本写入~/.bash_profile文件,每次启动termimal窗口后会自动执行重定向到cmake指定的build目录,再将之前的cmake缓存的旧文件删除,然后再执行<strong>cmake ..</strong>和<strong>make</strong>命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PS1=<span class="string">'\u@it-dog:'</span></span><br><span class="line">PROJECT_PATH=<span class="string">""</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$OSTYPE</span>"</span> == <span class="string">"linux-gnu"</span> ]]; <span class="keyword">then</span></span><br><span class="line">    PROJECT_PATH=<span class="string">"/media/yening/Seagate/cool"</span></span><br><span class="line"><span class="keyword">elif</span> [[ <span class="string">"<span class="variable">$OSTYPE</span>"</span> == <span class="string">"darwin"</span>* ]]; <span class="keyword">then</span></span><br><span class="line">    PROJECT_PATH=<span class="string">"/Volumes/Seagate/cool/"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">source</span> <span class="string">"<span class="variable">$PROJECT_PATH</span>/project.sh"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"camke开始重建工程...请稍等~~"</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"你确定删除?(Y/N)"</span> -n 1 -r</span><br><span class="line"><span class="built_in">echo</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$REPLY</span> =~ ^[Yy]$ ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   rm -rf <span class="string">"<span class="variable">$&#123;PRJECT_PATH&#125;</span>/app/*"</span></span><br><span class="line">   cmake -DCMAKE_BUILD_TYPE=Debug  ..</span><br><span class="line">   make</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>项目根目录下的project.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$OSTYPE</span>"</span> == <span class="string">"linux-gnu"</span> ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">cd</span>  /media/yening/Seagate/cool/build</span><br><span class="line"><span class="keyword">elif</span> [[ <span class="string">"<span class="variable">$OSTYPE</span>"</span> == <span class="string">"darwin"</span>* ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">cd</span> /Volumes/Seagate/cool/build/</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>这里只是一个简单的案例,当然更复杂的开发应用我们可以往~/.bash_profile文件整合python脚本和git等工具,创建符合实际的开发环境.</p>
 <h2 id="2-软件安装"><a href="#2-软件安装" class="headerlink" title="2.软件安装"></a>2.软件安装</h2><p>STM32CubeMX、ARM工具链、VS Code、Git都是安装包，一路next就行了。Zadig是免安装，就不说了。注意一下arm工具链安装时有个选项是把bin文件夹添加到系统Path环境变量。如果忘了勾选，后面手动加也可以。</p>
 <p>OpenOCD还是推荐直接下载编译好的可执行文件，免得麻烦。Windows戳<a href="https://link.zhihu.com/?target=https%3A//gnutoolchains.com/arm-eabi/openocd/">&lt;这个链接&gt;</a>，linux直接<code>apt install openocd</code>。下载完后解压到C盘根目录或者别的任何你喜欢的地方。</p>
 <h2 id="3-添加环境变量"><a href="#3-添加环境变量" class="headerlink" title="3.添加环境变量"></a>3.添加环境变量</h2><p>把Arm工具链安装目录下的bin文件夹和openOCD安装目录下的bin文件夹都添加到PATH环境变量中。添加环境变量的方法就不赘述了。linux也要加，但如果你的openocd是用apt-get装的，就不用加openocd的了。</p>
@@ -436,7 +475,15 @@
 <li>编译——<code>make -j4</code>，这在文件路径下打开，右键，<code>Git Bash Here</code>，然后输入<code>make</code></li>
 <li><kbd>Ctrl</kbd> + <kbd>P</kbd> 输入<code>task</code>然后<code>空格</code>，启动<strong>“启动调试下载器”</strong>任务</li>
 </ol>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><h1 id="Jlink-OB"><a href="#Jlink-OB" class="headerlink" title="Jlink OB"></a>Jlink OB</h1><p>通过<code>zadig-2.5</code>修改不了，也就是现在还用不了jlinkob+vscode</p>
+<h1 id="VScode编译C-，头文件显示not-found的解决方法"><a href="#VScode编译C-，头文件显示not-found的解决方法" class="headerlink" title="VScode编译C++，头文件显示not found的解决方法"></a>VScode编译C++，头文件显示not found的解决方法</h1><blockquote>
+<p> 转自：<a href="https://blog.csdn.net/Q1410136042/article/details/83790967" target="_blank" rel="noopener">https://blog.csdn.net/Q1410136042/article/details/83790967</a></p>
+</blockquote>
+<p>这个问题解决方法是：</p>
+<p>直接在<code>settings.json</code>文件下添加：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"clang.diagnostic.enable": false</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200716160605341.png" alt="image-20200716160605341"></p>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><h2 id="Jlink-OB"><a href="#Jlink-OB" class="headerlink" title="Jlink OB"></a>Jlink OB</h2><p>通过<code>zadig-2.5</code>修改不了，也就是现在还用不了jlinkob+vscode</p>
 <p>只能用jlink+vscode</p>
 <p>（改错了可以参考这篇文章改回来：<a href="https://blog.csdn.net/whik1194/article/details/90582724）" target="_blank" rel="noopener">https://blog.csdn.net/whik1194/article/details/90582724）</a></p>
 <h3 id="printf函数"><a href="#printf函数" class="headerlink" title="printf函数"></a><code>printf</code>函数</h3>
@@ -458,11 +505,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/23/%E6%B7%98%E5%AE%9D%E9%95%9C%E5%83%8F/" rel="prev" title="npm——taobao镜像">
-      <i class="fa fa-chevron-left"></i> npm——taobao镜像
+    <a href="/2020/06/23/STM32/%E5%AD%A6%E4%B9%A0%E5%88%B6%E4%BD%9C%E9%9F%B3%E4%B9%90%E9%A2%91%E8%B0%B1/" rel="prev" title="学习之制作音乐频谱">
+      <i class="fa fa-chevron-left"></i> 学习之制作音乐频谱
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/06/23/PlatformIO%20IDE(VSCode)%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="next" title="test1">
+    <a href="/2020/06/23/STM32/PlatformIO%20IDE(VSCode)%20%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="next" title="test1">
       test1 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -524,7 +571,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CubeMX"><span class="nav-number">2.</span> <span class="nav-text">CubeMX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装HAL库"><span class="nav-number">2.0.1.</span> <span class="nav-text">安装HAL库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线安装"><span class="nav-number">2.0.2.</span> <span class="nav-text">在线安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线安装"><span class="nav-number">2.0.3.</span> <span class="nav-text">离线安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vscode开发"><span class="nav-number">3.</span> <span class="nav-text">vscode开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需要的软件和工具"><span class="nav-number">3.1.</span> <span class="nav-text">1.需要的软件和工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-软件安装"><span class="nav-number">3.2.</span> <span class="nav-text">2.软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-添加环境变量"><span class="nav-number">3.3.</span> <span class="nav-text">3.添加环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-使用Zadig修改J-link驱动（Linux无视这条）"><span class="nav-number">3.4.</span> <span class="nav-text">4.使用Zadig修改J-link驱动（Linux无视这条）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件-vscode"><span class="nav-number">4.</span> <span class="nav-text">配置文件.vscode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#c-cpp-properties-json文件"><span class="nav-number">4.1.</span> <span class="nav-text">c_cpp_properties.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#launch-json文件"><span class="nav-number">4.2.</span> <span class="nav-text">launch.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tasks-json文件"><span class="nav-number">4.3.</span> <span class="nav-text">tasks.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setting-json文件"><span class="nav-number">4.4.</span> <span class="nav-text">setting.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置build文件"><span class="nav-number">4.5.</span> <span class="nav-text">配置build文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个版本配置"><span class="nav-number">5.</span> <span class="nav-text">第一个版本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件openocd-cfg文件"><span class="nav-number">5.1.</span> <span class="nav-text">配置文件openocd.cfg文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载svd文件"><span class="nav-number">5.2.</span> <span class="nav-text">下载svd文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置VS-Code的调试功能"><span class="nav-number">5.3.</span> <span class="nav-text">配置VS Code的调试功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试使用"><span class="nav-number">5.4.</span> <span class="nav-text">测试使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个版本配置"><span class="nav-number">6.</span> <span class="nav-text">第二个版本配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">7.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jlink-OB"><span class="nav-number">8.</span> <span class="nav-text">Jlink OB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#printf函数"><span class="nav-number">8.0.1.</span> <span class="nav-text">printf函数</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CubeMX"><span class="nav-number">2.</span> <span class="nav-text">CubeMX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装HAL库"><span class="nav-number">2.0.1.</span> <span class="nav-text">安装HAL库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线安装"><span class="nav-number">2.0.2.</span> <span class="nav-text">在线安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线安装"><span class="nav-number">2.0.3.</span> <span class="nav-text">离线安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vscode开发"><span class="nav-number">3.</span> <span class="nav-text">vscode开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需要的软件和工具"><span class="nav-number">3.1.</span> <span class="nav-text">1.需要的软件和工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#VSCode集成终端和Bash-Shell交互"><span class="nav-number">3.1.1.</span> <span class="nav-text">VSCode集成终端和Bash Shell交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工程项目自动初始化"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">工程项目自动初始化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-软件安装"><span class="nav-number">3.2.</span> <span class="nav-text">2.软件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-添加环境变量"><span class="nav-number">3.3.</span> <span class="nav-text">3.添加环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-使用Zadig修改J-link驱动（Linux无视这条）"><span class="nav-number">3.4.</span> <span class="nav-text">4.使用Zadig修改J-link驱动（Linux无视这条）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件-vscode"><span class="nav-number">4.</span> <span class="nav-text">配置文件.vscode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#c-cpp-properties-json文件"><span class="nav-number">4.1.</span> <span class="nav-text">c_cpp_properties.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#launch-json文件"><span class="nav-number">4.2.</span> <span class="nav-text">launch.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tasks-json文件"><span class="nav-number">4.3.</span> <span class="nav-text">tasks.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setting-json文件"><span class="nav-number">4.4.</span> <span class="nav-text">setting.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置build文件"><span class="nav-number">4.5.</span> <span class="nav-text">配置build文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个版本配置"><span class="nav-number">5.</span> <span class="nav-text">第一个版本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件openocd-cfg文件"><span class="nav-number">5.1.</span> <span class="nav-text">配置文件openocd.cfg文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载svd文件"><span class="nav-number">5.2.</span> <span class="nav-text">下载svd文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置VS-Code的调试功能"><span class="nav-number">5.3.</span> <span class="nav-text">配置VS Code的调试功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试使用"><span class="nav-number">5.4.</span> <span class="nav-text">测试使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二个版本配置"><span class="nav-number">6.</span> <span class="nav-text">第二个版本配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VScode编译C-，头文件显示not-found的解决方法"><span class="nav-number">7.</span> <span class="nav-text">VScode编译C++，头文件显示not found的解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注意"><span class="nav-number">8.</span> <span class="nav-text">注意</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jlink-OB"><span class="nav-number">8.1.</span> <span class="nav-text">Jlink OB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#printf函数"><span class="nav-number">8.1.1.</span> <span class="nav-text">printf函数</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -540,20 +587,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="FATFS文件系统 转自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;37897938">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FATFS文件系统">
+<meta property="og:url" content="http://yoursite.com/2020/07/27/STM32/FATFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Nep的博客">
+<meta property="og:description" content="FATFS文件系统 转自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;37897938">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728001103526.png">
+<meta property="og:image" content="c:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728003043579.png">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-438054cedb4a8105967c253dbcee4a55_720w.jpg">
+<meta property="og:image" content="https://picb.zhimg.com/80/v2-a0b5ab7cbb0669e2c5dafa595c4a1800_720w.jpg">
+<meta property="article:published_time" content="2020-07-27T15:43:11.000Z">
+<meta property="article:modified_time" content="2020-07-27T15:43:11.000Z">
+<meta property="article:author" content="Nep球">
+<meta property="article:tag" content="Stm32">
+<meta property="article:tag" content="文件操作">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728001103526.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/27/STM32/FATFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>FATFS文件系统 | Nep的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Nep的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">響け！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/27/STM32/FATFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxian.jpg">
+      <meta itemprop="name" content="Nep球">
+      <meta itemprop="description" content="人真的要自己争气，一做出成绩来，全世界和颜悦色">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nep的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FATFS文件系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-27 23:43:11" itemprop="dateCreated datePublished" datetime="2020-07-27T23:43:11+08:00">2020-07-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/" itemprop="url" rel="index"><span itemprop="name">Stm32</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" itemprop="url" rel="index"><span itemprop="name">文件操作</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/27/STM32/FATFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="post-meta-item leancloud_visitors" data-flag-title="FATFS文件系统" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/27/STM32/FATFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/27/STM32/FATFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="FATFS文件系统"><a href="#FATFS文件系统" class="headerlink" title="FATFS文件系统"></a>FATFS文件系统</h1><blockquote>
+<p>转自：<a href="https://zhuanlan.zhihu.com/p/37897938" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/37897938</a></p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h3><p>文件系统是为了存储和管理数据，而在存储介质上建立的一种组织结构，</p>
+<p>这些结构主要包括系统引导区，目录和文件。</p>
+<p>在使用文件系统前，需要先对存储介质进行格式化，格式化之后，存储介质会创建一个文件分配表和目录。</p>
+<p>这样，文件系统就可以记录数据存放的物理地址和剩余空间。</p>
+<p>使用文件系统时，数据都以文件的形式存储。</p>
+<p>写入新文件时，先在目录中创建一个文件索引，它指示了文件存放的物理地址，再把数据存储到该地址中。</p>
+<p>当需要读取数据时，可以从该目录中找到该文件的索引，进而在相应的地址中读取数据。</p>
+<p>文件系统的存在使我们在存储数据时，不再是简单的向某个物理地址直接读写，而是要遵循它的读写格式。</p>
+<p>如经过逻辑转换，一个完整的文件可能被分成多段并存储到不连续的物理地址，以及使用目录或链表的方式来获知下一段的位置。</p>
+<p>在SPI方式读写SD卡的试验中只完成了向物理地址读写数据的工作，而根据文件系统格式的逻辑转换部分则需要额外的代码来完成。</p>
+<p>实质上，这个转换部分可以理解为，当我们需要写入一段数据时，由它来求解向什么物理地址写入数据、以什么格式写入，以及写入一些原始数据以外的信息（如目录）。</p>
+<p><strong>这个逻辑转换部分代码我们也习惯称之为文件系统</strong>。</p>
+<h3 id="FATFS文件系统简介"><a href="#FATFS文件系统简介" class="headerlink" title="FATFS文件系统简介"></a>FATFS文件系统简介</h3><ul>
+<li>官网：<a href="http://elm-chan.org/fsw/ff/00index_e.html" target="_blank" rel="noopener">http://elm-chan.org/fsw/ff/00index_e.html</a></li>
+</ul>
+<p>FATFS是面向小型嵌入式系统的一种通用的FAT文件系统，它由ANSI C语言编写且完全独立于底层的I/O介质，因此它可以很容易的不加修改的移植到其他处理器当中，就可以利用文件系统的各种函数，对已格式化的SD卡的文件进行读写。</p>
+<h4 id="FATFS的目录结构"><a href="#FATFS的目录结构" class="headerlink" title="FATFS的目录结构"></a>FATFS的目录结构</h4><p>在移植FATFS文件系统之前，我们先到FAT官网获取源码，版本为0.09，解压后可看到里面有doc和src两个文件夹。</p>
+<p>doc文件夹里面是一些使用文档，src里面是文件系统的源码</p>
+<h4 id="FATFS帮助文档"><a href="#FATFS帮助文档" class="headerlink" title="FATFS帮助文档"></a>FATFS帮助文档</h4><p>打开doc文件夹，目录中en和ja两个文件夹中是编译好的HTML文档，描述的是FATFS里面各个函数的使用方法，利用这些函数我们就可以操作SD卡了，这两个文件夹唯一的区别就是en文件夹下的文档为英文，ja文件夹下是日文的。</p>
+<h4 id="FATFS源码"><a href="#FATFS源码" class="headerlink" title="FATFS源码"></a>FATFS源码</h4><p>打开src文件夹</p>
+<p>option文件夹下是一些可选的外部C文件，包含了多语言支持需要用到的文件和转换函数。</p>
+<p>在R0.09版源码中，没有<code>diskio.c</code>文件，但有<code>diskio.h</code>。</p>
+<p>在<code>diskio.h</code>源码中有一些关于底层硬件接口的函数声明，我们可以复制旧版本中的<code>diskio.c</code>或自己新建一个<code>diskio.c</code>文件。</p>
+<p><code>diskio.c</code>文件为文件系统提供了最底层访问SD卡的方法，即调用了SD驱动函数。</p>
+<h4 id="src文件夹下的源码文件功能简介"><a href="#src文件夹下的源码文件功能简介" class="headerlink" title="src文件夹下的源码文件功能简介"></a>src文件夹下的源码文件功能简介</h4><p><code>integer.h</code>：文件中包含了一些数值类型定义。</p>
+<p><code>diskio.c</code>：包含底层驱动介质的操作函数，这些函数需要用户自己去实现，主要添加底层驱动函数。</p>
+<p><code>ff.c</code>：独立于底层介质操作文件的函数，利用这些函数实现文件的读写。</p>
+<p><code>cc936.c</code>：本文件在<strong>option</strong>目录下，是简体中文支持所需要添加的文件，包含了简体中文的GBK和转换函数。</p>
+<p><code>ffconf.h</code>：这个头文件包含了对文件系统的各种配置，类似<code>stm32f10x_conf.h</code>在STM32库中的功能。</p>
+<p>如需要支持简体中文，需要把<code>ffconf.h</code>中的<strong>_CODE_PAGE</strong>的宏改成<strong>936</strong>，并把上面的<code>cc936.c</code>文件加入到工程之中。</p>
+<p>若仅为使用文件系统，则只需要理解<code>integer.h</code>及<code>diskio.c</code>文件，并会调用<code>ff.c</code>中的函数就可以了。</p>
+<p><strong>源码说明</strong>：本实验是在前一章实验的基础上来进行的，即首先要完成采用SPI方式驱动SD卡，并读写数据成功后才能进行本实验，因为在FATFS移植过程中，<code>diskio.c</code>文件中的对SD操作的函数都是调用SPI读写SD的函数。</p>
+<p>下面先讲解FATFS移植的过程，然后再详细讲解FATFS本身的SD卡操作函数的用法。</p>
+<h3 id="文件系统移植"><a href="#文件系统移植" class="headerlink" title="文件系统移植"></a>文件系统移植</h3><ul>
+<li>下载地址：<a href="http://elm-chan.org/fsw/ff/00index_e.html" target="_blank" rel="noopener">http://elm-chan.org/fsw/ff/00index_e.html</a></li>
+</ul>
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728001103526.png" alt="image-20200728001103526"></p>
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728003043579.png" alt="image-20200728003043579"></p>
+<p>主要就是在<code>diskio.c</code>中的函数中填充SPI驱动SD卡的相关函数。</p>
+<p>即完成：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DSTATUS <span class="title">disk_initialize</span> <span class="params">(BYTE)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">DSTATUS <span class="title">disk_status</span> <span class="params">(BYTE)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">DRESULT <span class="title">disk_read</span> <span class="params">(BYTE, BYTE*, DWORD, BYTE)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">DRESULT <span class="title">disk_write</span> <span class="params">(BYTE, <span class="keyword">const</span> BYTE*, DWORD, BYTE)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">DRESULT <span class="title">disk_ioctl</span> <span class="params">(BYTE, BYTE, <span class="keyword">void</span>*)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>以上几个函数的内部程序</strong></p>
+<p>这里着重讲解初始化函数，读取函数，和写入函数。</p>
+<ol>
+<li><strong>初始化函数接口</strong></li>
+</ol>
+<p>以下是文件系统初始化函数接口，文件系统的一些函数会调用这个disk_initialize（）接口来进行底层介质的初始化。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DSTATUS <span class="title">disk_initialize</span> <span class="params">( BYTE drv )</span> <span class="comment">//物理驱动号为0	</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  u8 Status;</span><br><span class="line">  <span class="comment">/*此处仅支持一种介质的驱动（即SD卡）*/</span></span><br><span class="line">  <span class="keyword">if</span> (drv)</span><br><span class="line">  &#123;</span><br><span class="line">       <span class="keyword">return</span> STA_NOINIT;</span><br><span class="line">  &#125;</span><br><span class="line">   <span class="comment">/*SD卡初始化 */</span></span><br><span class="line">  Status = SD_Init();</span><br><span class="line">   <span class="comment">//SPI的bug，在SD卡操作失败时如果不执行如下操作，可能引起读写异常</span></span><br><span class="line">  <span class="keyword">if</span> (Status!=<span class="number">0</span>)		</span><br><span class="line">  &#123;</span><br><span class="line">     SPI_SetSpeed(<span class="number">0</span>);</span><br><span class="line">     SPI_ReadWriteByte(<span class="number">0xff</span>);</span><br><span class="line">     SPI_SetSpeed(SPI_SPEED_HIGH);</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">"init error"</span>);</span><br><span class="line">     <span class="keyword">return</span> STA_NOINIT;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">     <span class="keyword">return</span> RES_OK;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个初始化函数接口调用了SPI的SD_Init()函数，返回初始化成功或失败的参数，当文件系统的上层函数调用disk_initialize()时，实质调用了SD_Init()函数对SD卡进行初始化</p>
+<ol start="2">
+<li><strong>扇区读取函数</strong></li>
+</ol>
+<p>接下来是disk_read()函数，它是文件系统读取SD卡数据会调用的一个函数，所以我们在这个函数中加入SPI驱动的读取函数的接口。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DRESULT <span class="title">disk_read</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	BYTE drv,		<span class="comment">/* 物理驱动地址（0）*/</span></span></span></span><br><span class="line"><span class="function"><span class="params">	BYTE *buff,		<span class="comment">/* 数据缓存*/</span></span></span></span><br><span class="line"><span class="function"><span class="params">	DWORD sector,	<span class="comment">/* 扇区地址*/</span></span></span></span><br><span class="line"><span class="function"><span class="params">	BYTE count		<span class="comment">/*读多少个扇区*/</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     u8 res;</span><br><span class="line">     <span class="keyword">if</span> (count &gt; <span class="number">1</span>)</span><br><span class="line">     &#123;</span><br><span class="line">         res=SD_ReadMultiBlock(sector,buff,count);</span><br><span class="line">         <span class="keyword">if</span>(res)	<span class="comment">//如果res为1，说明读取失败。</span></span><br><span class="line">         &#123;</span><br><span class="line">              SPI_SetSpeed(<span class="number">0</span>);</span><br><span class="line">              SPI_ReadWriteByte(<span class="number">0xff</span>);</span><br><span class="line">              SPI_SetSpeed(SPI_SPEED_HIGH);</span><br><span class="line">              <span class="keyword">return</span> RES_ERROR;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">return</span> RES_OK;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">     &#123;</span><br><span class="line">         res=SD_ReadSingleBlock(sector,buff);</span><br><span class="line">         <span class="keyword">if</span>(res)</span><br><span class="line">         &#123;</span><br><span class="line">	     SPI_SetSpeed(<span class="number">0</span>);</span><br><span class="line">	     SPI_ReadWriteByte(<span class="number">0xff</span>);</span><br><span class="line">	     SPI_SetSpeed(SPI_SPEED_HIGH);</span><br><span class="line">	     <span class="keyword">return</span> RES_ERROR;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">          &#123;</span><br><span class="line">             <span class="keyword">return</span> RES_OK;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里分为两个部分，分为单块读取和多块读取。</p>
+<p>因为用一个多块读取函数SD_ReadMultiBlock()比用多个单块读取函数SD_ReadSingleBlock()在编程结构上要简洁明了的多，所以加入一个判断函数来进行区分。</p>
+<p>由于文件系统的读写都是以块（512字节）为单位的，所以只需要提供512字节或512*N字节的SD卡驱动。</p>
+<ol start="3">
+<li><strong>扇区写入函数</strong></li>
+</ol>
+<p>扇区写入函数与扇区读取函数十分类似，也是根据写入的扇区数目是一个还是多个来分别调用不同写单块还是多块函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DRESULT <span class="title">disk_write</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	BYTE drv,			<span class="comment">/* Physical drive nmuber (0..) */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">const</span> BYTE *buff,	<span class="comment">/* Data to be written */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	DWORD sector,		<span class="comment">/* Sector address (LBA) */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	BYTE count			<span class="comment">/* Number of sectors to write (1..255) */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	u8 res;</span><br><span class="line">	<span class="keyword">if</span> (count &gt; <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		res=SD_WriteMultiBlock(sector,buff,count);</span><br><span class="line">		<span class="keyword">if</span>(res)</span><br><span class="line">		&#123;</span><br><span class="line">			SPI_SetSpeed(<span class="number">0</span>);</span><br><span class="line">		SPI_ReadWriteByte(<span class="number">0xff</span>);</span><br><span class="line">		SPI_SetSpeed(SPI_SPEED_HIGH);</span><br><span class="line">		<span class="keyword">return</span> RES_ERROR;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">return</span> RES_OK;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		res=SD_WriteSingleBlock(sector,buff);</span><br><span class="line">		<span class="keyword">if</span>(res)</span><br><span class="line">		&#123;</span><br><span class="line">			SPI_SetSpeed(<span class="number">0</span>);</span><br><span class="line">			SPI_ReadWriteByte(<span class="number">0xff</span>);</span><br><span class="line">			SPI_SetSpeed(SPI_SPEED_HIGH);</span><br><span class="line">			<span class="keyword">return</span> RES_ERROR;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> RES_OK;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="4">
+<li><strong>时间接口函数</strong></li>
+</ol>
+<p>在diskio.c文件的最后我们还得提供获取时间的函数，因为ff.c中调用了它，用于记录文件的创建，修改时间，而FATFS库没有给出函数的原型，所以需要用户实现，否则会发生编译出错。对于这部分函数，我们直接返回0即可。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DWORD <span class="title">get_fattime</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上即为文件系统的移植过程</p>
+<h3 id="下面介绍几个文件系统常用的函数使用方法"><a href="#下面介绍几个文件系统常用的函数使用方法" class="headerlink" title="下面介绍几个文件系统常用的函数使用方法"></a>下面介绍几个文件系统常用的函数使用方法</h3><h4 id="注册工作区"><a href="#注册工作区" class="headerlink" title="注册工作区"></a>注册工作区</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_mount</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	BYTE vol,		<span class="comment">/* Logical drive number to be mounted/unmounted */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	FATFS *fs		<span class="comment">/* Pointer to new file system object (NULL for unmount)*/</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1：此函数的作用就是在磁盘里注册一个缓冲区，用来存储STM32文件系统的一些相关信息。</p>
+<p>2：参数说明：</p>
+<p>vol:盘符。</p>
+<p>*fs:指向缓冲区的指针。</p>
+<p>3：对磁盘进行操作之前，这个函数是必不可少的。</p>
+<p>例如：f_mount(0,&amp;fs);</p>
+<h4 id="打开文件夹"><a href="#打开文件夹" class="headerlink" title="打开文件夹"></a>打开文件夹</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_opendir</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	DIR *dj,			<span class="comment">/* Pointer to directory object to create */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">const</span> TCHAR *path	<span class="comment">/* Pointer to the directory path */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1.此函数可以打开一个已存在的文件夹</p>
+<p>2.参数说明：</p>
+<p>*dj:指向一个空白的结构体，用来存储要打开的文件夹信息</p>
+<p>*path:指向该文件夹名称的指针</p>
+<h4 id="读取文件夹"><a href="#读取文件夹" class="headerlink" title="读取文件夹"></a>读取文件夹</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_readdir</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	DIR *dj,			<span class="comment">/* Pointer to the open directory object */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	FILINFO *fno		<span class="comment">/* Pointer to file information to return */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1.此函数按照顺序读取文件夹内文件</p>
+<p>2.参数说明：</p>
+<p>*dj：指向读取的文件夹的信息结构体的指针</p>
+<p>*fno：指向文件信息结构体，用来存储读取到的文件的信息</p>
+<p>3.重复调用此函数可读取文件夹内所有文件</p>
+<p>4.当所有文件读取结束，函数返回一个空字符串到f_name[]中</p>
+<p>5.如果一个空指针赋给*fno，将返回从第一个文件开始读取</p>
+<p><strong>例程</strong>：下面这段程序调用了上面介绍的几个函数</p>
+<p>首先打开文件夹 move.然后查找其中的存档文件，并通过串口输出读取的文件名</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(f_opendir(&amp;dirs,”<span class="built_in">move</span>”)==FR_OK)	<span class="comment">//打开文件夹成功</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(f_readdir(&amp;dirs,&amp;finfo)==FR_OK)		<span class="comment">//按顺序读文件夹</span></span><br><span class="line">    &#123;</span><br><span class="line">           <span class="keyword">if</span>(!finfo.fname[<span class="number">0</span>])  <span class="keyword">break</span>;	<span class="comment">//如果文件名为0，结束</span></span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">           &#123;</span><br><span class="line">               <span class="keyword">if</span>(finfo.fattrib==AM_ARC)	<span class="comment">//判断文件属性</span></span><br><span class="line">               <span class="built_in">printf</span>(“文件名:%s/r/n”,finfo.fname);</span><br><span class="line">           &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们通过printf（）函数可以在串口监视器下看到输出如下：</p>
+<p>文件名：liset.txt</p>
+<p>文件名：speak.avi</p>
+<p>在PC上查看SD卡的文件目录结构</p>
+<p><img src="https://pic4.zhimg.com/80/v2-438054cedb4a8105967c253dbcee4a55_720w.jpg" alt="img"></p>
+<p>可以看到，程序输出了后面两个文件的名称，对文件夹没做处理，因为在程序里对文件属性进行了判断：</p>
+<p>if(finfo.fattrib==AM_ARC)，意思是只对存档文件进行处理。</p>
+<h4 id="打开-新建一个文件"><a href="#打开-新建一个文件" class="headerlink" title="打开/新建一个文件"></a>打开/新建一个文件</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_open</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	FIL *fp,			<span class="comment">/* Pointer to the blank file object */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">const</span> TCHAR *path,	<span class="comment">/* Pointer to the file name */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	BYTE mode			<span class="comment">/* Access mode and file open mode flags */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1.此函数可以打开，或新建一个文件</p>
+<p>2.参数说明：</p>
+<p>*fp：指向一个用来存储文件对象的空结构体指针</p>
+<p>*path：指向文件名的指针</p>
+<p>mode：打开方式，可以是以下几种或几种的组合（默认方式是FA_OPEN_EXISTING）</p>
+<p><img src="https://picb.zhimg.com/80/v2-a0b5ab7cbb0669e2c5dafa595c4a1800_720w.jpg" alt="img"></p>
+<h4 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_read</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	FIL *fp, 		<span class="comment">/* Pointer to the file object */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">void</span> *buff,		<span class="comment">/* Pointer to data buffer */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	UINT btr,		<span class="comment">/* Number of bytes to read */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	UINT *br		<span class="comment">/* Pointer to number of bytes read */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1.这个函数可以读取文件内容</p>
+<p>2.参数说明：</p>
+<p>*fp：指向文件对象结构体的指针</p>
+<p>*buff：指向存储读取到的数据的数据缓冲的指针</p>
+<p>btr：准备读取的字节数</p>
+<p>*br:</p>
+<p>（1）它的作用是用来检测文件的末尾，就是下面例程中的这句：</p>
+<p>if(res||br&lt;sizeof(buffer)) break;</p>
+<p>（2）每次f_read执行完之后，<em>br的值等于本次读取到的字节数，若</em>br&lt;btr，即本次读取到的字节小于准备读取的字节，说明读指针已到达文件末尾。</p>
+<p><strong>例程</strong>：首先以读取的方式打开文件，然后将文件内容通过串口输出</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">res=f_open(&amp;fp,”<span class="keyword">new</span>/news.txt”,FA_READ);</span><br><span class="line"><span class="keyword">if</span>(!res)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(“<span class="built_in">open</span> <span class="keyword">new</span>/news.txt:%d/r/n”,res);</span><br><span class="line">    br=<span class="number">1</span>;</span><br><span class="line">    a=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(“文件内容：”);</span><br><span class="line">    <span class="keyword">for</span>(;;)</span><br><span class="line">    &#123;</span><br><span class="line">       <span class="keyword">for</span>(a=<span class="number">0</span>;a&lt;<span class="number">512</span>;a++) buff[a]=<span class="number">0</span>;</span><br><span class="line">       res=f_read(&amp;fp,buff,<span class="keyword">sizeof</span>(buff),&amp;br);</span><br><span class="line">       <span class="built_in">printf</span>(“%s/r/n”,<span class="built_in">buffer</span>);</span><br><span class="line">       <span class="keyword">if</span>(res||br&lt;<span class="keyword">sizeof</span>(buff)) <span class="keyword">break</span>;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;	</span><br><span class="line"><span class="comment">//不论是打开，还是新建文件，一定要关闭	</span></span><br><span class="line">f_close(&amp;fp);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_write</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	FIL *fp,			<span class="comment">/* Pointer to the file object */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	<span class="keyword">const</span> <span class="keyword">void</span> *buff,	<span class="comment">/* Pointer to the data to be written */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	UINT btw,			<span class="comment">/* Number of bytes to write */</span></span></span></span><br><span class="line"><span class="function"><span class="params">	UINT *bw			<span class="comment">/* Pointer to number of bytes written */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1.此函数用来想文件中写入数据， 前提是以写文件的方式打开文件</p>
+<p>2.参数说明：</p>
+<p>*fp：指向文件对象结构体的指针</p>
+<p>*buff：指向数据缓冲的指针</p>
+<p>btw：准备写入的字节数</p>
+<p>bw：记录已写入的字节数，用来检测是否写完</p>
+<p>3.后面两个函数的长度是两个字节，计数值最大为65536，所以一次写入字节数最大为64k。</p>
+<p>一般情况下一次不会写这么长的数据，因为就算RAM够用，也不会在里面开一个几十k的数据缓冲区。</p>
+<p><strong>例程</strong>：以新建和写模式打开或新建一个文件，如果不存在，会自动创建，如果存在则关闭文件并通过串口输出相关信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">res = f_open(&amp;fdst,<span class="string">"0:/Dem3.TXT"</span>,FA_CREATE_NEW | FA_WRITE);	</span><br><span class="line"><span class="keyword">if</span> ( res == FR_OK )		<span class="comment">//新建并打开了该文件</span></span><br><span class="line">&#123; </span><br><span class="line">		res = f_write(&amp;fdst, textFileBuffer, <span class="keyword">sizeof</span>(textFileBuffer), &amp;bw); </span><br><span class="line">		<span class="built_in">printf</span>( <span class="string">"\r\n file create success \n"</span> ); </span><br><span class="line"><span class="comment">//新建或打开文件后，一定要关闭   </span></span><br><span class="line">		f_close(&amp;fdst);      </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> ( res == FR_EXIST )	<span class="comment">//文件已存在</span></span><br><span class="line">&#123;</span><br><span class="line">		<span class="built_in">printf</span>( <span class="string">"\r\n file is existed \n"</span> );</span><br><span class="line">		f_close(&amp;fdst);		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>掌握以上几个函数，可以利用FATFS对SD卡进行基本的读写操作了</p>
+<h3 id="下面介绍另外几个常用的函数"><a href="#下面介绍另外几个常用的函数" class="headerlink" title="下面介绍另外几个常用的函数"></a>下面介绍另外几个常用的函数</h3><h4 id="刷新文件信息"><a href="#刷新文件信息" class="headerlink" title="刷新文件信息"></a>刷新文件信息</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_sync</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    FIL *fp       <span class="comment">/* Pointer tothe file object */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>此函数功能兼容f_close,它与f_close的区别就是执行后，当前文件是否仍然有效。</p>
+<p>参数说明：</p>
+<p>*fp：指向文件对象结构体的指针</p>
+<p>调用此函数后，当前文件仍然可读可写可查询</p>
+<p>当文件处于长时间的写模式，如数据记录时，定期调用此函数，或在写入数据后立即调用此函数，可以减少因断电等意外情况带来的损失。</p>
+<h4 id="新建文件夹"><a href="#新建文件夹" class="headerlink" title="新建文件夹"></a>新建文件夹</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_mkdir</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> TCHAR *path    <span class="comment">/*Pointer to the directory path */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1.新建一个文件夹</p>
+<p>2.参数说明：</p>
+<p>*path：指向将要创建的文件夹名的指针</p>
+<p>文件名应符合fatfs标准，不能包含非法字符</p>
+<p>文件名长度不能大于8，否则新建不成功</p>
+<p>例程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">f_mkdir(“<span class="keyword">new</span>”);</span><br><span class="line">f_mkdir(“foldr/<span class="keyword">new</span>”);</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="删除文件或文件夹"><a href="#删除文件或文件夹" class="headerlink" title="删除文件或文件夹"></a>删除文件或文件夹</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FRESULT <span class="title">f_unlink</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> TCHAR *path    <span class="comment">/*Pointer to the file or directory path */</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>函数说明：</p>
+<p>1 此函数可以删除一个文件或文件夹</p>
+<p>2 参数说明：</p>
+<p>*path：指向文件或文件夹的名称的指针</p>
+<p>3 删除文件夹时，不能为当前文件夹，不能为非空文件夹</p>
+<p>4 删除文件时，不能为已打开文件，不能为只读文件</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Stm32/" rel="tag"># Stm32</a>
+              <a href="/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" rel="tag"># 文件操作</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/18/STM32/ESP8266%E8%8E%B7%E5%8F%96%E5%BF%83%E7%9F%A5%E5%A4%A9%E6%B0%94/" rel="prev" title="ESP8266获取心知天气">
+      <i class="fa fa-chevron-left"></i> ESP8266获取心知天气
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FATFS文件系统"><span class="nav-number">1.</span> <span class="nav-text">FATFS文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件系统"><span class="nav-number">1.0.1.</span> <span class="nav-text">文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FATFS文件系统简介"><span class="nav-number">1.0.2.</span> <span class="nav-text">FATFS文件系统简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FATFS的目录结构"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">FATFS的目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FATFS帮助文档"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">FATFS帮助文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FATFS源码"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">FATFS源码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#src文件夹下的源码文件功能简介"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">src文件夹下的源码文件功能简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件系统移植"><span class="nav-number">1.0.3.</span> <span class="nav-text">文件系统移植</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面介绍几个文件系统常用的函数使用方法"><span class="nav-number">1.0.4.</span> <span class="nav-text">下面介绍几个文件系统常用的函数使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注册工作区"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">注册工作区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打开文件夹"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">打开文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取文件夹"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">读取文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打开-新建一个文件"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">打开&#x2F;新建一个文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读取文件"><span class="nav-number">1.0.4.5.</span> <span class="nav-text">读取文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#写文件"><span class="nav-number">1.0.4.6.</span> <span class="nav-text">写文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面介绍另外几个常用的函数"><span class="nav-number">1.0.5.</span> <span class="nav-text">下面介绍另外几个常用的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#刷新文件信息"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">刷新文件信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新建文件夹"><span class="nav-number">1.0.5.2.</span> <span class="nav-text">新建文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除文件或文件夹"><span class="nav-number">1.0.5.3.</span> <span class="nav-text">删除文件或文件夹</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Nep球"
+      src="/images/touxian.jpg">
+  <p class="site-author-name" itemprop="name">Nep球</p>
+  <div class="site-description" itemprop="description">人真的要自己争气，一做出成绩来，全世界和颜悦色</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Nep球</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true# 验证码 默认为false,
+      notify     : true# 邮箱通知 , https://github.com/xCss/Valine/wiki，默认为false,
+      appId      : 'Id1Ow31fSkW4XBVcrA0zSwBs-gzGzoHsz',
+      appKey     : 'v54TjNNeEOrwuTgpdmEcJk9y',
+      placeholder: "请输入您的留言",
+      avatar     : 'wavatar',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":150,"height":400},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
