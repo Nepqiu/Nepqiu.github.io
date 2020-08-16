@@ -20,20 +20,21 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="高数复习测试$$A\perp B$$ $$\sum_{n&#x3D;1}^{\infty }\frac{1}{n^{n} \sqrt{n} }$$">
+  <meta name="description" content="AHRS（航姿参考系统）和IMU（惯性测量单元）的区别 转载自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;28262130  无人机的姿态解算一般有两种算法  一种是IMU 另一种是被各种无人机广泛使用的AHRS 比如众所周知的APM，pixhawk，DJI的naza，还有匿名的开源飞控等等，他们之间有什么区别和联系呢？让我们一起来看一下。    AHRS（Attitude and">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高数">
-<meta property="og:url" content="http://yoursite.com/2020/06/23/%E9%AB%98%E6%95%B0%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:title" content="AHRS（航姿参考系统）和IMU（惯性测量单元）的区别">
+<meta property="og:url" content="http://yoursite.com/2020/08/16/MPU6050/AHRS%E5%92%8CIMU/index.html">
 <meta property="og:site_name" content="Nep的博客">
-<meta property="og:description" content="高数复习测试$$A\perp B$$ $$\sum_{n&#x3D;1}^{\infty }\frac{1}{n^{n} \sqrt{n} }$$">
+<meta property="og:description" content="AHRS（航姿参考系统）和IMU（惯性测量单元）的区别 转载自：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;28262130  无人机的姿态解算一般有两种算法  一种是IMU 另一种是被各种无人机广泛使用的AHRS 比如众所周知的APM，pixhawk，DJI的naza，还有匿名的开源飞控等等，他们之间有什么区别和联系呢？让我们一起来看一下。    AHRS（Attitude and">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-23T03:26:16.000Z">
-<meta property="article:modified_time" content="2020-06-23T14:33:52.000Z">
+<meta property="article:published_time" content="2020-08-16T07:57:00.000Z">
+<meta property="article:modified_time" content="2020-08-16T07:57:00.000Z">
 <meta property="article:author" content="Nep球">
-<meta property="article:tag" content="高数">
+<meta property="article:tag" content="Stm32">
+<meta property="article:tag" content="MPU6050">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/06/23/%E9%AB%98%E6%95%B0%E5%A4%8D%E4%B9%A0/">
+<link rel="canonical" href="http://yoursite.com/2020/08/16/MPU6050/AHRS%E5%92%8CIMU/">
 
 
 <script id="page-configurations">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>高数 | Nep的博客</title>
+  <title>AHRS（航姿参考系统）和IMU（惯性测量单元）的区别 | Nep的博客</title>
   
 
 
@@ -195,7 +196,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/%E9%AB%98%E6%95%B0%E5%A4%8D%E4%B9%A0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/16/MPU6050/AHRS%E5%92%8CIMU/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxian.jpg">
@@ -208,7 +209,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          高数
+          AHRS（航姿参考系统）和IMU（惯性测量单元）的区别
         </h1>
 
         <div class="post-meta">
@@ -217,9 +218,8 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-06-23 11:26:16 / 修改时间：22:33:52" itemprop="dateCreated datePublished" datetime="2020-06-23T11:26:16+08:00">2020-06-23</time>
+              <time title="创建时间：2020-08-16 15:57:00" itemprop="dateCreated datePublished" datetime="2020-08-16T15:57:00+08:00">2020-08-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,12 +227,16 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E5%AD%A6%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">数学类</span></a>
+                  <a href="/categories/Stm32/" itemprop="url" rel="index"><span itemprop="name">Stm32</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/MPU6050/" itemprop="url" rel="index"><span itemprop="name">MPU6050</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/06/23/%E9%AB%98%E6%95%B0%E5%A4%8D%E4%B9%A0/" class="post-meta-item leancloud_visitors" data-flag-title="高数" title="阅读次数">
+            <span id="/2020/08/16/MPU6050/AHRS%E5%92%8CIMU/" class="post-meta-item leancloud_visitors" data-flag-title="AHRS（航姿参考系统）和IMU（惯性测量单元）的区别" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -247,8 +251,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/06/23/%E9%AB%98%E6%95%B0%E5%A4%8D%E4%B9%A0/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/%E9%AB%98%E6%95%B0%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/08/16/MPU6050/AHRS%E5%92%8CIMU/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/16/MPU6050/AHRS%E5%92%8CIMU/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -263,12 +267,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
-
-
-
-<h1 id="高数复习"><a href="#高数复习" class="headerlink" title="高数复习"></a>高数复习</h1><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>$$<br>A\perp B<br>$$</p>
-<p>$$<br>\sum_{n=1}^{\infty }\frac{1}{n^{n} \sqrt{n} }<br>$$</p>
+        <h1 id="AHRS（航姿参考系统）和IMU（惯性测量单元）的区别"><a href="#AHRS（航姿参考系统）和IMU（惯性测量单元）的区别" class="headerlink" title="AHRS（航姿参考系统）和IMU（惯性测量单元）的区别"></a>AHRS（航姿参考系统）和IMU（惯性测量单元）的区别</h1><blockquote>
+<p>转载自：<a href="https://zhuanlan.zhihu.com/p/28262130" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/28262130</a></p>
+</blockquote>
+<p>无人机的姿态解算一般有两种算法</p>
+<ul>
+<li>一种是IMU</li>
+<li>另一种是被各种无人机广泛使用的AHRS<ul>
+<li>比如众所周知的APM，pixhawk，DJI的naza，还有匿名的开源飞控等等，他们之间有什么区别和联系呢？让我们一起来看一下。</li>
+</ul>
+</li>
+</ul>
+<p><strong>AHRS（Attitude and Heading Reference System）</strong>俗称航姿参考系统，AHRS由加速度计，磁场计，陀螺仪构成，能够为飞行器提供航向(yaw)，横滚(roll)和侧翻(pitch)信息，这类系统用来为飞行器提供准确可靠的姿态与航行信息。AHRS的真正参考来自于地球的重力场和地球的磁场，其静态终精度取决于对磁场的测量精度和对重力的测量精度，而则陀螺决定了他的动态性能。<strong>说明AHRS离开了地球这种有重力和磁场环境的时候是没法正常工作的</strong>，而且特别注意：<strong>磁场和重力场越正交，则航姿测量效果越好</strong>—也就是说如果磁场和重力场平行了，比如在地磁南北极，这里的磁场是向下的，即和重量场方向相同了，这个时候航线交是没法测出的，这是航姿系统的缺陷所在，<strong>在高纬度的地方航线角误差会越来越大</strong>。</p>
+<p><strong>IMU（Inertial Measurement Unit）</strong>学名惯性测量单元，大学的理论力学告诉我们，所有的运动都可以分解为一个直线运动和一个旋转运动，故这个惯性测量单元就是测量这两种运动，直线运动通过加速度计可以测量，旋转运动则通过陀螺。一般的，<strong>一个IMU包含了三个单轴的加速度计和三个单轴的陀螺</strong>，加速度计检测物体在载体坐标系统独立三轴的加速度信号，而陀螺检测载体相对于导航坐标系的角速度信号，测量物体在三维空间中的角速度和加速度，<strong>并以此解算出物体的姿态</strong>。在导航中用着很重要的应用价值。<strong>为了提高可靠性，还可以为每个轴配备更多的传感器。一般而言IMU要安装在被测物体的重心上。</strong></p>
+<p>IMU大多用在需要进行运动控制的设备，如汽车和机器人上。也被用在需要用姿态进行精密位移推算的场合，如潜艇、飞机、导弹和航天器的惯性导航设备等。</p>
+<p>假设IMU的陀螺和加速度计的测量是没有任何误差的，那么通过陀螺则可以精确的测量物体的姿态。通过加速度计可以二次积分得出位移，实现完整的6DOF,也就是说带着一台这种理论型的IMU在宇宙任何位置运动，我们都可以知道他当前的姿态和相对位移，这将不局限于任何场。</p>
+<p>从上面的描述何以看出。实际上AHRS比IMU还多一个磁场传感器，而为什么AHRS的级别却低于IMU而需要依赖于重力场和磁场呢？这是由传感器器件架构所决定的。AHRS的传感器通常是成本低廉的mems传感器。这种传感器的陀螺仪和加速度计的噪声相对来说很大，以平面陀螺为例用ADI的陀螺仪进行积分一分钟会漂移2度左右，这种前提下如果没有磁场和重力场来修正三轴陀螺的话，那么基本上3分钟以后物体的实际姿态和测量输出姿态就完全变样了。所以在这种低价陀螺仪和加速度计的架构下必须运用场向量来进行修正。</p>
+<p>而IMU实际上也是这样的。因为我们知道没有绝对精确的传感器，只有相对精确的传感器，IMU的陀螺仪用的是<strong>光纤陀螺或者机械陀螺</strong>。这种陀螺的成本很高，精度相对MEMS陀螺也很高。精度高不代表准确，IMU的姿态精度参数通常是<strong>一小时飘多少度</strong>，比如xbow的低端的有一小时3度的。。而用加速度计积分做位置的话，AHRS是不现实的（1分钟就能飘出几十米，而且是成二次方的速度递增）。AHRS通常要结合GPS和气压计做位置 。</p>
+<p>利用三轴地磁解耦和三轴加速度计，受外力加速度影响很大，在运动/振动等环境中，输出方向角误差较大，此外地磁传感器有缺点，它的绝对参照物是地磁场的磁力线，<strong>地磁的特点是使用范围大，但强度较低，约零点几高斯，非常容易受到其它磁体的干扰， 如果融合了Z轴陀螺仪的瞬时角度，就可以使系统数据更加稳定</strong>。加速度测量的是重力方向，在无外力加速度的情况下，能准确输出ROLL/PITCH两轴姿态角度 并且此角度不会有累积误差，在更长的时间尺度内都是准确的。但是加速度传感器测角度的缺点是加速度传感器实际上是用MEMS技术检测惯性力造成的微小形变，而惯性力与重力本质是一样的,所以加速度计就不会区分重力加速度与外力加速度，当系统在三维空间做变速运动时，它的输出就不正确了。</p>
+<p>陀螺仪输出角速度，是瞬时量，角速度在姿态平衡上是不能直接使用， 需要角速度与时间积分计算角度，得到的角度变化量与初始角度相加，就得到目标角度，其中积分时间Dt越小，输出角度越精确，但陀螺仪的原理决定了它的测量基准是自身，并没有系统外的绝对参照物，加上Dt是不可能无限小，所以积分的累积误差会随着时间流逝迅速增加，最终导致输出角度与实际不符，所以陀螺仪只能工作在<strong>相对</strong>较短的时间尺度内。</p>
+<p>所以在没有其它参照物的基础上，要得到较为真实的姿态角，就要<strong>利用加权算法扬长避短</strong>，结合两者的优点，摈弃其各自缺点,设计算法在短时间尺度内增加陀螺仪的权值，在更长时间尺度内增加加速度权值，这样系统输出角度就接近真实值了。</p>
 
     </div>
 
@@ -278,7 +296,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E9%AB%98%E6%95%B0/" rel="tag"># 高数</a>
+              <a href="/tags/Stm32/" rel="tag"># Stm32</a>
+              <a href="/tags/MPU6050/" rel="tag"># MPU6050</a>
           </div>
 
         
@@ -287,12 +306,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/23/AD%E5%AD%A6%E4%B9%A0/" rel="prev" title="AD学习">
-      <i class="fa fa-chevron-left"></i> AD学习
+    <a href="/2020/07/28/STM32/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="prev" title="内存管理">
+      <i class="fa fa-chevron-left"></i> 内存管理
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/06/23/markdown%E4%BD%BF%E7%94%A8/" rel="next" title="Markdown使用">
-      Markdown使用 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/08/16/MPU6050/%E5%8D%A1%E5%B0%94%E6%9B%BC/" rel="next" title="卡尔曼">
+      卡尔曼 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -353,7 +372,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#高数复习"><span class="nav-number">1.</span> <span class="nav-text">高数复习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AHRS（航姿参考系统）和IMU（惯性测量单元）的区别"><span class="nav-number">1.</span> <span class="nav-text">AHRS（航姿参考系统）和IMU（惯性测量单元）的区别</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -369,20 +388,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
