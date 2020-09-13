@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/16/MPU6050/%E5%8D%A1%E5%B0%94%E6%9B%BC/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/09/STM32/Stm32%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxian.jpg">
@@ -205,7 +205,200 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/16/MPU6050/%E5%8D%A1%E5%B0%94%E6%9B%BC/" class="post-title-link" itemprop="url">卡尔曼</a>
+            <a href="/2020/09/09/STM32/Stm32%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/" class="post-title-link" itemprop="url">Stm32常见问题合集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-09 22:36:58" itemprop="dateCreated datePublished" datetime="2020-09-09T22:36:58+08:00">2020-09-09</time>
+            </span>
+
+          
+            <span id="/2020/09/09/STM32/Stm32%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/" class="post-meta-item leancloud_visitors" data-flag-title="Stm32常见问题合集" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/09/STM32/Stm32%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/09/STM32/Stm32%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ol>
+<li>error: #20: identifier “xxx” is undefined</li>
+<li>error: #24: invalid octal digit</li>
+</ol>
+<h1 id="1、实际已经定义却出现-error-20-identifier-“xxx”-is-undefined-的错误"><a href="#1、实际已经定义却出现-error-20-identifier-“xxx”-is-undefined-的错误" class="headerlink" title="1、实际已经定义却出现 error: #20: identifier “xxx” is undefined 的错误"></a>1、实际已经定义却出现 error: #20: identifier “xxx” is undefined 的错误</h1><h4 id="迷之错误：error-20-identifier-“xxx”-is-undefined"><a href="#迷之错误：error-20-identifier-“xxx”-is-undefined" class="headerlink" title="迷之错误：error: #20: identifier “xxx” is undefined"></a>迷之错误：error: #20: identifier “xxx” is undefined</h4><p>实际上我是定义了xxx的；但是编译器却一直报错；<br><strong>故事是这样的：</strong><br>我定义了a.h，b.h，c.h。其中a.h和b.h都是子功能头文件，而c.h是包含所有项目头文件的集合体，比如数据类型，当然也包含a.h和b.h；关系看下面代码；</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  c.h  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> C_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> C_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Type.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"a.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"b.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"x.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xxx.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* C_H */</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  a.h  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"c.h"</span>      <span class="comment">//为了让头文件看起来更简单，我为每一个子功能头文件都包含了c.h，这将是后来引起错误的地方；</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  <span class="title">ITEM</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//各成员				</span></span><br><span class="line">&#125;Item_t;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  b.h  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"c.h"</span>     </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span>  <span class="title">BLOCK</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	Item_t  	Item1;       <span class="comment">// 这里我引用了a.h中的Item_t类型，并定义了变量；这里就是报错的地方；</span></span><br><span class="line">	<span class="comment">//其他成员；	</span></span><br><span class="line">				</span><br><span class="line">&#125;Block;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这种情况下就出了问题，那么问题在哪儿哪？</strong><br>在b.h中的<strong>Item_t Item1; \</strong> ，这个地方就是报错的地方；显示error: #20: identifier “Item_t” is undefined，顺着这儿往上看的，这个问题就出在了a.h里的这个<strong>#include “c.h” *<em>；对于a.h来说，调用的 *</em>#include “c.h”</strong>可以展开为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  a.h  */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Type.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"a.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"b.h"</span>     </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"x.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xxx.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>  <span class="title">ITEM</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//各成员				</span></span><br><span class="line">&#125;Item_t;</span><br></pre></td></tr></table></figure>
+
+<p>所以错误的地方是：相对于a.h文件来说，在定义ITEM结构体之前就已经调用了b.h，而b.h里又有对Item_t类型变量的定义，所以就出顺序逻辑错误；</p>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><p><strong>在大工程中尽量避免在头文件中使用总头文件</strong></p>
+<p><strong>所以这里就在a.h和b.h中去掉包含的c.h文件，需要什么头文件就用什么头文件；所以修改完之后是：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  a.h  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Type.h"</span>     </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"x.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xxx.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span>  <span class="class"><span class="keyword">struct</span>  <span class="title">ITEM</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="comment">//各成员				</span></span><br><span class="line">&#125;Item_t;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*  b.h  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"a.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"x.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"xxx.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span>  <span class="title">BLOCK</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	Item_t  	Item1;    </span><br><span class="line">	<span class="comment">//其他成员；	</span></span><br><span class="line">				</span><br><span class="line">&#125;Block;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="error-24-invalid-octal-digit"><a href="#error-24-invalid-octal-digit" class="headerlink" title="error: #24: invalid octal digit"></a>error: #24: invalid octal digit</h1><p>没有这个八进制，八进制错误比如 <code>09</code> 是错的要换成 <code>9</code> </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/21/MPU6050/%E9%A3%9E%E8%A1%8C%E5%99%A8%E4%BA%92%E8%A1%A5%E6%BB%A4%E6%B3%A2%E5%A7%BF%E6%80%81%E6%B1%82%E8%A7%A3%E5%99%A8%E8%AE%BE%E8%AE%A1-%E8%BD%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxian.jpg">
+      <meta itemprop="name" content="Nep球">
+      <meta itemprop="description" content="人真的要自己争气，一做出成绩来，全世界和颜悦色">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nep的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/21/MPU6050/%E9%A3%9E%E8%A1%8C%E5%99%A8%E4%BA%92%E8%A1%A5%E6%BB%A4%E6%B3%A2%E5%A7%BF%E6%80%81%E6%B1%82%E8%A7%A3%E5%99%A8%E8%AE%BE%E8%AE%A1-%E8%BD%AC/" class="post-title-link" itemprop="url">飞行器互补滤波姿态求解器设计/转</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-21 19:39:02" itemprop="dateCreated datePublished" datetime="2020-08-21T19:39:02+08:00">2020-08-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/" itemprop="url" rel="index"><span itemprop="name">Stm32</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Stm32/MPU6050/" itemprop="url" rel="index"><span itemprop="name">MPU6050</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/08/21/MPU6050/%E9%A3%9E%E8%A1%8C%E5%99%A8%E4%BA%92%E8%A1%A5%E6%BB%A4%E6%B3%A2%E5%A7%BF%E6%80%81%E6%B1%82%E8%A7%A3%E5%99%A8%E8%AE%BE%E8%AE%A1-%E8%BD%AC/" class="post-meta-item leancloud_visitors" data-flag-title="飞行器互补滤波姿态求解器设计/转" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/21/MPU6050/%E9%A3%9E%E8%A1%8C%E5%99%A8%E4%BA%92%E8%A1%A5%E6%BB%A4%E6%B3%A2%E5%A7%BF%E6%80%81%E6%B1%82%E8%A7%A3%E5%99%A8%E8%AE%BE%E8%AE%A1-%E8%BD%AC/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/21/MPU6050/%E9%A3%9E%E8%A1%8C%E5%99%A8%E4%BA%92%E8%A1%A5%E6%BB%A4%E6%B3%A2%E5%A7%BF%E6%80%81%E6%B1%82%E8%A7%A3%E5%99%A8%E8%AE%BE%E8%AE%A1-%E8%BD%AC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/16/MPU6050/%E5%A7%BF%E6%80%81%E8%A7%92%E8%A7%A3%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxian.jpg">
+      <meta itemprop="name" content="Nep球">
+      <meta itemprop="description" content="人真的要自己争气，一做出成绩来，全世界和颜悦色">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nep的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/16/MPU6050/%E5%A7%BF%E6%80%81%E8%A7%92%E8%A7%A3%E7%AE%97/" class="post-title-link" itemprop="url">姿态角解算</a>
         </h2>
 
         <div class="post-meta">
@@ -232,7 +425,7 @@
             </span>
 
           
-            <span id="/2020/08/16/MPU6050/%E5%8D%A1%E5%B0%94%E6%9B%BC/" class="post-meta-item leancloud_visitors" data-flag-title="卡尔曼" title="阅读次数">
+            <span id="/2020/08/16/MPU6050/%E5%A7%BF%E6%80%81%E8%A7%92%E8%A7%A3%E7%AE%97/" class="post-meta-item leancloud_visitors" data-flag-title="姿态角解算" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -247,8 +440,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/08/16/MPU6050/%E5%8D%A1%E5%B0%94%E6%9B%BC/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/16/MPU6050/%E5%8D%A1%E5%B0%94%E6%9B%BC/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/08/16/MPU6050/%E5%A7%BF%E6%80%81%E8%A7%92%E8%A7%A3%E7%AE%97/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/16/MPU6050/%E5%A7%BF%E6%80%81%E8%A7%92%E8%A7%A3%E7%AE%97/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -263,7 +456,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <blockquote>
+          <a id="more"></a>
+
+
+
+<blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/36374943" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/36374943</a></p>
 <p><a href="https://blog.csdn.net/victor_zy/article/details/82862904" target="_blank" rel="noopener">https://blog.csdn.net/victor_zy/article/details/82862904</a></p>
 <p><a href="https://blog.csdn.net/qq_37382172/article/details/96481091?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-3" target="_blank" rel="noopener">https://blog.csdn.net/qq_37382172/article/details/96481091?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-3</a></p>
@@ -274,6 +471,189 @@
 <p> <a href="https://www.cnblogs.com/zjutlitao/p/3915786.html" target="_blank" rel="noopener">[stm32] MPU6050 HMC5883 Kalman 融合算法移植 </a></p>
 <p><a href="https://www.cnblogs.com/firege/p/5806073.html" target="_blank" rel="noopener">MPU6050传感器—姿态检测(野火)</a></p>
 </blockquote>
+<p><img src="https://picb.zhimg.com/v2-275110af0a13b1ac4da880dc9cedf1d2_r.jpg" alt="img"></p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a><strong>介绍</strong></h1><p>MPU6050 是 InvenSense 公司推出的全球首款整合性 6 轴运动处理组件，相较于多组件方案，免除了组合陀螺仪与加速器时之轴间差的问题，减少了安装空间。</p>
+<p><img src="https://img-blog.csdnimg.cn/2018111215123741.png" alt="img"></p>
+<p>（1）绕X轴旋转角度为roll，绕Y轴旋转角度为pitch，绕Z轴旋转角度为yaw。</p>
+<p>（2）加速度传感器，本质是力传感器。用来检查上下左右前后哪几个面都受了多少力（包括重力），然后计算角度。</p>
+<p>（3）陀螺仪，本质是角速度检测仪。比如，一块板，以X轴为轴心，在一秒钟的时间转到了90度，那么它在X轴上的角速度就是 90度/秒 （DPS, 角速度单位，Degree Per Second的缩写°/S ，体现了转动的快慢）</p>
+<p>（4）MPU分辨率：3轴加速度 和3轴陀螺仪分别用了3个16位的ADC, 也就是说，加速度有3个16位ADC，其中每个轴使用了一个。也是说，每个轴输出的数据，是2^16 也就是 -32768 —- +32768。陀螺仪也是一样。</p>
+<h3 id="MPU6050原理图"><a href="#MPU6050原理图" class="headerlink" title="MPU6050原理图"></a><strong>MPU6050原理图</strong></h3><p><img src="https://img-blog.csdnimg.cn/20181112152515507.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3llcHBjaGFu,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>其中，SCL 和 SDA 是连接 MCU 的 IIC 接口，MCU 通过这个 IIC 接口来控制 MPU6050，另外还有一个 IIC 接口：AUX_CL 和 AUX_DA，这个接口可用来连接外部从设备，比如磁传感器，这样就可以组成一个九轴传感器。</p>
+<h3 id="扩展性"><a href="#扩展性" class="headerlink" title="扩展性"></a><strong>扩展性</strong></h3><p>MPU6050 内部整合了 3 轴陀螺仪和 3 轴加速度传感器，并且含有一个第二 IIC 接口，可用于连接外部磁力传感器即AUX_CL 和 AUX_DA，并利用自带的数字运动处理器（DMP: DigitalMotion Processor）硬件加速引擎，通过主 IIC 接口，向应用端输出完整的 9 轴融合演算数据。</p>
+<h1 id="初始化步骤"><a href="#初始化步骤" class="headerlink" title="初始化步骤"></a><strong>初始化步骤</strong></h1><p>（1）初始化 IIC  接口</p>
+<p>（2）复位 MPU6050</p>
+<p>MPU6050 内部所有寄存器恢复默认值</p>
+<p>（3）设置角速度传感器（陀螺仪）和加速度传感器的满量程范围</p>
+<p>上面说的-32768 — +32768 ，那么这个数字到底代表了什么呢？比如陀螺仪 32768 到底是指角速度达到多少度/秒 ？这个其实是根据MPU6050设置的量程来决定的，量程不一样，32768代表的值就不一样。按陀螺仪来说，MPU6050 有四个量程可选：<br>±250，±500，±1000，±2000 度/s<br>比方说，设置了是 ±250 , 那么-32768 —- +32768 就代表了 -250 —- +250 。此时它的LSB(最低有效位) 是 131 LSB/(度/s)</p>
+<p>（4）设置其它参数</p>
+<p>   关闭中断、关闭 AUX IIC 接口、禁止 FIFO、设置陀螺仪采样率和设置数字低通滤波器（DLPF）等。</p>
+<p>（5）配置系统时钟源并使能角速度传感器和加速度传感器</p>
+<h1 id="DMP（Digital-Motion-Processing-）"><a href="#DMP（Digital-Motion-Processing-）" class="headerlink" title="DMP（Digital Motion Processing ）"></a><strong>DMP</strong>（Digital Motion Processing ）</h1><h3 id="DMP是什么"><a href="#DMP是什么" class="headerlink" title="DMP是什么"></a>DMP是什么</h3><p>DMP就是指 MPU6050内部集成的处理单元，可以直接运算出四元数和姿态，而不再需要另外进行数学运算。DMP的使用大大简化了代码设计。DMP是数字运动处理器的缩写，顾名思义mpu9150（mpu6050）并不单单是一款传感器，其内部还包含了可以独立完成姿态解算算法的处理单元。如在设计中使用DMP来实现传感器融合算法优势很明显。首先，invensense官方提供的姿态解算算法应该比一般的小白要可靠的多。其次，由DMP实现姿态解算算法将单片机从算法处理的压力中解放出来，单片机所要做的是等待DMP解算完成后产生的外部中断，在外部中断里去读取姿态解算的结果。这样单片机有大量的时间来处理其他任务，提高了系统的实时性。</p>
+<p>经过 DMP你就可以得到四元数，四元数就是4个数，可以表征姿态，经过几个数学公式之后就可以的出姿态，姿态包括pitch，roll，yaw。</p>
+<p>综上，dmp之后直接出结果，可以直接用，当然你如果有特殊需要自己还要加滤波也没有问题。</p>
+<p>我们可以读出 MPU6050 的加速度传感器和角速度传感器的原始数据。DMP可以将原始角速度数据转换为4元组数据，这正是DMP的意义所在。进而完成欧拉角的计算。</p>
+<p>MPU6050 的 DMP 输出的四元数是 q30 格式的，也就是浮点数放大了 2 的 30 次方倍。在换算成欧拉角之前，必须先将其转换为浮点数，也就是除以 2 的 30 次方，然后再进行计算，计算公式为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">q0=quat[<span class="number">0</span>] / q30; <span class="comment">//q30 格式转换为浮点数</span></span><br><span class="line">q1=quat[<span class="number">1</span>] / q30;</span><br><span class="line">q2=quat[<span class="number">2</span>] / q30;</span><br><span class="line">q3=quat[<span class="number">3</span>] / q30;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算得到欧拉角：俯仰角/横滚角/航向角</span></span><br><span class="line">pitch=<span class="built_in">asin</span>(<span class="number">-2</span> * q1 * q3 + <span class="number">2</span> * q0* q2)* <span class="number">57.3</span>; <span class="comment">//俯仰角</span></span><br><span class="line">roll=<span class="built_in">atan2</span>(<span class="number">2</span> * q2 * q3 + <span class="number">2</span> * q0 * q1, <span class="number">-2</span> * q1 * q1 - <span class="number">2</span> * q2* q2 + <span class="number">1</span>)* <span class="number">57.3</span>; <span class="comment">//横滚角</span></span><br><span class="line">yaw=<span class="built_in">atan2</span>(<span class="number">2</span>*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * <span class="number">57.3</span>; <span class="comment">//航向角</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 quat[0]~ quat[3]是四元组，57.3 是弧度转换为角度，即 180/π，这样得到的结果就是以度（°）为单位的。</p>
+<h1 id="加速度和陀螺仪原理"><a href="#加速度和陀螺仪原理" class="headerlink" title="加速度和陀螺仪原理"></a>加速度和陀螺仪原理</h1><p>当然，在开始之前至少要弄懂什么是加速度计，什么是陀螺仪吧，否则那后边讲的都是没有意义的。简单的说，加速度计主要是测量物体运动的加速度，陀螺仪主要测量物体转动的角速度。这些理论的知识我就不多说了，都可以在网上查到。这里推荐一篇讲的比较详细的文章《A Guide To using IMU (Accelerometer and Gyroscope Devices) in Embedded Applications》，在网上可以直接搜索到。</p>
+<h1 id="加速度测量"><a href="#加速度测量" class="headerlink" title="加速度测量"></a>加速度测量</h1><p>在开始之前，不知大家是否还记得加速度具有合成定理？如果不记得可以先大概了解一下，其实简单的举个例子来说就是重力加速度可以理解成是由x,y,z三个方向的加速度共同作用的结果。反过来说就是重力加速度可以分解成x,y,z三个方向的加速度。</p>
+<p>加速度计可以测量某一时刻x,y,z三个方向的加速度值。而自平衡小车利用加速度计测出重力加速度在x,y,z轴的分量，然后利用各个方向的分量与重力加速度的比值来计算出小车大致的倾角。其实在自平衡小车上非静止的时候，加速度计测出的结果并不是非常精确。因为大家在高中物理的时候都学过，物体时刻都会受到地球的万有引力作用产生一个向下的重力加速度，而小车在动态时，受电机的作用肯定有一个前进或者后退方向的作用力，而加速度计测出的结果是，重力加速度与小车运动加速度合成得到一个总的加速度在三个方向上的分量。</p>
+<p>不过我们暂时不考虑电机作用产生的运动加速度对测量结果的影响。因为我们要先把复杂的事情分解成一个个简单的事情来分析，这样才能看到成果，才会有信心继续。</p>
+<p>下边我们就开始分析从加速度得到角度的方法。如下图，把加速度计平放，分别画出xyz轴的方向。这三个轴就是我们后边分析所要用到的坐标系。</p>
+<p><img src="file:///C:%5CNeptune%5Cksohtml7000%5Cwps1.jpg" alt="img"> </p>
+<p>把mpu6050安装在自平衡车上时也是这样的水平安装在小车底盘上的，假设两个车轮安装时车轴和y轴在一条直线上。那么小车摆动时，参考水平面就是桌面，并且车轴（y轴）与桌面始终是平行的，小车摆动和移动过程中y轴与桌面的夹角是不会发生变化的，一直是0度。发生变化的是x轴与桌面的夹角以及z轴与桌面的夹角，而且桌面与x轴z轴夹角变化度数是一样的。所以我们只需要计算出x轴和z轴中任意一个轴的夹角就可以反映出小车的倾斜的情况了。</p>
+<p><img src="file:///C:%5CNeptune%5Cksohtml7000%5Cwps2.jpg" alt="img"> </p>
+<p>为了方便分析，由于y轴与桌面夹角始终不变，我们从y轴的方向俯看下去，那么这个问题就会简化成只有x轴和z轴的二维关系。假设某一时刻小车上加速度计（mpu6050）处于如下状态，下图是我们看到简化后的模型。</p>
+<p><img src="file:///C:%5CNeptune%5Cksohtml7000%5Cwps3.jpg" alt="img"> </p>
+<p>在这个图中，y轴已经简化和坐标系的原点o重合在了一起。我们来看看如何计算出小车的倾斜角，也就是与桌面的夹角a。上图g是重力加速度，gx、gz分别是g在x轴和z轴的分量。</p>
+<p>由于重力加速度是垂直于水平面的，得到：</p>
+<p><code>角a+角b=90度</code></p>
+<p>X轴与y轴是垂直关系，得到：</p>
+<p><code>角c+角b=90度</code></p>
+<p>于是轻松的就可以得出：</p>
+<p><code>角a=角c</code></p>
+<p>根据力的分解，g、gx、gz三者构成一个长方形，根据平行四边形的原理可以得出：</p>
+<p><code>角c=角d</code></p>
+<p>所以计算出角度d就等效于计算出了x轴与桌面的夹角a。前边已经说过gx是g在x轴的分量，那么根据正弦定理就可以得出：</p>
+<p><code>Sind=gx/g</code></p>
+<p>得到这个公式可是还是得不到想要的角度，因为需要计算反正弦，而反正弦在单片机里不是很好计算。</p>
+<p>为了得到角度，于是又查了相关资料，原来在角度较小的情况下，角度的正弦与角度对应的弧度成线性关系。先看看下边的图：</p>
+<p><img src="file:///C:%5CNeptune%5Cksohtml7000%5Cwps4.png" alt="img"> </p>
+<p>这个图x轴是角度，取值范围是0~90度，有三个函数曲线，分别是：</p>
+<p><code>Y=sinx</code>  正弦曲线</p>
+<p><code>Y=x*3.14/180</code>  弧度</p>
+<p><code>Y=0.92*x*3.14/180</code>  乘以一个0.92系数的弧度</p>
+<p>从图上可以看出，当角度范围是0~29度时：</p>
+<p><code>sinx=x*3.14/180</code></p>
+<p>对于自平衡车来说，小车的摆动范围在-29<del>29度之内，如果超过这个范围，小车姿态也无法调整，所以对于自平衡小车<code>sinx=x*3.14/180</code>基本上是成立的。当然有时候也会担心-29</del>29度的摇摆范围还是无法满足需求。那可以给上边的公式乘一个系数。得到如下公式：</p>
+<p><code>Sinx=k*x*3.14/180</code></p>
+<p>从上边的函数对比图可以看出，当系数取0.92时，角度范围可以扩大到-45~45度。</p>
+<p>​    经过这一系列的分析，终于得到角度换算方法：</p>
+<p>​    由</p>
+<p><code>Sind=gx/g</code></p>
+<p><code>Sind=k*d*3.14/180</code></p>
+<p>得到：</p>
+<p><code>gx/g=k*d*3.14/180</code></p>
+<p>那么角度就可以通过如下公式计算出：</p>
+<p><code>d=180*gx/(k*g*3.14)</code></p>
+<p>而gx可以从加速度计里读出来，所以这下角度就可以轻松得到了。而之前也说过这个角度不是很精确，但是至少可以反映出角度变化的趋势。不过可以通过卡尔曼滤波等算法把加速度计读出的角度和陀螺仪读出的角度结合起来，使小车的角度更加准确。</p>
+<h1 id="陀螺仪"><a href="#陀螺仪" class="headerlink" title="陀螺仪"></a>陀螺仪</h1><p>通过陀螺仪来测量角度就很简单了，因为陀螺仪读出的是角速度，大家都知道，角速度乘以时间，就是转过的角度。把每次计算出的角度做累加就会等到当前所在位置的角度。先看下图：</p>
+<p><img src="file:///C:%5CNeptune%5Cksohtml7000%5Cwps5.jpg" alt="img"> </p>
+<p>假设最初陀螺仪是与桌面平行，单片机每tms读一次陀螺仪的角速度，当读了三次角速度以后 z轴转到上图的位置，则在这段时间中转过的角度为x：</p>
+<p>角x=角1+角2+角3</p>
+<p>假设从陀螺仪读出的角速度为w，那总角度为：</p>
+<p><code>X=(w1*t1+w2*t2+w3*t3)/1000</code></p>
+<p>假设经过n次，那么总的角度如下：</p>
+<p><code>X=(w1*t1+w2*t2+w3*t3+…+wn*tn)/1000</code></p>
+<p>实际上这就是一个积分过程。</p>
+<p>其实这种计算出来的角度也存在一定的误差，而且总的角度是经过多次相加得到的，这样误差就会越积累越大，最终导致计算出的角度与实际角度相差很大。于是也可以使用卡尔曼滤波把加速度计读出的角度结合在一起，使计算出的角度更准确。</p>
+<h1 id="四元数"><a href="#四元数" class="headerlink" title="四元数"></a><strong>四元数</strong></h1><blockquote>
+<p>转载于:<a href="https://www.cnblogs.com/bucc/p/5773755.html" target="_blank" rel="noopener">https://www.cnblogs.com/bucc/p/5773755.html</a></p>
+<p>借鉴：<a href="https://blog.csdn.net/qiguizhe/article/details/59133514" target="_blank" rel="noopener">https://blog.csdn.net/qiguizhe/article/details/59133514</a></p>
+</blockquote>
+<p>使用MPU6050硬件DMP解算姿态是非常简单的，下面介绍由三轴陀螺仪和加速度计的值来使用四元数软件解算姿态的方法。</p>
+<p>我们先来看看如何用欧拉角描述一次平面旋转(坐标变换)：</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-1.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-1.png" alt="img"></a></p>
+<p>设坐标系绕旋转α角后得到坐标系,在空间中有一个矢量在坐标系中的投影为,在内的投影为由于旋转绕进行，所以Z坐标未变，即有。</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-2.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-2.png" alt="img"></a></p>
+<p>转换成矩阵形式表示为：</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-4.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-4.png" alt="img"></a></p>
+<p>整理一下：</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-5.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-5.png" alt="img"></a></p>
+<p>所以从旋转到可以写成</p>
+<p>上面仅仅是绕一根轴的旋转，如果三维空间中的欧拉角旋转要转三次:</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-6.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-6.png" alt="img"></a></p>
+<p>上面得到了一个表示旋转的<strong>方向余弦矩阵</strong>。</p>
+<p>不过要想用欧拉角解算姿态，其实我们套用<strong>欧拉角微分方程</strong>就行了：</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-7.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-7.png" alt="img"></a></p>
+<p>上式中左侧,,是本次更新后的欧拉角,对应row,pit,yaw。右侧，是上个周期测算出来的角度，，，三个角速度由直接安装在四轴飞行器的三轴陀螺仪在这个周期转动的角度，单位为弧度，计算间隔时T<em>陀螺角速度，比如0.02秒</em>0.01弧度/秒=0.0002弧度。间因此求解这个微分方程就能解算出当前的欧拉角。</p>
+<p><strong>由姿态矩阵得到欧拉角row,pit,yaw</strong><br><img src="https://img-blog.csdn.net/20170301203753251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcWlndWl6aGU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>我们为什么不用欧拉角来表示旋转而要引入四元数呢？</strong></p>
+<p>一方面是因为欧拉角微分方程中包含了大量的三角运算，这给实时解算带来了一定的困难。而且当俯仰角为90度时方程式会出现神奇的<strong>“GimbalLock”（万向锁）</strong>。所以欧拉角方法只适用于水平姿态变化不大的情况，而不适用于全姿态飞行器的姿态确定。</p>
+<p>四元数法只求解四个未知量的线性微分方程组，计算量小，易于操作，是比较实用的工程方法。</p>
+<p>我们知道在平面(x,y)中的旋转可以用复数来表示，同样的三维中的旋转可以用单位四元数来描述。我们来定义一个四元数：</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-8.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-8.png" alt="img"></a></p>
+<p>我们可以把它写成,其中,。那么是矢量，表示三维空间中的旋转轴。w是标量，表示旋转角度。那么就是绕轴旋转w度，所以一个四元数可以表示一个完整的旋转。只有单位四元数才可以表示旋转，至于为什么，因为这就是四元数表示旋转的约束条件。</p>
+<p>而刚才用欧拉角描述的方向余弦矩阵用四元数描述则为：</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-9.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-9.png" alt="img"></a></p>
+<p>所以在软件解算中，我们要首先把加速度计采集到的值(三维向量)转化为单位向量,即向量除以模，传入参数是陀螺仪x,y,z值和加速度计x,y,z值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">IMUupdate</span><span class="params">(<span class="keyword">float</span> gx, <span class="keyword">float</span> gy, <span class="keyword">float</span> gz, <span class="keyword">float</span> ax, <span class="keyword">float</span> ay, <span class="keyword">float</span> az)</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="keyword">float</span> norm; </span><br><span class="line">	<span class="keyword">float</span> vx, vy, vz; <span class="keyword">float</span> ex, ey, ez;           </span><br><span class="line"></span><br><span class="line">	norm = <span class="built_in">sqrt</span>(ax*ax + ay*ay + az*az);       </span><br><span class="line">	ax = ax / norm; </span><br><span class="line">	ay = ay / norm; </span><br><span class="line">	az = az / norm;</span><br></pre></td></tr></table></figure>
+
+<p>下面把四元数换算成方向余弦中的第三行的三个元素。刚好vx,vy,vz 其实就是上一次的欧拉角（四元数）的机体坐标参考系换算出来的重力的单位向量。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//estimated direction of gravity </span></span><br><span class="line">    vx = <span class="number">2</span>*(q1*q3 - q0*q2);</span><br><span class="line">	vy = <span class="number">2</span>*(q0*q1 + q2*q3); </span><br><span class="line">	vz = q0*q0 - q1*q1 - q2*q2 + q3*q3;</span><br></pre></td></tr></table></figure>
+
+<p>axyz是机体坐标参照系上，加速度计测出来的重力向量，也就是实际测出来的重力向量。</p>
+<p>axyz是测量得到的重力向量，vxyz是陀螺积分后的姿态来推算出的重力向量，它们都是机体坐标参照系上的重力向量。</p>
+<p>那它们之间的误差向量，就是陀螺积分后的姿态和加计测出来的姿态之间的误差。</p>
+<p>向量间的误差，可以用向量叉积（也叫向量外积、叉乘）来表示，exyz就是两个重力向量的叉积。</p>
+<p>这个叉积向量仍旧是位于机体坐标系上的，而陀螺积分误差也是在机体坐标系，而且叉积的大小与陀螺积分误差成正比，正好拿来纠正陀螺。（你可以自己拿东西想象一下）由于陀螺是对机体直接积分，所以对陀螺的纠正量会直接体现在对机体坐标系的纠正。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//integral error scaled integral gain </span></span><br><span class="line">	exInt = exInt + ex*Ki;</span><br><span class="line">	eyInt = eyInt + ey*Ki; </span><br><span class="line">	ezInt = ezInt + ez*Ki;</span><br></pre></td></tr></table></figure>
+
+<p>用叉积误差来做PI修正陀螺零偏</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//integral error scaled integral gain </span></span><br><span class="line">    exInt = exInt + ex*Ki; </span><br><span class="line">	eyInt = eyInt + ey*Ki; </span><br><span class="line">	ezInt = ezInt + ez*Ki;  </span><br><span class="line"></span><br><span class="line"><span class="comment">// adjusted gyroscope measurements </span></span><br><span class="line">	gx = gx + Kp*ex + exInt; </span><br><span class="line">	gy = gy + Kp*ey + eyInt; </span><br><span class="line">	gz = gz + Kp*ez + ezInt;</span><br></pre></td></tr></table></figure>
+
+<p>四元数微分方程，其中T为测量周期，为陀螺仪角速度，以下都是已知量，这里使用了一阶龙哥库塔求解四元数微分方程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//integrate quaternion rate and normalise </span></span><br><span class="line">	q0 = q0 + (-q1*gx - q2*gy - q3*gz)*halfT; </span><br><span class="line">	q1 = q1 + ( q0*gx + q2*gz - q3*gy)*halfT; </span><br><span class="line">	q2 = q2 + ( q0*gy - q1*gz + q3*gx)*halfT; </span><br><span class="line">	q3 = q3 + ( q0*gz + q1*gy - q2*gx)*halfT;</span><br></pre></td></tr></table></figure>
+
+<p>最后根据四元数方向余弦阵和欧拉角的转换关系，把四元数转换成欧拉角：</p>
+<p><a href="http://www.crazepony.com/assets/img/soft-algorithm-6.png" target="_blank" rel="noopener"><img src="http://www.crazepony.com/assets/img/soft-algorithm-6.png" alt="img"></a></p>
+<p>所以有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Q_ANGLE.Yaw &#x3D; atan2(2 * q1 * q2 + 2 * q0 * q3, -2 * q2*q2 - 2 * q3* q3 + 1)* 57.3; &#x2F;&#x2F; yaw </span><br><span class="line"></span><br><span class="line">Q_ANGLE.Y  &#x3D; asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3; &#x2F;&#x2F; pitch </span><br><span class="line"></span><br><span class="line">Q_ANGLE.X &#x3D; atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3; &#x2F;&#x2F; roll</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p><img src="https://pic3.zhimg.com/v2-16060cb3b34ed798427d4b1bfcd3c642_r.jpg" alt="preview"></p>
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200913134420652.png" alt="image-20200913134420652"></p>
+<p>欧拉角构造旋转矩阵就直接把三个Elemental Rotation Matrix乘在一起就好了</p>
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200913134518078.png" alt="image-20200913134518078"></p>
+<p>也就是上文的旋转矩阵，其中</p>
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200913134629216.png" alt="image-20200913134629216"></p>
+<h4 id="求旋转矩阵的方法："><a href="#求旋转矩阵的方法：" class="headerlink" title="求旋转矩阵的方法："></a>求旋转矩阵的方法：</h4><p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200913221150046.png" alt="image-20200913221150046"></p>
+<p><img src="C:%5CUsers%5Ccaihanyuan%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200913221213322.png" alt="image-20200913221213322"></p>
+<h1 id="卡尔曼滤波"><a href="#卡尔曼滤波" class="headerlink" title="卡尔曼滤波"></a>卡尔曼滤波</h1><h3 id="卡尔曼滤波有5大黄金公式，如下所述："><a href="#卡尔曼滤波有5大黄金公式，如下所述：" class="headerlink" title="卡尔曼滤波有5大黄金公式，如下所述："></a>卡尔曼滤波有5大黄金公式，如下所述：</h3><ul>
+<li><p>1、预测方程 (状态预测方程)：X(k|k-1) = AX(k-1|k-1) + BU(k)</p>
+<p>X(k|k-1)  ——–  k-1时刻估计k时刻的状态值 </p>
+<p>A  ———   系统参数，对于多模型系统，它为矩阵</p>
+<p>X(k-1|k-1)  ———  k-1时刻的状态值</p>
+<p>U(k)   —  k时刻的状态控制量 (若无控制量的话，需要设定为0)</p>
+</li>
+</ul>
+<p>自己理解的方程：X(k) = a * X(k-1) ,在MPU6050中X(k)的值为陀螺仪测量的角速度</p>
+<ul>
+<li><p>2、计算误差协方差 ：P(k|k-1) = AP(k-1|k-1)A’ + Q </p>
+<p>P(k|k-1)  ——— k-1时刻估计k时刻的协方差</p>
+<p>P(k-1|k-1)  ——- k-1时刻的协方差</p>
+<p>A’    ————– A的转置矩阵</p>
+<p>Q   ———-     系统过程的过程噪声协方差</p>
+</li>
+</ul>
+<p>自己理解的方程：P(k) = A P(k-1) * A ‘</p>
+<ul>
+<li>3、计算卡尔曼增益: Kg(k) = P(k|k-1)H’ / (HP(k|k-1)H’ + R)</li>
+</ul>
+<p>​    Kg    ————   卡尔曼增益</p>
+<p>​    R     ————  传感器的噪声平均值</p>
+<p>自己理解的方程：Kg = P(k-1)/(P(k-1) + R) </p>
+<ul>
+<li>4、修正估计 : X(k|k) = X(k|k-1) + Kg(k)(Z(k) - HX(k|k-1))</li>
+</ul>
+<p>​    Z(k)  —————– MPU6050测出的加速度计的值</p>
+<p>   自己理解的方程： X(k) = X(k-1) + Kg * (Z(k) - X(k-1)) </p>
+<p>   X(k)即为陀螺仪测量的角速度</p>
+<p>​    当Kg = 0时，状态值即为估计值</p>
+<p>​    当Kg = 1时，状态值即为观测值</p>
+<ul>
+<li><p>5、更新误差协方差：P(k|k) = (1 - Kg(k)H) P(k|k-1)</p>
+<p>1    —    矩阵，表示单模型单测量</p>
+<p>自己理解的方程：P(k) = (1 - Kg ) * P(k - 1)</p>
+</li>
+</ul>
 
       
     </div>
@@ -376,16 +756,14 @@
 </ul>
 </li>
 </ul>
-<p><strong>AHRS（Attitude and Heading Reference System）</strong>俗称航姿参考系统，AHRS由加速度计，磁场计，陀螺仪构成，能够为飞行器提供航向(yaw)，横滚(roll)和侧翻(pitch)信息，这类系统用来为飞行器提供准确可靠的姿态与航行信息。AHRS的真正参考来自于地球的重力场和地球的磁场，其静态终精度取决于对磁场的测量精度和对重力的测量精度，而则陀螺决定了他的动态性能。<strong>说明AHRS离开了地球这种有重力和磁场环境的时候是没法正常工作的</strong>，而且特别注意：<strong>磁场和重力场越正交，则航姿测量效果越好</strong>—也就是说如果磁场和重力场平行了，比如在地磁南北极，这里的磁场是向下的，即和重量场方向相同了，这个时候航线交是没法测出的，这是航姿系统的缺陷所在，<strong>在高纬度的地方航线角误差会越来越大</strong>。</p>
-<p><strong>IMU（Inertial Measurement Unit）</strong>学名惯性测量单元，大学的理论力学告诉我们，所有的运动都可以分解为一个直线运动和一个旋转运动，故这个惯性测量单元就是测量这两种运动，直线运动通过加速度计可以测量，旋转运动则通过陀螺。一般的，<strong>一个IMU包含了三个单轴的加速度计和三个单轴的陀螺</strong>，加速度计检测物体在载体坐标系统独立三轴的加速度信号，而陀螺检测载体相对于导航坐标系的角速度信号，测量物体在三维空间中的角速度和加速度，<strong>并以此解算出物体的姿态</strong>。在导航中用着很重要的应用价值。<strong>为了提高可靠性，还可以为每个轴配备更多的传感器。一般而言IMU要安装在被测物体的重心上。</strong></p>
-<p>IMU大多用在需要进行运动控制的设备，如汽车和机器人上。也被用在需要用姿态进行精密位移推算的场合，如潜艇、飞机、导弹和航天器的惯性导航设备等。</p>
-<p>假设IMU的陀螺和加速度计的测量是没有任何误差的，那么通过陀螺则可以精确的测量物体的姿态。通过加速度计可以二次积分得出位移，实现完整的6DOF,也就是说带着一台这种理论型的IMU在宇宙任何位置运动，我们都可以知道他当前的姿态和相对位移，这将不局限于任何场。</p>
-<p>从上面的描述何以看出。实际上AHRS比IMU还多一个磁场传感器，而为什么AHRS的级别却低于IMU而需要依赖于重力场和磁场呢？这是由传感器器件架构所决定的。AHRS的传感器通常是成本低廉的mems传感器。这种传感器的陀螺仪和加速度计的噪声相对来说很大，以平面陀螺为例用ADI的陀螺仪进行积分一分钟会漂移2度左右，这种前提下如果没有磁场和重力场来修正三轴陀螺的话，那么基本上3分钟以后物体的实际姿态和测量输出姿态就完全变样了。所以在这种低价陀螺仪和加速度计的架构下必须运用场向量来进行修正。</p>
-<p>而IMU实际上也是这样的。因为我们知道没有绝对精确的传感器，只有相对精确的传感器，IMU的陀螺仪用的是<strong>光纤陀螺或者机械陀螺</strong>。这种陀螺的成本很高，精度相对MEMS陀螺也很高。精度高不代表准确，IMU的姿态精度参数通常是<strong>一小时飘多少度</strong>，比如xbow的低端的有一小时3度的。。而用加速度计积分做位置的话，AHRS是不现实的（1分钟就能飘出几十米，而且是成二次方的速度递增）。AHRS通常要结合GPS和气压计做位置 。</p>
-<p>利用三轴地磁解耦和三轴加速度计，受外力加速度影响很大，在运动/振动等环境中，输出方向角误差较大，此外地磁传感器有缺点，它的绝对参照物是地磁场的磁力线，<strong>地磁的特点是使用范围大，但强度较低，约零点几高斯，非常容易受到其它磁体的干扰， 如果融合了Z轴陀螺仪的瞬时角度，就可以使系统数据更加稳定</strong>。加速度测量的是重力方向，在无外力加速度的情况下，能准确输出ROLL/PITCH两轴姿态角度 并且此角度不会有累积误差，在更长的时间尺度内都是准确的。但是加速度传感器测角度的缺点是加速度传感器实际上是用MEMS技术检测惯性力造成的微小形变，而惯性力与重力本质是一样的,所以加速度计就不会区分重力加速度与外力加速度，当系统在三维空间做变速运动时，它的输出就不正确了。</p>
-<p>陀螺仪输出角速度，是瞬时量，角速度在姿态平衡上是不能直接使用， 需要角速度与时间积分计算角度，得到的角度变化量与初始角度相加，就得到目标角度，其中积分时间Dt越小，输出角度越精确，但陀螺仪的原理决定了它的测量基准是自身，并没有系统外的绝对参照物，加上Dt是不可能无限小，所以积分的累积误差会随着时间流逝迅速增加，最终导致输出角度与实际不符，所以陀螺仪只能工作在<strong>相对</strong>较短的时间尺度内。</p>
-<p>所以在没有其它参照物的基础上，要得到较为真实的姿态角，就要<strong>利用加权算法扬长避短</strong>，结合两者的优点，摈弃其各自缺点,设计算法在短时间尺度内增加陀螺仪的权值，在更长时间尺度内增加加速度权值，这样系统输出角度就接近真实值了。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/16/MPU6050/AHRS%E5%92%8CIMU/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1130,387 +1508,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/test1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxian.jpg">
-      <meta itemprop="name" content="Nep球">
-      <meta itemprop="description" content="人真的要自己争气，一做出成绩来，全世界和颜悦色">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nep的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/23/test1/" class="post-title-link" itemprop="url">test1</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-23 11:26:16 / 修改时间：22:33:52" itemprop="dateCreated datePublished" datetime="2020-06-23T11:26:16+08:00">2020-06-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/06/23/test1/" class="post-meta-item leancloud_visitors" data-flag-title="test1" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/06/23/test1/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/test1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="测试测试"><a href="#测试测试" class="headerlink" title="测试测试"></a>测试测试</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/23/test1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/23/markdown%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxian.jpg">
-      <meta itemprop="name" content="Nep球">
-      <meta itemprop="description" content="人真的要自己争气，一做出成绩来，全世界和颜悦色">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nep的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/23/markdown%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">Markdown使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-23 11:26:16 / 修改时间：22:33:52" itemprop="dateCreated datePublished" datetime="2020-06-23T11:26:16+08:00">2020-06-23</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/06/23/markdown%E4%BD%BF%E7%94%A8/" class="post-meta-item leancloud_visitors" data-flag-title="Markdown使用" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/06/23/markdown%E4%BD%BF%E7%94%A8/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/23/markdown%E4%BD%BF%E7%94%A8/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <a id="more"></a>
-
-
-
-<p><em>斜体文本</em><br><em>斜体文本</em><br><strong>粗体文本</strong><br><strong>粗体文本</strong><br><strong><em>粗斜体文本</em></strong><br><strong><em>粗斜体文本</em></strong></p>
-<p>RUNOOB.COM<br>GOOGLE.COM<br><del>BAIDU.COM</del></p>
-<p><u>带下划线文本</u></p>
-<p>[^要注明的文本]</p>
-<p>创建脚注格式类似这样 [^RUNOOB]。</p>
-<p>[^RUNOOB]: 菜鸟教程 – 学的不仅是技术，更是梦想！！！</p>
-<h1 id="Markdown-列表"><a href="#Markdown-列表" class="headerlink" title="Markdown 列表"></a>Markdown 列表</h1><ul>
-<li>第一项</li>
-<li>第二项</li>
-<li>第三项</li>
-</ul>
-<ul>
-<li>第一项</li>
-<li>第二项</li>
-<li>第三项</li>
-</ul>
-<ul>
-<li>第一项</li>
-<li>第二项</li>
-<li>第三项</li>
-</ul>
-<ol>
-<li><p>第一项</p>
-</li>
-<li><p>第二项</p>
-</li>
-<li><p>第三项</p>
-</li>
-<li><p>第一项</p>
-<ul>
-<li>第一项的第一个元素<ul>
-<li>第一个元素的下一个元素<ul>
-<li>继续……</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>第二项</p>
-<ul>
-<li>第二项的第一个元素</li>
-</ul>
-</li>
-</ol>
-<h1 id="Markdown-区块"><a href="#Markdown-区块" class="headerlink" title="Markdown 区块"></a>Markdown 区块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; 区块引用</span><br><span class="line">&gt; 菜鸟教程</span><br><span class="line">&gt; 学的不仅是技术更是梦想</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>区块引用<br>菜鸟教程<br>学的不仅是技术更是梦想</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; 最外层</span><br><span class="line">&gt; &gt; 第一层嵌套</span><br><span class="line">&gt; &gt; &gt; 第二层嵌套</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>最外层</p>
-<blockquote>
-<p>第一层嵌套</p>
-<blockquote>
-<p>第二层嵌套</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; 区块中使用列表</span><br><span class="line">&gt; 1. 第一项</span><br><span class="line">&gt; 2. 第二项</span><br><span class="line">&gt; + 第一项</span><br><span class="line">&gt; + 第二项</span><br><span class="line">&gt; + 第三项</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>区块中使用列表</p>
-<ol>
-<li>第一项</li>
-<li>第二项</li>
-</ol>
-<ul>
-<li>第一项</li>
-<li>第二项</li>
-<li>第三项</li>
-</ul>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 第一项</span><br><span class="line">    &gt; 菜鸟教程</span><br><span class="line">    &gt; 学的不仅是技术更是梦想</span><br><span class="line">* 第二项</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>第一项</p>
-<blockquote>
-<p>菜鸟教程<br>学的不仅是技术更是梦想</p>
-</blockquote>
-</li>
-<li><p>第二项</p>
-</li>
-</ul>
-<h1 id="Markdown-代码"><a href="#Markdown-代码" class="headerlink" title="Markdown 代码"></a>Markdown 代码</h1><p><code>printf()</code> 函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">'RUNOOB'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Markdown-链接"><a href="#Markdown-链接" class="headerlink" title="Markdown 链接"></a>Markdown 链接</h1><p><a href="链接地址">链接名称</a></p>
-<p>或者</p>
-<p>&lt;链接地址&gt;</p>
-<p>这是一个链接 <a href="https://www.runoob.com" target="_blank" rel="noopener">菜鸟教程</a></p>
-<p>或者</p>
-<p><a href="https://www.runoob.com" target="_blank" rel="noopener">https://www.runoob.com</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">这个链接用 1 作为网址变量 [Google][1]</span><br><span class="line">这个链接用 runoob 作为网址变量 [Runoob][runoob]</span><br><span class="line">然后在文档的结尾为变量赋值（网址）</span><br><span class="line"></span><br><span class="line">  [1]: http:&#x2F;&#x2F;www.google.com&#x2F;</span><br><span class="line">  [runoob]: http:&#x2F;&#x2F;www.runoob.com&#x2F;</span><br></pre></td></tr></table></figure>
-
-<p>这个链接用 1 作为网址变量 <a href="http://www.google.com/" target="_blank" rel="noopener">Google</a><br>这个链接用 runoob 作为网址变量 <a href="http://www.runoob.com/" target="_blank" rel="noopener">Runoob</a><br>然后在文档的结尾为变量赋值（网址）</p>
-<h1 id="Markdown-图片"><a href="#Markdown-图片" class="headerlink" title="Markdown 图片"></a>Markdown 图片</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![alt 属性文本](图片地址)</span><br><span class="line"></span><br><span class="line">![alt 属性文本](图片地址 &quot;可选标题&quot;)</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li>开头一个感叹号 !</li>
-<li>接着一个方括号，里面放上图片的替代文字</li>
-<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上选择性的 ‘title’ 属性的文字。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![RUNOOB 图标](http:&#x2F;&#x2F;static.runoob.com&#x2F;images&#x2F;runoob-logo.png)</span><br><span class="line"></span><br><span class="line">![RUNOOB 图标](http:&#x2F;&#x2F;static.runoob.com&#x2F;images&#x2F;runoob-logo.png &quot;RUNOOB&quot;)</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://static.runoob.com/images/runoob-logo.png" alt="RUNOOB 图标"></p>
-<p><img src="http://static.runoob.com/images/runoob-logo.png" alt="RUNOOB 图标" title="RUNOOB"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">这个链接用 1 作为网址变量 [RUNOOB][1].</span><br><span class="line">然后在文档的结尾为变量赋值（网址）</span><br><span class="line"></span><br><span class="line">[1]: http:&#x2F;&#x2F;static.runoob.com&#x2F;images&#x2F;runoob-logo.png</span><br></pre></td></tr></table></figure>
-
-<p>这个链接用 1 作为网址变量 <a href="http://www.google.com/" target="_blank" rel="noopener">RUNOOB</a>.<br>然后在文档的结尾为变量赋值（网址）</p>
-<h3 id="Markdown-还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的-标签。"><a href="#Markdown-还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的-标签。" class="headerlink" title="Markdown 还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的  标签。"></a>Markdown 还没有办法指定图片的高度与宽度，如果你需要的话，你可以使用普通的 <img> 标签。</h3><img src="http://static.runoob.com/images/runoob-logo.png" width="50%">
-
-
-
-<h1 id="Markdown-表格"><a href="#Markdown-表格" class="headerlink" title="Markdown 表格"></a>Markdown 表格</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">|  表头   | 表头  |</span><br><span class="line">|  ----  | ----  |</span><br><span class="line">| 单元格  | 单元格 |</span><br><span class="line">| 单元格  | 单元格 |</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>表头</th>
-<th>表头</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-<tr>
-<td>单元格</td>
-<td>单元格</td>
-</tr>
-</tbody></table>
-<ul>
-<li><strong>-:</strong> 设置内容和标题栏居右对齐。</li>
-<li><strong>:-</strong> 设置内容和标题栏居左对齐。</li>
-<li><strong>:-:</strong> 设置内容和标题栏居中对齐。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">| 左对齐 | 右对齐 | 居中对齐 |</span><br><span class="line">| :-----| ----: | :----: |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br><span class="line">| 单元格 | 单元格 | 单元格 |</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="left">左对齐</th>
-<th align="right">右对齐</th>
-<th align="center">居中对齐</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-<tr>
-<td align="left">单元格</td>
-<td align="right">单元格</td>
-<td align="center">单元格</td>
-</tr>
-</tbody></table>
-<h1 id="Markdown-高级技巧"><a href="#Markdown-高级技巧" class="headerlink" title="Markdown 高级技巧"></a>Markdown 高级技巧</h1><h3 id="支持的-HTML-元素"><a href="#支持的-HTML-元素" class="headerlink" title="支持的 HTML 元素"></a>支持的 HTML 元素</h3><p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML 撰写。</p>
-<p>目前支持的 HTML 元素有：<code>&lt;kbd&gt; &lt;b&gt; &lt;i&gt; &lt;em&gt; &lt;sup&gt; &lt;sub&gt; &lt;br&gt;</code>等 ，如：</p>
-<p>使用 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd> 重启电脑</p>
-<h3 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h3><p>Markdown 使用了很多特殊符号来表示特定的意义，如果需要显示特定的符号则需要使用转义字符，Markdown 使用反斜杠转义特殊字符：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**文本加粗** </span><br><span class="line">\*\* 正常显示星号 \*\*</span><br></pre></td></tr></table></figure>
-
-<p><strong>文本加粗</strong><br>** 正常显示星号 **</p>
-<p><strong>Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">\   反斜线</span><br><span class="line">&#96;   反引号</span><br><span class="line">*   星号</span><br><span class="line">_   下划线</span><br><span class="line">&#123;&#125;  花括号</span><br><span class="line">[]  方括号</span><br><span class="line">()  小括号</span><br><span class="line">#   井字号</span><br><span class="line">+   加号</span><br><span class="line">-   减号</span><br><span class="line">.   英文句点</span><br><span class="line">!   感叹号</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h3><p>当你需要在编辑器中插入数学公式时，可以使用两个美元符 $$ 包裹 TeX 或 LaTeX 格式的数学公式来实现。提交后，问答和文章页会根据需要加载 Mathjax 对数学公式进行渲染。如：<br>$$<br>\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}<br>\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \<br>\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \<br>\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0 \<br>\end{vmatrix}<br>${$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}<br>$$</p>
-<h1 id="typora-画流程图、时序图-顺序图-、甘特图"><a href="#typora-画流程图、时序图-顺序图-、甘特图" class="headerlink" title="typora 画流程图、时序图(顺序图)、甘特图"></a>typora 画流程图、时序图(顺序图)、甘特图</h1><h3 id="横向流程图源码格式："><a href="#横向流程图源码格式：" class="headerlink" title="横向流程图源码格式："></a>横向流程图源码格式：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">    B --&gt; C&#123;条件a&#125;</span><br><span class="line">    C --&gt;|a&#x3D;1| D[结果1]</span><br><span class="line">    C --&gt;|a&#x3D;2| E[结果2]</span><br><span class="line">    F[横向流程图]</span><br></pre></td></tr></table></figure>
-
-<h3 id="竖向流程图源码格式"><a href="#竖向流程图源码格式" class="headerlink" title="竖向流程图源码格式"></a>竖向流程图源码格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A[方形] --&gt; B(圆角)</span><br><span class="line">    B --&gt; C&#123;条件a&#125;</span><br><span class="line">    C --&gt; |a&#x3D;1| D[结果1]</span><br><span class="line">    C --&gt; |a&#x3D;2| E[结果2]</span><br><span class="line">    F[竖向流程图]</span><br></pre></td></tr></table></figure>
-
-<h3 id="标准流程图源码格式"><a href="#标准流程图源码格式" class="headerlink" title="标准流程图源码格式"></a>标准流程图源码格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始框</span><br><span class="line">op&#x3D;&gt;operation: 处理框</span><br><span class="line">cond&#x3D;&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1&#x3D;&gt;subroutine: 子流程</span><br><span class="line">io&#x3D;&gt;inputoutput: 输入输出框</span><br><span class="line">e&#x3D;&gt;end: 结束框</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;io-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
-
-<h3 id="标准流程图源码格式（横向）"><a href="#标准流程图源码格式（横向）" class="headerlink" title="标准流程图源码格式（横向）"></a>标准流程图源码格式（横向）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st&#x3D;&gt;start: 开始框</span><br><span class="line">op&#x3D;&gt;operation: 处理框</span><br><span class="line">cond&#x3D;&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1&#x3D;&gt;subroutine: 子流程</span><br><span class="line">io&#x3D;&gt;inputoutput: 输入输出框</span><br><span class="line">e&#x3D;&gt;end: 结束框</span><br><span class="line">st(right)-&gt;op(right)-&gt;cond</span><br><span class="line">cond(yes)-&gt;io(bottom)-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
-
-<h3 id="UML时序图源码样例"><a href="#UML时序图源码样例" class="headerlink" title="UML时序图源码样例"></a>UML时序图源码样例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of 对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br></pre></td></tr></table></figure>
-
-<h3 id="UML时序图源码复杂样例"><a href="#UML时序图源码复杂样例" class="headerlink" title="UML时序图源码复杂样例"></a>UML时序图源码复杂样例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Title: 标题：复杂使用</span><br><span class="line">对象A-&gt;对象B: 对象B你好吗?（请求）</span><br><span class="line">Note right of 对象B: 对象B的描述</span><br><span class="line">Note left of 对象A: 对象A的描述(提示)</span><br><span class="line">对象B--&gt;对象A: 我很好(响应)</span><br><span class="line">对象B-&gt;小三: 你好吗</span><br><span class="line">小三--&gt;&gt;对象A: 对象B找我了</span><br><span class="line">对象A-&gt;对象B: 你真的好吗？</span><br><span class="line">Note over 小三,对象B: 我们是朋友</span><br><span class="line">participant C</span><br><span class="line">Note right of C: 没人陪我玩</span><br></pre></td></tr></table></figure>
-
-<h3 id="UML标准时序图样例"><a href="#UML标准时序图样例" class="headerlink" title="UML标准时序图样例"></a>UML标准时序图样例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">%% 时序图例子,-&gt; 直线，--&gt;虚线，-&gt;&gt;实线箭头</span><br><span class="line">  sequenceDiagram</span><br><span class="line">    participant 张三</span><br><span class="line">    participant 李四</span><br><span class="line">    张三-&gt;王五: 王五你好吗？</span><br><span class="line">    loop 健康检查</span><br><span class="line">        王五-&gt;王五: 与疾病战斗</span><br><span class="line">    end</span><br><span class="line">    Note right of 王五: 合理 食物 &lt;br&#x2F;&gt;看医生...</span><br><span class="line">    李四--&gt;&gt;张三: 很好!</span><br><span class="line">    王五-&gt;李四: 你怎么样?</span><br><span class="line">    李四--&gt;王五: 很好!</span><br></pre></td></tr></table></figure>
-
-<h3 id="甘特图样例"><a href="#甘特图样例" class="headerlink" title="甘特图样例"></a>甘特图样例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">%% 语法示例</span><br><span class="line">        gantt</span><br><span class="line">        dateFormat  YYYY-MM-DD</span><br><span class="line">        title 软件开发甘特图</span><br><span class="line">        section 设计</span><br><span class="line">        需求                      :done,    des1, 2014-01-06,2014-01-08</span><br><span class="line">        原型                      :active,  des2, 2014-01-09, 3d</span><br><span class="line">        UI设计                     :         des3, after des2, 5d</span><br><span class="line">    未来任务                     :         des4, after des3, 5d</span><br><span class="line">        section 开发</span><br><span class="line">        学习准备理解需求                      :crit, done, 2014-01-06,24h</span><br><span class="line">        设计框架                             :crit, done, after des2, 2d</span><br><span class="line">        开发                                 :crit, active, 3d</span><br><span class="line">        未来任务                              :crit, 5d</span><br><span class="line">        耍                                   :2d</span><br><span class="line">        section 测试</span><br><span class="line">        功能测试                              :active, a1, after des3, 3d</span><br><span class="line">        压力测试                               :after a1  , 20h</span><br><span class="line">        测试报告                               : 48h</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1582,7 +1579,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
