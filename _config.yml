@@ -109,5 +109,5 @@ deploy:
   # repository: git@github.com:Nepqiu/Nepqiu.github.io.git
   repo: https://github.com/Nepqiu/Nepqiu.github.io
   # example, https://github.com/hexojs/hexojs.github.io
-  branch: master
+  branch: gh-pages
   
