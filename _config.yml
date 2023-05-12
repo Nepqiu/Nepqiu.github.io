@@ -8,9 +8,9 @@ subtitle: ''
 description: ''
 keywords:
 author: John Doe
-language: 
-- zh-tw
-- en
+language: - en
+## - zh-tw
+## - en
 timezone: ''
 
 # URL
@@ -110,4 +110,3 @@ deploy:
   repo: https://github.com/Nepqiu/Nepqiu.github.io
   # example, https://github.com/hexojs/hexojs.github.io
   branch: gh-pages
-  
