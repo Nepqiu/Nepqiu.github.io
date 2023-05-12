@@ -103,3 +103,9 @@ theme: landscape
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+deploy:
+  type: git
+  repository: git@github.com:Nepqiu/Nepqiu.github.io.git
+  branch: master
+  
