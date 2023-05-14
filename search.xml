@@ -1,0 +1,3356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2023/05/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>测试博客</title>
+    <url>/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/15/notes/ACE/STM32%E5%9F%B9%E8%AE%AD/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="大纲">大纲</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">主讲人</th>
+<th style="text-align: center;">第一周</th>
+<th style="text-align: center;">第二周</th>
+<th style="text-align: center;">第三周</th>
+<th style="text-align: center;">第四周</th>
+<th style="text-align: center;">第五周</th>
+<th style="text-align: center;">第六周</th>
+<th style="text-align: center;">第七周</th>
+<th style="text-align: center;">第八周</th>
+<th style="text-align: center;">第九周</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">蔡瀚源</td>
+<td style="text-align: center;">点灯</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"> IIC</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">DMA</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"> 刘沅东</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">串口</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"> SPI</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">FLASH</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"> 李海亮</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">定时器</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"> ADC</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">CAN</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/15/notes/ACE/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="ace-电控软件编程规范---v1.5">ACE 电控软件编程规范 - V1.5</h1>
+<p>这是一份东莞理工 ACE 实验室电控组的嵌入式开发指引。</p>
+<p>作为 ACE 团队的一员，各个兵种需要由不同的人完成，但是这样的话没有一份统一的规范代码，每个人的代码风格都不一样，会导致很多东西明明是很简单的可以通用的，却要重新写一份代码，导致事倍功半、效率低下，所以我稍微总结的学长的建议、RT-Thread 编程风格、大疆开源的代码风格和自己的习惯，汇总了一份代码规范参考</p>
+<p>请每一位<strong>东莞理工 ACE 实验室电控组的嵌入式开发者</strong>遵守这样的编程风格。</p>
+<p>同时对于使用新人，也可通过这份文档了解代码内部一些约定从而比较容易的把握到各个兵种的开发实战中去。</p>
+<h2 id="目录名称">1. 目录名称</h2>
+<p>目录名称如果无特殊的需求，请使用<strong>全小写</strong>的形式。</p>
+<p>目录名称应能够反应部分的意思，例如各芯片移植由其芯片名称构成或芯片类别构成、components
+目录下能够反映组件的意义。</p>
+<h2 id="文件名称">2. 文件名称</h2>
+<p>文件名称如果无特殊的需求 (如果是引用其他地方，可以保留相应的名称)，请使用<strong>全小写</strong>的形式。另外为了避免文件名重名的问题，一些地方请尽量不要使用通用化、使用频率高的名称。</p>
+<h2 id="头文件定义">3. 头文件定义</h2>
+<p>C 语言头文件为了避免多次重复包含，需要定义一个符号。这个符号的定义形式请采用如下的风格：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __TASK_CHASSIS_H__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __TASK_CHASSIS_H__</span></span><br><span class="line"><span class="comment">/* header file content */</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* __TASK_CHASSIS_H */</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>即定义的符号左侧采用 <code>"__"</code>
+以避免重名，另外也可以根据文件名中是否包含多个词语而采用
+<code>"_"</code> 连接起来。</p>
+<h2 id="文件头函数注释">4. 文件头、函数注释</h2>
+<p>在每个源文件文件头上，应该包括相应的信息，日期、：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  *****************************东莞理工学院ACE实验室 *****************************</span></span><br><span class="line"><span class="comment">  * @file       文件名字.c/h</span></span><br><span class="line"><span class="comment">  * @brief      简短介绍文件</span></span><br><span class="line"><span class="comment">  * @note       笔记</span></span><br><span class="line"><span class="comment">  * @history    历史信息版本</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  @verbatim   </span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment">  用于建立一个框，来说明整个文件的功能。</span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment">  @endverbatim</span></span><br><span class="line"><span class="comment">  *****************************东莞理工学院ACE实验室 *****************************</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></tbody></table></figure>
+<p>下面是大疆的</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  ****************************(C) COPYRIGHT 2019 DJI****************************</span></span><br><span class="line"><span class="comment">  * @file       chassis.c/h</span></span><br><span class="line"><span class="comment">  * @brief      chassis control task,</span></span><br><span class="line"><span class="comment">  *             底盘控制任务</span></span><br><span class="line"><span class="comment">  * @note       </span></span><br><span class="line"><span class="comment">  * @history</span></span><br><span class="line"><span class="comment">  *  Version    Date            Author          Modification</span></span><br><span class="line"><span class="comment">  *  V1.0.0     Dec-26-2018     RM              1. done</span></span><br><span class="line"><span class="comment">  *  V1.1.0     Nov-11-2019     RM              1. add chassis power control</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  @verbatim</span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment">  @endverbatim</span></span><br><span class="line"><span class="comment">  ****************************(C) COPYRIGHT 2019 DJI****************************</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></tbody></table></figure>
+<p>函数注释采用这种类似的方式：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief      函数说明</span></span><br><span class="line"><span class="comment">  * @param[in]  传入参数说明(1)</span></span><br><span class="line"><span class="comment">  * @param[in]  传入参数说明(2)</span></span><br><span class="line"><span class="comment">  * @retval     返回参数说明(1)</span></span><br><span class="line"><span class="comment">  * @attention  需要注意的地方</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></tbody></table></figure>
+<p>用如上的形式。</p>
+<h2 id="结构体定义">5. 结构体定义</h2>
+<p>结构体名称请使用<strong>小写英文名</strong>的形式，单词与单词之间采用
+"_" 连接，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">  <span class="type">const</span> <span class="type">motor_measure_t</span> *chassis_motor_measure;</span><br><span class="line">  fp32 accel;</span><br><span class="line">  fp32 speed;</span><br><span class="line">  fp32 speed_set;</span><br><span class="line">  <span class="type">int16_t</span> give_current;</span><br><span class="line">} <span class="type">chassis_motor_t</span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>其中，"{"
+独立占用一行，"}" 后面<strong>空一格</strong>，接上结构体名称加上 "_t"
+的形式作为名称</p>
+<p>结构体等的类型定义，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//底盘控制数据</span></span><br><span class="line"><span class="type">static</span> <span class="type">chassis_control_t</span> chassis_control;</span><br></pre></td></tr></tbody></table></figure>
+<p>为了各个文件之间对象的访问，采用返回结构体地址的形式，在另外一个文件接收，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          返回遥控器控制变量，通过指针传递方式传递信息</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         返回遥控器控制变量 &amp;rc_ctrl</span></span><br><span class="line"><span class="comment">  * @attention</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">const</span> <span class="type">rc_ctrl_t</span> *<span class="title function_">get_remote_control_point</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">return</span> &amp;rc_ctrl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="宏定义">6. 宏定义</h2>
+<p>请使用<strong>全大写英文</strong>名称作为宏定义，单词之间使用
+<code>"_"</code> 连接，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ACE_TRUE   1</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="函数名称声明">7. 函数名称、声明</h2>
+<p>函数名称请使用<strong>小写英文</strong>的形式，单词之间使用
+<code>"_"</code>
+连接。提供给上层应用使用的 API 接口，必须在相应的头文件中声明；</p>
+<p>如果函数入口参数是空，必须使用 <code>void</code>
+作为入口参数，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          返回遥控器控制变量，通过指针传递方式传递信息</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         返回遥控器控制变量 &amp;rc_ctrl</span></span><br><span class="line"><span class="comment">  * @attention</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">const</span> <span class="type">rc_ctrl_t</span> *<span class="title function_">get_remote_control_point</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">return</span> &amp;rc_ctrl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="变量声明">8. 变量声明</h2>
+<p>最终代码<strong>不要出现全局变量</strong>，全局变量仅仅供调试，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//底盘测试模式 宏定义 0 为不使用测试模式</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CHASSIS_TEST_MODE   1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> CHASSIS_TEST_MODE</span></span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_1;</span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_2;</span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_3;</span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_4;</span><br><span class="line"><span class="type">int</span> temp_1, temp_2, Can_send_time;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> CHASSIS_TEST_MODE</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_jscope_print_curve</span><span class="params">(<span class="type">void</span>)</span>; <span class="comment">/* jscope打印曲线 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> CHASSIS_TEST_MODE</span></span><br><span class="line"><span class="comment">/* jscope打印曲线 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_jscope_print_curve</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">	JSCOPE_chassis_1 = chassis_control.chassis_motor[<span class="number">0</span>].output;</span><br><span class="line">	JSCOPE_chassis_2 = chassis_control.chassis_motor[<span class="number">1</span>].output;</span><br><span class="line">	JSCOPE_chassis_3 = chassis_control.chassis_motor[<span class="number">2</span>].output;</span><br><span class="line">	JSCOPE_chassis_4 = chassis_control.chassis_motor[<span class="number">3</span>].output;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></tbody></table></figure>
+<p>局部变量可以出现简单的存储作用，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">uint8_t</span> i; <span class="comment">//用于for循环计数</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">{</span><br><span class="line">  <span class="comment">/*循环代码*/</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>重要的变量请在结构体内定义。</p>
+<h2 id="注释编写">9. 注释编写</h2>
+<p>相应提示性的注释以解释一段复杂的算法它是如何工作的。对语句的注释只能写在它的<strong>上方或右方</strong>，其他位置都是非法的。某些函数比较复杂或者特殊可以在函数上方加上对这个函数的<strong>详细解释</strong></p>
+<h2 id="缩进及分行">10. 缩进及分行</h2>
+<p>缩进请采用 <strong>4 个空格</strong>的方式。如果没有什么特殊意义，请在
+<code>"{"</code> 后进行分行，并在下一行都采用缩进的方式，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>唯一的例外</strong>是 <code>switch</code>
+语句，<code>switch-case</code> 语句采用 <code>case</code> 语句与
+<code>switch</code> 对齐的方式，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (value)</span><br><span class="line">{</span><br><span class="line"><span class="keyword">case</span> value1:</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>case</code> 语句与前面的 <code>switch</code>
+语句对齐，后续的语句则采用缩进的方式。分行上，如果没有什么特殊考虑，请<strong>不要在代码中连续使用两个以上的空行</strong>。</p>
+<h2 id="大括号与空格">11. 大括号与空格</h2>
+<p>从代码阅读角度，建议<strong>每个大括号单独占用一行</strong>，而不是跟在语句的后面，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>匹配的大括号单独占用一行，代码阅读起来就会有相应的层次而不会容易出现混淆的情况。</p>
+<p><strong>空格建议在非函数方式的括号调用前留一个空格以和前面的进行区分</strong>，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (x &lt;= y)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; MAX_NUMBER; index ++)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>建议在括号前留出一个空格 (涉及的包括
+<code>if、for、while、switch</code>
+语句)，而运算表达式中，运算符与字符串间留一个空格。另外，<strong>不要在括号的表达式两侧留空格</strong>，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ( x &lt;= y )</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* other */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>这样括号内两侧的空格是不允许的。</p>
+<h2 id="log信息">12.log 信息</h2>
+<p>使用 <strong>letter_shell+elog</strong>
+进行调试。（最终代码删除、注释掉相关调试函数）</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">log_a(<span class="string">"断言(Assert)"</span>);  <span class="comment">//断言(Assert)</span></span><br><span class="line">log_e(<span class="string">"错误(Error)"</span>);   <span class="comment">//错误(Error)</span></span><br><span class="line">log_w(<span class="string">"警告(Warn)"</span>);    <span class="comment">//警告(Warn)</span></span><br><span class="line">log_i(<span class="string">"信息(Info)"</span>);    <span class="comment">//信息(Info)</span></span><br><span class="line">log_d(<span class="string">"调试(Debug)"</span>);   <span class="comment">//调试(Debug)</span></span><br><span class="line">log_v(<span class="string">"详细(Verbose)"</span>); <span class="comment">//详细(Verbose)</span></span><br></pre></td></tr></tbody></table></figure>
+<p>使用方式和 <code>printf</code> 函数类似</p>
+<h2 id="函数模块化">13. 函数（模块化）</h2>
+<p>在编程中，函数应该尽量精简，仅完成相对独立的简单功能。函数的实现不应该太长，函数实现太长，应该反思能够如何修改 (或拆分) 使得函数更为精简、易懂，函数级层不要太多。</p>
+<h2 id="对象">14. 对象</h2>
+<p>采用了 C 语言对象化，命名表现形式，例如：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/*底盘电机数据*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    <span class="type">const</span> <span class="type">motor_measure_t</span> *chassis_motor_measure;</span><br><span class="line">	</span><br><span class="line">    fp32 accel;</span><br><span class="line">    fp32 speed;</span><br><span class="line">    fp32 speed_set;</span><br><span class="line">    fp32 position;</span><br><span class="line">    <span class="type">int16_t</span> output;</span><br><span class="line">} <span class="type">motor_t</span>;</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">mk_data_process</span><span class="params">(<span class="type">chassis_control_t</span> *mk_data_process_f)</span>;         <span class="comment">//键盘鼠标选择</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_mode_choose</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_mode_choose_f)</span>; <span class="comment">//底盘模式选择</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_follow</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_follow_f)</span>;           <span class="comment">//底盘跟随</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_twist</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_twist_f)</span>;             <span class="comment">//底盘扭腰</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_rotation</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_rotation_f)</span>;       <span class="comment">//底盘小陀螺</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_independent</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_independent_f)</span>; <span class="comment">//底盘不跟随</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="用-astyle-自动格式化代码">15. 用 astyle 自动格式化代码</h2>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">参数：--style=allman</span><br><span class="line">      --indent=spaces=4</span><br><span class="line">      --indent-preproc-block</span><br><span class="line">      --pad-oper</span><br><span class="line">      --pad-header</span><br><span class="line">      --unpad-paren</span><br><span class="line">      --suffix=none</span><br><span class="line">      --align-pointer=name</span><br><span class="line">      --lineend=linux</span><br><span class="line">      --convert-tabs</span><br><span class="line">      --verbose</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="doxygen-制作程序文档">16. Doxygen 制作程序文档</h2>
+<table>
+<colgroup>
+<col style="width: 10%">
+<col style="width: 37%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">字段名</th>
+<th style="text-align: left;">语法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="file"> @file</span></td>
+<td style="text-align: left;"> 文件名</td>
+<td style="text-align: left;"> file [&lt; name &gt;]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="brief">@brief</span></td>
+<td style="text-align: left;"> 简介</td>
+<td style="text-align: left;"> brief { brief description }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="author">@author</span></td>
+<td style="text-align: left;"> 作者</td>
+<td style="text-align: left;"> author { list of authors }</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="mainpage">@mainpage</span></td>
+<td style="text-align: left;"> 主页信息</td>
+<td style="text-align: left;"> mainpage [(title)]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="date">@date</span></td>
+<td style="text-align: left;"> 年 - 月 - 日</td>
+<td style="text-align: left;"> date { date description }</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="author">@author</span></td>
+<td style="text-align: left;"> 版本号</td>
+<td style="text-align: left;"> version { version number }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="copyright">@copyright</span></td>
+<td style="text-align: left;"> 版权</td>
+<td style="text-align: left;"> copyright { copyright description }</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="param">@param</span></td>
+<td style="text-align: left;"> 参数</td>
+<td style="text-align: left;"> param [(dir)] &lt; parameter-name&gt; {
+parameter description }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="return">@return</span></td>
+<td style="text-align: left;"> 返回</td>
+<td style="text-align: left;"> return { description of the return value
+}</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="retval">@retval</span></td>
+<td style="text-align: left;"> 返回值</td>
+<td style="text-align: left;"> retval { description }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="bug">@bug</span></td>
+<td style="text-align: left;"> 漏洞</td>
+<td style="text-align: left;"> bug { bug description }</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="details">@details</span></td>
+<td style="text-align: left;"> 细节</td>
+<td style="text-align: left;"> details { detailed description }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="pre">@pre</span></td>
+<td style="text-align: left;"> 前提条件</td>
+<td style="text-align: left;"> pre { description of the precondition
+}</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="see">@see</span></td>
+<td style="text-align: left;"> 参考</td>
+<td style="text-align: left;"> see { references }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="link">@link</span></td>
+<td style="text-align: left;"> 连接 (与 @see 类库，{<span class="citation" data-cites="link">@link</span> www.google.com})</td>
+<td style="text-align: left;">link &lt; link-object&gt;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="throw">@throw</span></td>
+<td style="text-align: left;"> 异常描述</td>
+<td style="text-align: left;"> throw &lt; exception-object&gt; {
+exception description }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="todo">@todo</span></td>
+<td style="text-align: left;"> 待处理</td>
+<td style="text-align: left;"> todo { paragraph describing what is to be
+done }</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="warning">@warning</span></td>
+<td style="text-align: left;"> 警告信息</td>
+<td style="text-align: left;"> warning { warning message }</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="citation" data-cites="deprecated">@deprecated</span></td>
+<td style="text-align: left;"> 弃用说明。可用于描述替代方案，预期寿命等</td>
+<td style="text-align: left;"> deprecated { description }</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="citation" data-cites="example">@example</span></td>
+<td style="text-align: left;"> 弃用说明。可用于描述替代方案，预期寿命等</td>
+<td style="text-align: left;"> deprecated { description }</td>
+</tr>
+</tbody>
+</table>
+<p>以上是写注释是可以加上的，但是实际操作中，并不需要这么多参数。</p>
+<h2 id="最后附上我的工程开头">17. 最后附上我的工程开头</h2>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/************************************ 东莞理工学院ACE实验室 ************************************</span></span><br><span class="line"><span class="comment"> * @project   工程名字</span></span><br><span class="line"><span class="comment"> * @Author    东莞理工学院  ACE机器人战队  蔡瀚源</span></span><br><span class="line"><span class="comment"> * @Date      日期</span></span><br><span class="line"><span class="comment"> * @Version   版本</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                    P                          :u7  :Ii              .                              </span></span><br><span class="line"><span class="comment">                   QBQ                     sQBBQBB  PBBBBQI.        XQBBBBBBBBBQBBBBBBBBBBBBM       </span></span><br><span class="line"><span class="comment">                  bBBBZ                 .MQBQBBBQB  5BBBBBBBBi      uBBBBBBBBBQBBBBBBBBBQBBBP       </span></span><br><span class="line"><span class="comment">                 bBBQQB5               XBBBRQQBBBP  sQBQBQQBBBZ     IBBBBBBBBBBBBBBBBBBBBBBBD       </span></span><br><span class="line"><span class="comment">                 rBBgRQBY             BBQQRBBQr        rgBBBQr                                      </span></span><br><span class="line"><span class="comment">               .  iBBgRQB7           BBQRgBQ:            iE.                                        </span></span><br><span class="line"><span class="comment">              :BY  7BBgRQB:         sBQMgBB                                                         </span></span><br><span class="line"><span class="comment">             .BBB:  uBBgRBB.        BBMDQQ:                         rSU57  UQPdPbPPPPqPPbPdQs       </span></span><br><span class="line"><span class="comment">             BBQBB:  XBQgRBB        QBggQB                          sBEQ1  QBBBBQBBBBBBBBBBBZ       </span></span><br><span class="line"><span class="comment">            BBQgBBB   KBRDRBB       BBgDBB                          jBDQU  QBBBBBBBBBBBQBBBBg       </span></span><br><span class="line"><span class="comment">           BBQgRBB     dQggQBB      BBggQB.                         iXJS7  uDK5XXK5KXKXXSSXg7       </span></span><br><span class="line"><span class="comment">          gBQgRQB   BBggQDggQBQ     YBQDMBB                                                         </span></span><br><span class="line"><span class="comment">         PBQgRBB   BBBBBRQgMgQBg     BBQgRBB:            iZ:                                        </span></span><br><span class="line"><span class="comment">        2BQgMBB.  BBBBBBBBBQRgQBK     BBBRQBBQL.      .rRBBQBr       ..                   ..        </span></span><br><span class="line"><span class="comment">       vQBgRQB:  :uriiiiiirBQQgBB1     XQBQQQBBBBE  uBQBQBQBBBD     SBBBBBBBBBBBBBBBBBBBQBBBD       </span></span><br><span class="line"><span class="comment">      7QBQBBBr             :BBBQBBY     .ZBQBBBBBB  qBBQBBBBB:      UBBBBQBBBBBBBBBBBBBBBBBBd       </span></span><br><span class="line"><span class="comment">     LBBBBBBJ               7BBBBBQu       YRBBBQB  KBBBBBJ.        IBQBBBBBQBBBBBBBBBBBBBBBZ       </span></span><br><span class="line"><span class="comment">                                                7i  .7.                                             </span></span><br><span class="line"><span class="comment">************************************ 东莞理工学院ACE实验室 ************************************/</span></span><br></pre></td></tr></tbody></table></figure>
+<p>:star2:<font face="STCAIYUN" color="red" size="5"> 有任何疑问，或者觉得要改进的地方请提出来，最后组内讨论决定修改该文档</font></p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/15/notes/ACE/%E8%B6%85%E7%BA%A7%E7%94%B5%E5%AE%B9%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="超级电容">超级电容</h1>
+<h2 id="控制逻辑">控制逻辑</h2>
+<p>分两种情况</p>
+<ol type="1">
+<li>不使用超级电容：
+不使用的时候，使用 pid，通过控制 <code>gain</code> 使超级电容电压稳定在固定数值</li>
+<li>使用超级电容： 目前方案是根据实际情况提高 <code>gain</code>
+的数值</li>
+</ol>
+<h2 id="接收">接收</h2>
+<h3 id="接收数据结构体">接收数据结构体</h3>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span>		</span><br><span class="line">	<span class="type">float</span> input_voltage;  <span class="comment">//输入电压</span></span><br><span class="line">	<span class="type">float</span> Capacitance_voltage;  <span class="comment">//电容电压</span></span><br><span class="line">	<span class="type">float</span> Input_current;  <span class="comment">//输入电流</span></span><br><span class="line">	<span class="type">float</span> Set_power;  <span class="comment">//设定功率</span></span><br><span class="line">} Supercapacitor_receive_t;</span><br><span class="line"></span><br><span class="line">Supercapacitor_receive_t Supercap_receive;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="接收数据函数">接收数据函数</h3>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          超级电容can接收函数</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  * @attention      在can接收中断中调用</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">can1_receive</span><span class="params">(CanRxMsg *rx_message)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">switch</span> (rx_message-&gt;StdId)</span><br><span class="line">    {</span><br><span class="line">		<span class="keyword">case</span> <span class="number">0x211</span>: <span class="comment">//超级电容接收</span></span><br><span class="line">		{</span><br><span class="line">			<span class="type">uint16_t</span> *cap_redata = (<span class="type">uint16_t</span> *)rx_message-&gt;Data;</span><br><span class="line">			Supercap_receive.input_voltage = (<span class="type">float</span>)(cap_redata[<span class="number">0</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			Supercap_receive.Capacitance_voltage = (<span class="type">float</span>)(cap_redata[<span class="number">1</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			Supercap_receive.Input_current = (<span class="type">float</span>)(cap_redata[<span class="number">2</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			</span><br><span class="line">			Supercap_receive.Set_power = (<span class="type">float</span>)(cap_redata[<span class="number">3</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="发送">发送</h2>
+<p><strong>！！！发送频率控制在 10Hz 左右！！！</strong></p>
+<h3 id="can发送函数">can 发送函数</h3>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">can1_cap_setmsg</span><span class="params">(<span class="type">int16_t</span> Chassis_power)</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">uint8_t</span> mbox;</span><br><span class="line">    <span class="type">uint16_t</span> i = <span class="number">0</span>;</span><br><span class="line">    CanTxMsg CAN1_TxMessage; <span class="comment">//定义一个发送信息的结构体</span></span><br><span class="line">	</span><br><span class="line">	Chassis_power = Chassis_power * <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    CAN1_TxMessage.StdId = <span class="number">0x210</span>;       <span class="comment">//根据820r设置标识符</span></span><br><span class="line">    CAN1_TxMessage.IDE = CAN_ID_STD;    <span class="comment">//指定将要传输的消息的标识符的类型</span></span><br><span class="line">    CAN1_TxMessage.RTR = CAN_RTR_DATA;  <span class="comment">//指定的帧将被传输的消息的类型   数据帧或远程帧</span></span><br><span class="line">    CAN1_TxMessage.DLC = <span class="number">2</span>;             <span class="comment">// 发送两帧信息</span></span><br><span class="line">	</span><br><span class="line">    CAN1_TxMessage.Data[<span class="number">0</span>] = (<span class="type">uint8_t</span>)(Chassis_power &gt;&gt; <span class="number">8</span>);</span><br><span class="line">    CAN1_TxMessage.Data[<span class="number">1</span>] = (<span class="type">uint8_t</span>)(Chassis_power);</span><br><span class="line"></span><br><span class="line">    mbox = CAN_Transmit(CAN1, &amp;CAN1_TxMessage); <span class="comment">//发送信息</span></span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> ((CAN_TransmitStatus(CAN1, mbox) == CAN_TxStatus_Failed) &amp;&amp; (i &lt; <span class="number">0XFFF</span>)) <span class="comment">//等待发送结束</span></span><br><span class="line">        i++;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="创建软件定时器">创建软件定时器</h3>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">TimerHandle_t CAP_Timer_Handle; <span class="comment">//周期定时器句柄</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          软件定时器创建函数</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  * @attention      </span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_send_create</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    taskENTER_CRITICAL(); <span class="comment">//进入临界区</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建can1发送定时器</span></span><br><span class="line">    CAP_Timer_Handle = xTimerCreate((<span class="type">const</span> <span class="type">char</span> *)<span class="string">"CAP_Timer"</span>,</span><br><span class="line">                                     (TickType_t)<span class="number">100</span>,                               <span class="comment">//10Hz - 100ms一次</span></span><br><span class="line">                                     (UBaseType_t)pdTRUE,                           <span class="comment">//周期执行</span></span><br><span class="line">                                     (<span class="type">void</span> *)<span class="number">0</span>,                                     <span class="comment">//编号一般给0</span></span><br><span class="line">                                     (TimerCallbackFunction_t)CAP_Timer_Callback);  <span class="comment">//回调函数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启定时器,仅且仅能开启一次，否则会出错，不开启则不会发数据</span></span><br><span class="line">    <span class="keyword">if</span> (CAP_Timer_Handle != <span class="literal">NULL</span>)</span><br><span class="line">    {</span><br><span class="line">        xTimerStart(CAP_Timer_Handle, <span class="number">0</span>); <span class="comment">//不等待</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    taskEXIT_CRITICAL(); <span class="comment">//退出临界区</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="软件定时器回调函数">软件定时器回调函数</h3>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          软件定时回调函数</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  * @attention      禁用delay</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">CAP_Timer_Callback</span><span class="params">(TimerHandle_t xTimer)</span></span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* 函数主体 - 10Hz频率调用 */</span></span><br><span class="line">	<span class="type">uint16_t</span> power = referee_chassis_power_limit();</span><br><span class="line">	<span class="keyword">if</span> (power &gt;= <span class="number">50</span> &amp;&amp; power &lt;= <span class="number">120</span>)</span><br><span class="line">	{</span><br><span class="line">		can1_cap_setmsg(power);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		can1_cap_setmsg(<span class="number">80</span>);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="在主函数调用">在主函数调用</h3>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">timer_send_create();    <span class="comment">//创建软件定时器</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="功率限制">功率限制</h2>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          底盘功率限制</span></span><br><span class="line"><span class="comment">  * @param[in]      *chassis_power_limit_f：底盘主结构体</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">extern</span> Supercapacitor_receive_t Supercap_receive;</span><br><span class="line"><span class="type">void</span> <span class="title function_">chassis_power_limit_control_2</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_pl_f)</span></span><br><span class="line">{</span><br><span class="line">	<span class="keyword">if</span> (chassis_pl_f-&gt;SuperCap_discharge_flag == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		chassis_pl_f-&gt;chassis_speed_gain = (referee_chassis_power_limit() / <span class="number">5.0f</span>) * <span class="number">1.1f</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (Supercap_receive.Capacitance_voltage &gt; <span class="number">12.0f</span>)</span><br><span class="line">		{</span><br><span class="line">			<span class="type">uint16_t</span> power = referee_chassis_power_limit();</span><br><span class="line">			</span><br><span class="line">			chassis_pl_f-&gt;chassis_power_pid.SetValue = <span class="number">19.5f</span>; <span class="comment">//不使用超级电容的时候，使电容电压稳定在19.5f</span></span><br><span class="line">			increment_pid(&amp;chassis_pl_f-&gt;chassis_power_pid, Supercap_receive.Capacitance_voltage);</span><br><span class="line">			</span><br><span class="line">			chassis_pl_f-&gt;chassis_speed_gain += -chassis_pl_f-&gt;chassis_power_pid.out;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (power &gt; <span class="number">100</span> &amp;&amp; power &lt;= <span class="number">120</span>) <span class="comment">//TODO 根据最大功率来选择 gain参数的限制范围</span></span><br><span class="line">			{</span><br><span class="line">				chassis_pl_f-&gt;chassis_speed_gain = float_limit(chassis_pl_f-&gt;chassis_speed_gain, <span class="number">24.0f</span>, <span class="number">10.0f</span>);</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			{</span><br><span class="line">				chassis_pl_f-&gt;chassis_speed_gain = float_limit(chassis_pl_f-&gt;chassis_speed_gain, <span class="number">18.0f</span>, <span class="number">3.0f</span>);</span><br><span class="line">			}</span><br><span class="line">			<span class="comment">//简单的滤波</span></span><br><span class="line">			chassis_pl_f-&gt;chassis_speed_gain = (<span class="number">1</span><span class="number">-0.04f</span>) * chassis_pl_f-&gt;chassis_last_speed_gain + (<span class="number">0.04f</span>) * chassis_pl_f-&gt;chassis_speed_gain;</span><br><span class="line">			chassis_pl_f-&gt;chassis_last_speed_gain = chassis_pl_f-&gt;chassis_speed_gain;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (Supercap_receive.Capacitance_voltage == <span class="number">0.0f</span>)</span><br><span class="line">		{</span><br><span class="line">			chassis_pl_f-&gt;chassis_speed_gain = <span class="number">8.0f</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="pid">pid</h2>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">		pid_init(&amp;chassis_move_init_f-&gt;chassis_power_pid, <span class="number">100.0f</span>, <span class="number">20.0f</span>, <span class="number">12.5f</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">		chassis_move_init_f-&gt;chassis_power_pid.errorabsmin = <span class="number">0.5f</span>;</span><br><span class="line">		chassis_move_init_f-&gt;chassis_power_pid.errorabsmax = <span class="number">5.0f</span>;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> //<span class="title">pid</span>结构体变量</span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    fp32 Kp;</span><br><span class="line">    fp32 Ki;</span><br><span class="line">    fp32 Kd;</span><br><span class="line"></span><br><span class="line">    fp32 max_out;  <span class="comment">//最大输出</span></span><br><span class="line">    fp32 max_iout; <span class="comment">//最大积分输出</span></span><br><span class="line"></span><br><span class="line">    fp32 SetValue;</span><br><span class="line">    fp32 ActualValue;</span><br><span class="line"></span><br><span class="line">    fp32 out;</span><br><span class="line">	fp32 lastout;</span><br><span class="line">	</span><br><span class="line">    fp32 Pout;</span><br><span class="line">    fp32 Iout;</span><br><span class="line">    fp32 Dout;</span><br><span class="line">	</span><br><span class="line">	fp32 Ierror;</span><br><span class="line">    fp32 Derror[<span class="number">3</span>];  <span class="comment">//微分项 0最新 1上一次 2上上次</span></span><br><span class="line">    fp32 error[<span class="number">3</span>];   <span class="comment">//误差项 0最新 1上一次 2上上次</span></span><br><span class="line">	</span><br><span class="line">	fp32 stepIn;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 误差死区 */</span></span><br><span class="line">	fp32 deadband;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 积分分离 */</span></span><br><span class="line">    fp32 epsilon; <span class="comment">//积分分离阈(yu)值</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 不完全微分 */</span></span><br><span class="line">	fp32 alpha;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 抗积分饱和 */</span></span><br><span class="line">    fp32 maximum; <span class="comment">//最大值</span></span><br><span class="line">    fp32 minimum; <span class="comment">//最小值</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 变积分 */</span></span><br><span class="line">    fp32 errorabsmax; <span class="comment">//偏差绝对值最大值</span></span><br><span class="line">    fp32 errorabsmin; <span class="comment">//偏差绝对值最小值</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 微分先行 */</span></span><br><span class="line">    fp32 gama; <span class="comment">//微分先行滤波系数</span></span><br><span class="line">	</span><br><span class="line">	pid_mode_e pid_mode;</span><br><span class="line">} PidTypeDef;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">increment_pid</span><span class="params">(PidTypeDef *pid , <span class="type">float</span> actualValue)</span></span><br><span class="line">{</span><br><span class="line">	<span class="comment">//error</span></span><br><span class="line">	pid-&gt;error[<span class="number">0</span>] = pid-&gt;SetValue - actualValue;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//微分项 记录</span></span><br><span class="line">	pid-&gt;Derror[<span class="number">0</span>] = pid-&gt;error[<span class="number">0</span>] - <span class="number">2</span> * pid-&gt;error[<span class="number">1</span>] + pid-&gt;error[<span class="number">2</span>];</span><br><span class="line">	</span><br><span class="line">	pid-&gt;Ierror = (pid-&gt;error[<span class="number">0</span>] - pid-&gt;error[<span class="number">1</span>]) / <span class="number">2</span>;</span><br><span class="line">	pid-&gt;Ierror *= VariableIntegralCoefficient(pid-&gt;error[<span class="number">0</span>], pid-&gt;errorabsmax, pid-&gt;errorabsmin);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//输出pid运算</span></span><br><span class="line">	pid-&gt;out = (pid-&gt;Kp * (pid-&gt;error[<span class="number">0</span>] - pid-&gt;error[<span class="number">1</span>])) + (pid-&gt;Ki * pid-&gt;Ierror) + (pid-&gt;Kd * pid-&gt;Derror[<span class="number">0</span>]);   </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//PID每一项输出</span></span><br><span class="line">	pid-&gt;Pout = (pid-&gt;Kp * (pid-&gt;error[<span class="number">0</span>] - pid-&gt;error[<span class="number">1</span>]));</span><br><span class="line">	pid-&gt;Iout = (pid-&gt;Ki * pid-&gt;Ierror);</span><br><span class="line">	pid-&gt;Dout = (pid-&gt;Kd * pid-&gt;Derror[<span class="number">0</span>]);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//记录error</span></span><br><span class="line">	pid-&gt;error[<span class="number">2</span>] = pid-&gt;error[<span class="number">1</span>]; <span class="comment">//记录上上次误差</span></span><br><span class="line">	pid-&gt;error[<span class="number">1</span>] = pid-&gt;error[<span class="number">0</span>]; <span class="comment">//记录上次误差</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> pid-&gt;out;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          变积分系数处理函数，实现一个输出0和1之间的分段线性函数</span></span><br><span class="line"><span class="comment">  * @param[in]      error: 当前输入的偏差值</span></span><br><span class="line"><span class="comment">  * @param[in]      absmax: 偏差绝对值的最大值</span></span><br><span class="line"><span class="comment">  * @param[in]      absmin: 偏差绝对值的最小值</span></span><br><span class="line"><span class="comment">  * @retval         factor: 控制积分的比例</span></span><br><span class="line"><span class="comment">  * @attention      当偏差的绝对值小于最小值时，输出为1；当偏差的绝对值大于最大值时，输出为0</span></span><br><span class="line"><span class="comment">  *                 当偏差的绝对值介于最大值和最小值之间时，输出在0和1之间现行变化</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">static</span> fp32 <span class="title function_">VariableIntegralCoefficient</span><span class="params">(fp32 error, fp32 absmax, fp32 absmin)</span></span><br><span class="line">{</span><br><span class="line">    fp32 factor = <span class="number">0.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (float_abs(error) &lt;= absmin) <span class="comment">//最小值</span></span><br><span class="line">    {</span><br><span class="line">        factor = <span class="number">1.0f</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (float_abs(error) &gt; absmax) <span class="comment">//最大值</span></span><br><span class="line">    {</span><br><span class="line">        factor = <span class="number">0.0f</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        factor = (absmax - float_abs(error)) / (absmax - absmin);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> factor;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="注意">注意！！！</h2>
+<ol type="1">
+<li><strong>超级电容电压不能低于 12v，准备低于 12v 就应该做限制，不让底盘超功率运行</strong></li>
+<li><strong>发送给超级电容的频率为 10Hz</strong></li>
+<li>** 发送给超级电容的设定功率要先
+*100，再发送，比如想设定为 80w，那么就应该发送 8000<strong>
+</strong><code>can1_cap_setmsg</code> 函数已经在里面乘了 100，所以直接发送对应的功率就好了，设定功率范围为
+30~130**</li>
+<li><strong> 电源电压对超级电容影响很大，请尽量保持 70% 以上的电进行测试和比赛</strong></li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/15/notes/ACE/%E6%AD%A5%E5%85%B5%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="代码规范">代码规范</h1>
+<p>代码规范遵循</p>
+<ul>
+<li><a href="./代码规范">《东莞理工 ACE 实验室电控软件组代码规范》</a></li>
+</ul>
+<h1 id="目录">目录</h1>
+<p>目录结构：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├─application   # 主应用文件夹</span><br><span class="line">│  ├─chassis    # 底盘相关任务</span><br><span class="line">│  └─gimbal     # 云台相关任务</span><br><span class="line">├─boards        # 硬件外设初始化</span><br><span class="line">├─components    # 一些开源的软件包 - 暂时没有用</span><br><span class="line">│  ├─ ...</span><br><span class="line">├─control       # 控制相关</span><br><span class="line">├─delay         # 只有延时函数</span><br><span class="line">├─FreeRTOS      # freertos相关</span><br><span class="line">│  ├─ ...</span><br><span class="line">├─FWLIB</span><br><span class="line">│  ├─inc</span><br><span class="line">│  └─src</span><br><span class="line">├─LIBRARIES</span><br><span class="line">│  ├─device</span><br><span class="line">│  ├─dsp_lib      # DSP库</span><br><span class="line">│  │  └─Include</span><br><span class="line">│  └─startup</span><br><span class="line">├─OBJ </span><br><span class="line">├─operation       # 算法相关</span><br><span class="line">│  └─list_of_function</span><br><span class="line">├─referee         # 裁判系统相关     </span><br><span class="line">├─timer           # 软件定时器</span><br><span class="line">└─USER            # user</span><br><span class="line">    ├─.vscode</span><br><span class="line">    ├─DebugConfig</span><br><span class="line">    ├─Listings</span><br><span class="line">    └─Objects</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="git-使用">Git 使用</h1>
+<p>大概就是，建立仓库，上传代码，每一个大版本上传一次，用作备份，要做什么尝试的时候可以建立分支</p>
+<p>https://github.com/Nepqiu/ACE_Infantry_2022</p>
+<h1 id="卡尔曼">卡尔曼</h1>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/15/notes/ACE/%E9%81%A5%E6%8E%A7%E5%99%A8_%E4%B8%B2%E5%8F%A3/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="遥控器数据协议说明">遥控器数据协议说明</h1>
+<p>遥控器发送的数据总为为 18 个字节，串口配置 100kbps，
+数据长度 8，偶校验，结束位 1，流控无。</p>
+<p>多个开源代码中都有对遥控器的数据进行处理，接收数据的稳定对机器人的稳定性有着至关重要的影响，以下简单介绍遥控器接收上进行处理。</p>
+<h2 id="icra-机器人-接收处理方法">1、ICRA 机器人 接收处理方法</h2>
+<p>官方在 github 上开源代码，开源在这个网站上</p>
+<p>https://github.com/RoboMaster/RoboRTS-Firmware</p>
+<p>详细代码查看 bsp/boards/drv_dr16.c
+主要通过开启串口空闲中断，使用 DMA 接收，在进入空闲中断的时候进行字节数判断为 18
+才进行解包。</p>
+<p>中断处理过程为进入中断服务函数：第一步清除串口标志位，第二步
+失能 DMA，第三步判断接收包长度是否为 18，成立进入解包函数。不成立跳出。</p>
+<h2 id="步兵代码-接收处理方法">2、2019 步兵代码 接收处理方法</h2>
+<p>官方在论坛上开源代码</p>
+<p>https://bbs.robomaster.com/thread-7717-1-1.html</p>
+<p>详细代码查看</p>
+<p>user/hardware/rc.c 进行硬件配置</p>
+<p>user/app/remote_control 进行中断接收</p>
+<p>主要通过开启串口空闲中断，使用 DMA 双缓冲接收，在进入空闲中断的时候先切换缓冲区，防止新来数据进入当前缓冲区，使新来的数据去另一个缓冲区，然后判断接收区缓冲区长度为 18
+才进行解包， 同时对解包的数据进行判断如果某个通道超过
+RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
+<p>中断处理过程为：第一步判断中断类型；第二步如果是空闲中断，接收一个字节，目的是消除中断标志位；第三步判断几号接收缓冲区，第四步失能 DMA，第五步计算当前缓冲区接收长度，第五步重新设置 DMA 接收长度，第六步设置缓冲区为另一个缓冲区，第六步清除 DMA 标志位，第七步使能 DMA，第六判断当前缓冲区接收长度是否为 18，成立进行解包，同时调用离线检测模块的钩子函数，在钩子函数中判断解包数据是不是正确的。</p>
+<h2 id="dma中断接收">3、DMA 中断接收</h2>
+<h2 id="串口dma空闲中断无锁队列">4、串口 + DMA 空闲中断 + 无锁队列</h2>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/14/notes/markdown/markdown%E8%BF%9B%E9%98%B6/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="markdown进阶">Markdown 进阶</h1>
+<blockquote>
+<ul>
+<li><p><a href="https://www.markdown.xyz/cheat-sheet/">Markdown
+语法速查表</a></p></li>
+<li><p><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/%E8%AF%A6%E7%BB%86%E7%89%88/markdown-%E6%8F%92%E5%85%A5%E9%9F%B3%E9%A2%91/">Markdown 语法</a></p></li>
+</ul>
+</blockquote>
+<h2 id="一更改字体大小颜色">一、更改字体、大小、颜色</h2>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">face</span>=<span class="string">"黑体"</span>&gt;</span>我是黑体字<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">face</span>=<span class="string">"微软雅黑"</span>&gt;</span>我是微软雅黑<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">face</span>=<span class="string">"STCAIYUN"</span>&gt;</span>我是华文彩云<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">red</span>&gt;</span>我是红色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">#008000</span>&gt;</span>我是绿色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">color</span>=<span class="string">Blue</span>&gt;</span>我是蓝色<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">size</span>=<span class="string">5</span>&gt;</span>我是尺寸<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">font</span> <span class="attr">face</span>=<span class="string">"黑体"</span> <span class="attr">color</span>=<span class="string">green</span> <span class="attr">size</span>=<span class="string">5</span>&gt;</span>我是黑体，绿色，尺寸为5<span class="tag">&lt;/<span class="name">font</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>效果如下：</p>
+<p><font face="黑体">我是黑体字</font></p>
+<p><font face="微软雅黑">我是微软雅黑</font></p>
+<p><font face="STCAIYUN">我是华文彩云</font></p>
+<p><font color="red">我是红色</font></p>
+<p><font color="#008000">我是绿色</font></p>
+<p><font color="Blue">我是蓝色</font></p>
+<p><font size="5">我是尺寸</font></p>
+<p><font face="黑体" color="green" size="5">我是黑体，绿色，尺寸为 5</font></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">中文名称</th>
+<th style="text-align: left;">英文名称</th>
+<th style="text-align: left;"> unicode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"> 新细明体</td>
+<td style="text-align: left;"> PMingLiU</td>
+<td style="text-align: left;">\65B0\7EC6\660E\4F53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 细明体</td>
+<td style="text-align: left;"> MingLiU</td>
+<td style="text-align: left;">\7EC6\660E\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 标楷体</td>
+<td style="text-align: left;"> DFKai-SB</td>
+<td style="text-align: left;">\6807 \6977\4F53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 黑体</td>
+<td style="text-align: left;"> SimHei</td>
+<td style="text-align: left;">\9ED1\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 宋体</td>
+<td style="text-align: left;"> SimSun</td>
+<td style="text-align: left;">\5B8B\4F53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 新宋体</td>
+<td style="text-align: left;"> NSimSun</td>
+<td style="text-align: left;">\65B0\5B8B\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 仿宋</td>
+<td style="text-align: left;"> FangSong</td>
+<td style="text-align: left;">\4EFF\5B8B</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 楷体</td>
+<td style="text-align: left;"> KaiTi</td>
+<td style="text-align: left;">\6977\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 仿宋_GB23122</td>
+<td style="text-align: left;">FangSong_GB2312</td>
+<td style="text-align: left;">\4EFF\5B8B_GB2312</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 楷体_GB2312</td>
+<td style="text-align: left;">KaiTi_GB2312</td>
+<td style="text-align: left;">\6977\4F53_GB2312</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 微软正黑体</td>
+<td style="text-align: left;"> Microsoft JhengHei</td>
+<td style="text-align: left;">\5FAE8F6F\6B63\9ED1\4F53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 微软雅黑</td>
+<td style="text-align: left;"> Microsoft YaHei</td>
+<td style="text-align: left;">\5FAE\8F6F\96C5\9ED1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文细黑</td>
+<td style="text-align: left;"> STXihei</td>
+<td style="text-align: left;">\534E\6587\7EC6\9ED1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 华文黑体</td>
+<td style="text-align: left;"> STHeiti</td>
+<td style="text-align: left;">\534E\6587\9ED1\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文楷体</td>
+<td style="text-align: left;"> STKaiti</td>
+<td style="text-align: left;">\534E\6587\6977\4F53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 华文宋体</td>
+<td style="text-align: left;"> STSong</td>
+<td style="text-align: left;">\534E\6587\5B8B\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文仿宋</td>
+<td style="text-align: left;"> STFangsong</td>
+<td style="text-align: left;">\534E\6587\4EFF\5B8B</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 丽黑</td>
+<td style="text-align: left;"> ProLiHei Pro Medium</td>
+<td style="text-align: left;">\4E3D\9ED1 Pro</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 丽宋</td>
+<td style="text-align: left;"> ProLiSong Pro Light</td>
+<td style="text-align: left;">\4E3D\5B8B Pro</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 标楷体</td>
+<td style="text-align: left;"> BiauKai</td>
+<td style="text-align: left;">\6807\6977\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 隶书</td>
+<td style="text-align: left;"> LiSu</td>
+<td style="text-align: left;">\96B6\4E66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 幼圆</td>
+<td style="text-align: left;"> YouYuan</td>
+<td style="text-align: left;">\5E7C\5706</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文细黑</td>
+<td style="text-align: left;"> STXihei</td>
+<td style="text-align: left;">\534E\6587\7EC6\9ED1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 华文楷体</td>
+<td style="text-align: left;"> STKaiti</td>
+<td style="text-align: left;">\534E\6587\6977\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文宋体</td>
+<td style="text-align: left;"> STSong</td>
+<td style="text-align: left;">\534E\6587\5B8B\4F53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 华文中宋</td>
+<td style="text-align: left;"> STZhongsong</td>
+<td style="text-align: left;">\534E\6587\4E2D\5B8B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文仿宋</td>
+<td style="text-align: left;"> STFangsong</td>
+<td style="text-align: left;">\534E\6587\4EFF \5B8B</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 方正舒体</td>
+<td style="text-align: left;"> FZShuTi</td>
+<td style="text-align: left;">\65B9\6B63\8212\4F53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 方正姚体</td>
+<td style="text-align: left;"> FZYaoti</td>
+<td style="text-align: left;">\65B9 \6B63\59DA\4F53</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 华文彩云</td>
+<td style="text-align: left;"> STCaiyun</td>
+<td style="text-align: left;">\534E\6587\5F69\4E91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文琥珀</td>
+<td style="text-align: left;"> STHupo</td>
+<td style="text-align: left;">\534E\6587\7425\73C0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 华文隶书</td>
+<td style="text-align: left;"> STLiti</td>
+<td style="text-align: left;">\534E\6587\96B6\4E66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"> 华文行楷</td>
+<td style="text-align: left;"> STXingkai</td>
+<td style="text-align: left;">\534E\6587\884C\6977</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> 华文新魏</td>
+<td style="text-align: left;"> STXinwei</td>
+<td style="text-align: left;">\534E\6587\65B0\9B4F</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二为文字添加背景色">二、为文字添加背景色</h2>
+<p>由于 style 标签和标签的 style 属性不被支持，所以这里只能是借助 table,
+tr, td 等表格标签的 bgcolor
+属性来实现背景色。故这里对于文字背景色的设置，只是将那一整行看作一个表格，更改了那个格子的背景色（bgcolor）</p>
+<p>Markdown 语法</p>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span> <span class="attr">bgcolor</span>=<span class="string">yellow</span>&gt;</span>背景色yellow<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>效果如下：</p>
+<table>
+<tbody><tr>
+<td bgcolor="yellow">
+背景色 yellow
+</td>
+</tr>
+</tbody></table>
+<h2 id="三设置图片大小">三、设置图片大小</h2>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/2c6c7146d05137e8fb69171b632bed2.jpg"></p>
+<h3 id="设置设置图片百分比">1、设置设置图片百分比</h3>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://raw.githubusercontent.com/Nepqiu/gallery/master/2c6c7146d05137e8fb69171b632bed2.jpg"</span> <span class="attr">width</span>=<span class="string">"50%"</span> <span class="attr">height</span>=<span class="string">"50%"</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>效果如下：</p>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/2c6c7146d05137e8fb69171b632bed2.jpg" width="50%" height="50%"></p>
+<h3 id="设置图片大小">2、设置图片大小</h3>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://raw.githubusercontent.com/Nepqiu/gallery/master/2c6c7146d05137e8fb69171b632bed2.jpg"</span> <span class="attr">width</span>=<span class="string">"251"</span> <span class="attr">height</span>=<span class="string">"350"</span> &gt;</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>效果如下</p>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/2c6c7146d05137e8fb69171b632bed2.jpg" width="251" height="350"></p>
+<h3 id="设置图片居中">3、设置图片居中</h3>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">align</span>=<span class="string">center</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://raw.githubusercontent.com/Nepqiu/gallery/master/2c6c7146d05137e8fb69171b632bed2.jpg"</span> <span class="attr">width</span>=<span class="string">"50%"</span> <span class="attr">height</span>=<span class="string">"50%"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<div data-align="center">
+<img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/2c6c7146d05137e8fb69171b632bed2.jpg" width="50%" height="50%">
+</div>
+<h2 id="四打开本地文件">四、打开本地文件</h2>
+<h3 id="绝对路径">绝对路径：</h3>
+<p>我们打开（链接）网页常用的方式都是</p>
+<p><code>[网页名字](网页地址)</code></p>
+<p>只要把上述格式改成</p>
+<p><code>[文件名](file:///本地文件地址)</code></p>
+<p>就可以了</p>
+<p><strong>比如</strong></p>
+<p><a href="file:///C:\Users">打开用户文件夹</a></p>
+<h3 id="相对路径">相对路径：</h3>
+<p><code>../</code> 表示当前目录上一级</p>
+<p><code>./</code> 表示当前目录</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">[添加对象](绝对路径)	//括号均为英文</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="向下跳转">向下跳转</h4>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">[content](/content)</span><br><span class="line">[第一章](/content/C1.md)</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="同级跳转">同级跳转</h4>
+<p>相同文件夹下的文件之间相互跳转</p>
+<figure>
+<img data-src="image/image-20210720002146552.png" alt="image-20210720002146552">
+<figcaption aria-hidden="true">image-20210720002146552</figcaption>
+</figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">[下一章](./C2.md) 	//C1.md</span><br><span class="line">[上一章](./C1.md)  //C2.md</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="向上跳转">向上跳转</h4>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">[返回目录](../README.md) //C2.md</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="五latex公式">五、latex 公式</h2>
+<blockquote>
+<p>好东西：https://www.latexlive.com/##</p>
+<p>LaTeX 中文：https://runebook.dev/zh-CN/docs/latex/-index-</p>
+</blockquote>
+<p>https://blog.csdn.net/iteapoy/article/details/112846367</p>
+<p>当你需要在编辑器中插入数学公式时，可以使用两个美元符 $$ 包裹 TeX 或
+LaTeX 格式的数学公式来实现。提交后，问答和文章页会根据需要加载 Mathjax
+对数学公式进行渲染。如：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">$$</span><br><span class="line">\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} </span><br><span class="line">\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\</span><br><span class="line">\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\</span><br><span class="line">\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0 \\</span><br><span class="line">\end{vmatrix}</span><br><span class="line">${$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}</span><br><span class="line">$$</span><br></pre></td></tr></tbody></table></figure>
+<p>输出结果为： <span class="math display">\[
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp;
+0 \\
+\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp;
+0 \\
+\end{vmatrix}
+${$tep1}{\style{visibility:hidden}{(x+1)(x+1)}}
+\]</span>
+<img data-src="image/ebe5a328432f40419asfy0d5c04853981d73.jpg" alt="img" style="zoom: 67%;"></p>
+<h2 id="六picgogithub图传设置">六、PicGo+GitHub 图传设置</h2>
+<p>我的 GitHub 的 token</p>
+<ul>
+<li><code>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</code></li>
+</ul>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/image-20210705101407137.png" alt="image-20210705101407137" style="zoom:80%;"></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><strong>上传到 GitHub 后，需要 VPN，Typora 才能下载图片</strong></li>
+</ul>
+<h2 id="七跳转">七、跳转</h2>
+<ol type="1">
+<li>定义一个锚 (id)：<code>&lt;span id="jump"&gt;跳转到的地方&lt;/span&gt;</code></li>
+<li>使用 markdown 语法：<code>[点击跳转](#jump)</code></li>
+</ol>
+<p>实际效果就是</p>
+<h2 id="jump">
+跳转到的地方
+</h2>
+<p><a href="#jump">点击跳转</a></p>
+<p><a href="#jump">点击跳转</a></p>
+<h2 id="八支持的-html-元素">八、支持的 HTML 元素</h2>
+<p>不在 Markdown 涵盖范围之内的标签，都可以直接在文档里面用 HTML
+撰写。</p>
+<p>目前支持的 HTML
+元素有：<code>&lt;kbd&gt; &lt;b&gt; &lt;i&gt; &lt;em&gt; &lt;sup&gt; &lt;sub&gt; &lt;br&gt;</code> 等
+，如：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">使用 &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Del&lt;/kbd&gt; 重启电脑</span><br></pre></td></tr></tbody></table></figure>
+<p>输出结果为：</p>
+<figure>
+<img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/81999271-F914-428D-B7BF-164BDC67CAAC.jpg" alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="九转义">九、转义</h2>
+<p>Markdown
+使用了很多特殊符号来表示特定的意义，如果需要显示特定的符号则需要使用转义字符，Markdown
+使用反斜杠转义特殊字符：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">**文本加粗** </span><br><span class="line">\*\* 正常显示星号 \*\*</span><br></pre></td></tr></tbody></table></figure>
+<p>输出结果为：</p>
+<figure>
+<img data-src="image/CA0E0162-0C48-41CD-B57A-CB32A4287C02.jpg" alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">\   反斜线</span><br><span class="line">`   反引号</span><br><span class="line">*   星号</span><br><span class="line">_   下划线</span><br><span class="line">{}  花括号</span><br><span class="line">[]  方括号</span><br><span class="line">()  小括号</span><br><span class="line">#   井字号</span><br><span class="line">+   加号</span><br><span class="line">-   减号</span><br><span class="line">.   英文句点</span><br><span class="line">!   感叹号</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="十删除线strikethrough">十、删除线（Strikethrough）</h2>
+<p>你可以贯穿单词的中心放一条横线从而删除这些单词。其效果看起来是这样的：
+<del>like
+this</del>。此功能允许你标记某些单词是错误的，不应该出现在文档中。在单词前面和后面分别放置两个波浪号（<code>~~</code>）
+来表示删除这些单词。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">~~The world is flat.~~ We now know that the world is round.</span><br></pre></td></tr></tbody></table></figure>
+<p>渲染效果如下所示：</p>
+<p><del>The world is flat.</del> We now know that the world is
+round.</p>
+<h2 id="十一任务列表task-lists">十一、任务列表（Task Lists）</h2>
+<p>任务列表（task
+lists）允许你创建带有复选框的项目列表。在支持任务列表的 Markdown
+应用程序中，复选框将显示在内容旁边。要创建任务列表，请在任务列表项前面添加破折号（<code>-</code>）和中间带空格的方括号（<code>[ ]</code>）。要选中复选框，请在方括号中间添加一个
+<code>x</code> ，即（<code>[x]</code>）。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">- [x] Write the press release</span><br><span class="line">- [ ] Update the website</span><br><span class="line">- [ ] Contact the media</span><br></pre></td></tr></tbody></table></figure>
+<p>渲染效果如下所示：</p>
+<figure>
+<img data-src="image/tasklist.png" alt="Markdown task list">
+<figcaption aria-hidden="true">Markdown task list</figcaption>
+</figure>
+<h2 id="十二表情符号emoji">十二、表情符号（Emoji）</h2>
+<p>有两种方式可以将表情符号添加到 Markdown
+文档中：将表情符号复制并粘贴到 Markdown 格式的文本中，或者键入
+<em>表情符号的简码（emoji shortcodes）</em>。</p>
+<h3 id="复制并粘贴表情符号">复制并粘贴表情符号</h3>
+<p>在大多数情况下，你可以简单地从 <a href="https://emojipedia.org/">Emojipedia</a>
+等来源复制表情符号，然后将其粘贴到文档中。许多 Markdown
+应用程序就会自动以 Markdown 格式的文本来显示表情符号。从 Markdown
+应用程序导出的 HTML 和 PDF 文件也是可以显示表情符号的。</p>
+<blockquote>
+<p><strong>提示：</strong> 如果你使用的是静态站点生成器，请确保 <a href="https://www.w3.org/International/tutorials/tutorial-char-enc/">HTML
+页面的字符编码为 UTF-8</a>。</p>
+</blockquote>
+<h3 id="使用表情符号的简码shortcodes">使用表情符号的简码（Shortcodes）</h3>
+<p>某些 Markdown
+应用程序允许你通过键入表情符号的简码（shortcodes）来插入表情符号。简码以冒号开头和结尾，两个冒号中间是表情符号的名称。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">Gone camping! :tent: Be back soon.</span><br><span class="line"></span><br><span class="line">That is so funny! :joy:</span><br></pre></td></tr></tbody></table></figure>
+<p>渲染效果如下所示：</p>
+<p>Gone camping! ⛺ Be back soon.</p>
+<p>That is so funny! 😂</p>
+<blockquote>
+<p><strong>注意：</strong> 你可以使用这个 <a href="https://gist.github.com/rxaviers/7360908">表情符号简码列表 (网页)</a> 或者<a href="./表情符号简码列表">表情符号简码列表 (本地)</a>，但请记住，表情符号的简码随着
+Markdown 应用程序的不同而不同。有关详细信息，请参阅你所使用的 Markdown
+应用程序的文档。</p>
+</blockquote>
+<blockquote>
+<p>也可以在在这里下载：https://download.csdn.net/download/K_O_R_K/26727853</p>
+</blockquote>
+<h2 id="十三禁止自动将-url-转换为链接">十三、禁止自动将 URL
+转换为链接</h2>
+<p>如果你不希望自动将 URL 转换为链接，则可以通过反引号 <a href="https://www.markdown.xyz/basic-syntax/#code">将 URL 表示为代码</a>
+。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">`http://www.example.com`</span><br></pre></td></tr></tbody></table></figure>
+<p>渲染效果如下所示：</p>
+<p><code>http://www.example.com</code></p>
+<h2 id="十四插入视频">十四、插入视频</h2>
+<p>例子：</p>
+<p>直接插入 B 站的</p>
+<p><img data-src="image/image-20211206165000410.png" alt="image-20211206165000410" style="zoom: 80%;"></p>
+<p>然后加上 高 和 宽</p>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">width</span>=<span class="string">"800"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">height</span>=<span class="string">"450"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">src</span>=<span class="string">"//player.bilibili.com/player.html?aid=716453458&amp;bvid=BV1AX4y1w7Nt&amp;cid=364874249&amp;page=5"</span> <span class="attr">scrolling</span>=<span class="string">"no"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">frameborder</span>=<span class="string">"no"</span> <span class="attr">framespacing</span>=<span class="string">"0"</span> <span class="attr">allowfullscreen</span>=<span class="string">"true"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>效果如下：</p>
+<iframe width="800" height="450" src="//player.bilibili.com/player.html?aid=716453458&amp;bvid=BV1AX4y1w7Nt&amp;cid=364874249&amp;page=5" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+</iframe>
+<h3 id="参考">参考</h3>
+<ul>
+<li>https://blog.csdn.net/jave_f/article/details/79048705</li>
+<li>https://blog.csdn.net/weixin_46229298/article/details/110271643</li>
+</ul>
+<h2 id="十五插入音频">十五、插入音频</h2>
+<h3 id="使用-html5-audio-元素">使用 HTML5 <code>&lt;audio&gt;</code>
+元素</h3>
+<p>下面是一个将音频嵌入到 HTML 文档的例子。</p>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">"/test/audio.ogg"</span>&gt;</span></span><br><span class="line">  你的浏览器不支持 audio 标签。</span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>src 属性可以设置为一个音频文件的 URL 或者本地文件的路径。</p>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">"audio.mp3"</span> <span class="attr">preload</span>=<span class="string">"none"</span> <span class="attr">controls</span> <span class="attr">loop</span>&gt;</span></span><br><span class="line">  你的浏览器不支持 audio 标签。</span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>这个例子的代码中使用了 HTML 的 “audio” 元素的一些属性：</p>
+<ul>
+<li>‘‘controls’’ : 为网页中的音频显示标准的 HTML5 控制器。</li>
+<li>‘‘loop’’ : 使音频自动重复播放。</li>
+<li>‘‘preload’’ : 属性用来缓冲 audio
+元素的大文件，有三个属性值可供设置：
+<ul>
+<li>“none” 不缓冲文件</li>
+<li> “auto” 缓冲音频文件</li>
+<li> “metadata” 仅仅缓冲文件的元数据</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>参阅 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/audio">HTML5
+`` 元素</a>，和 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/Using_HTML5_audio_and_video">使用
+HTML5 音频和视频</a>。</p>
+</blockquote>
+<h3 id="在线音乐">在线音乐</h3>
+<p>进入 <a href="https://music.163.com/#"><strong>网易云音乐</strong></a>
+歌曲界面，点击光碟下方的生成外链播放器：</p>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span></span></span><br><span class="line"><span class="tag">    <span class="attr">frameborder</span>=<span class="string">"no"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">border</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">marginwidth</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">marginheight</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">width</span>=<span class="string">330</span></span></span><br><span class="line"><span class="tag">    <span class="attr">height</span>=<span class="string">86</span></span></span><br><span class="line"><span class="tag">    <span class="attr">src</span>=<span class="string">"//music.163.com/outchain/player?type=2&amp;id=393697&amp;auto=1&amp;height=66"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=431259256&amp;auto=1&amp;height=66">
+</iframe>
+<h3 id="参考-1">参考</h3>
+<ul>
+<li><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/%E8%AF%A6%E7%BB%86%E7%89%88/markdown-%E6%8F%92%E5%85%A5%E9%9F%B3%E9%A2%91/">Markdown
+音频</a></li>
+</ul>
+<h2 id="十六markdown-注脚">十六、Markdown 注脚</h2>
+<p>使用 Markdown<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 可以效率的书写文档，直接转换成
+HTML<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, 你可以使用 Typora<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+软件。</p>
+<p>参考 <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<blockquote>
+<p>脚注显示在笔记末尾；脚注后方的链接可以直接跳转回到加注的地方。</p>
+</blockquote>
+<h2 id="十七折叠内容">十七、折叠内容</h2>
+<p>语法：</p>
+<figure class="highlight html"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">details</span>&gt;</span> <span class="tag">&lt;<span class="name">summary</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">summary</span>&gt;</span></span><br><span class="line">contents ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">details</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+<p>效果如下：</p>
+<details>
+<summary>
+Title
+</summary>
+contents ...
+</details>
+<h3 id="参考-2">参考</h3>
+<ul>
+<li><a href="https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/%E8%AF%A6%E7%BB%86%E7%89%88/markdown-%E6%8A%98%E5%8F%A0%E5%86%85%E5%AE%B9/">Markdown
+折叠内容</a></li>
+</ul>
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p> Markdown 是一种纯文本标记语言。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>HyperText Markup Language 超文本标记语言。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Typora 官网 <a href="https://typora.io/" class="uri">https://typora.io/</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>https://keatonlao.gitee.io/a-study-note-for-markdown/syntax/%E8%AF%A6%E7%BB%86%E7%89%88/markdown-%E6%B7%BB%E5%8A%A0%E6%B3%A8%E8%84%9A/<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/14/notes/%E5%8D%A1%E5%B0%94%E6%9B%BC/kalman/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="直观理解">直观理解</h1>
+<blockquote>
+<p>误差可以 Allan 方差 估计算出</p>
+</blockquote>
+<p><strong>首先卡尔曼滤波要解决的问题是什么</strong>？我以机器人估计自己离障碍物距离为例</p>
+<p>答：首先机器人已知 “传感器测量的机器人离障碍物的距离（我们称它为<strong>观测值，比如雷达直接测量机器人离障碍物距离 7m</strong>）”，“上个时刻机器人离障碍物距离” 和 “自己当前时刻的速度” 这三个数据。而根据 “上个时刻机器人离障碍物距离” 和 “自己当前时刻的速度” 可以估算出当前机器人离障碍物的距离（我们称它为<strong>估计值</strong>）。</p>
+<p><strong>比如：上一秒离障碍物 10m，速度是 4m/s，那么现在这秒估计就离障碍物距离是 6m</strong>。（其实这个叫做机器人移动建模想了解更多移动模型与滤波算法的联系细节的童鞋可以看看《<a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/varyshare/article/details/100061173">机器人移动模型：根据控制命令预测机器人位置</a>》这篇文章）</p>
+<p>那么问题来了，<strong>机器人离障碍物的距离现在既有个观测值 7m，又有个估计值 6m</strong>。到底相信哪个？单纯相信观测值万一那传感器坏了呢？单纯相信估计值那么万一上个时刻的距离估计值或者速度不准呢？所以，我们要根据观测值和估计值的准确度来得到最终机器人离障碍物的距离估计值。准确度高的就最终结果比重高，准确度低就占比低。如果雷达测量的那个 7m 准确度是 90%，根据速度估计出的那个 6m 准确度是 80%，那么最终的距离估计结果就是
+<span class="math inline">\(\large \text { result
+}=\left(1-\frac{0.9}{0.8+0.9}\right) * 6+\frac{0.9}{0.8+0.9} *
+7=6.52\)</span> 米.</p>
+<p>事实上 <span class="math inline">\(\large
+\frac{0.9}{0.8+0.9}\)</span>
+这个就是所谓的卡尔曼增益，它就是表示这个传感器数据相对于根据速度计算出的估计值的靠谱程度。（每个传感器在使用前都可以对它的噪声的方差进行测量，可以搜下 Allen 方差，我们测量出每个传感器的噪声方差不就知道每个传感器靠谱程度了？)</p>
+<figure>
+<img data-src="image/image-20210717225404727.png" alt="image-20210717225404727">
+<figcaption aria-hidden="true">image-20210717225404727</figcaption>
+</figure>
+<h1 id="状态空间表达">状态空间表达</h1>
+<blockquote>
+<p>这部分是属于 “现代控制理论” 的内容</p>
+</blockquote>
+<p>现在我们有一个弹簧阻尼系统：</p>
+<img data-src="image/kalman_3.jpg" alt="image-20210606200950431" style="zoom:80%;">
+$$
+<span class="math display">\[\begin{aligned}
+m\ddot{x}+B\dot{x}+kx = F \longrightarrow (F:input)\\
+
+\end{aligned}\]</span>
+<span class="math display">\[
+状态变量：
+\]</span>
+<span class="math display">\[\begin{aligned}
+x_1 = x\\
+x_2 = \dot{x}
+\end{aligned}\]</span>
+<span class="math display">\[
+所以：
+\]</span>
+<span class="math display">\[\begin{aligned}
+\dot{x_1} &amp;= x_2\\
+\dot{x_2} &amp;= \ddot{x}\\
+&amp;= \frac{1}{m}u - \frac{B}{m}\dot{x}-\frac{k}{m}x \\
+&amp;= \frac{1}{m}u - \frac{B}{m}x_2-\frac{k}{m}x_1 \\
+\\
+\end{aligned}\]</span>
+\
+<span class="math display">\[\begin {aligned}
+Z_1 &amp;= x = x-1 \longrightarrow 位置 \\
+Z_2 &amp;= \dot {x} = x_2 \longrightarrow 速度
+\end {aligned}\]</span>
+<span class="math display">\[
+把上述式子写成紧凑的矩阵形式的话
+\]</span>
+<span class="math display">\[\begin{aligned}
+\begin{bmatrix}
+\dot{x_1}\\
+\dot{x_2}
+\end{bmatrix} &amp;=
+\begin{bmatrix}
+0&amp;1\\
+-\frac{k}{m}&amp;-\frac{B}{m}
+\end{bmatrix}
+\begin{bmatrix}
+{x_1}\\
+{x_2}
+\end{bmatrix}+
+\begin{bmatrix}
+0\\
+\frac{1}{m}
+\end{bmatrix}u\\
+\begin{bmatrix}
+z_1\\
+z_2
+\end{bmatrix} &amp;=
+\begin{bmatrix}
+1  &amp; 0\\
+0  &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\
+x_2
+\end{bmatrix}
+\end{aligned}\]</span>
+\ \
+<span class="math display">\[\begin{aligned}
+\dot{X_{(t)}} &amp;=X_{(t)} + BU_{(t)}\\
+Z_{(t)} &amp;= HX_{(t)}
+\end{aligned}\]</span>
+<span class="math display">\[
+现在上面就是一个 ** 连续 ** 的表达形式，把它写成离散的形式就是
+\]</span>
+<span class="math display">\[\begin{aligned}
+X_k &amp;= AX_{k-1} + BU_{k} {\color{Red} +  W_{k-1}} \\
+Z_k &amp;= HX_k  {\color{Red} + V_k}
+\end{aligned}\]</span>
+<p>$$ 下标 <span class="math inline">\(k,k-1,k+1\)</span> 是时间单位</p>
+<ul>
+<li><span class="math inline">\(W_{k-1}\)</span>
+是<strong>过程噪声</strong></li>
+<li><span class="math inline"> \(V_k\)</span>
+是<strong>测量噪声</strong></li>
+</ul>
+<h1 id="数据融合">数据融合</h1>
+<p>首先，我们有两组数据 （ <span class="math inline">\(\large z\)</span>
+是相当于期望，<span class="math inline">\(\large \sigma\)</span>
+相当于方差）： <span class="math display">\[
+\large
+z_1 = 30g, \sigma_1 = 2g \\
+\large
+z_2 = 32g, \sigma_2 = 4g
+\]</span> 现在我们要求一个 <strong>最优估计</strong> <span class="math inline"> \(\large \hat{z}\)</span> ： <span class="math display">\[
+\large
+\begin{aligned}     
+\hat{z} &amp;= kz_2 + (1-k)z_1\\
+&amp;= {\color{red}{z_1 +k(z_2-z_1)}}\\
+\\
+\sigma{^2}{_\hat{z}} &amp;= Var(z_1+k(z_2-z_1))\\
+&amp;= Var(z_1-kz_1+kz_2)\\
+&amp;= Var((1-k)z_1 + kz_2)\\
+\end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\large (1-k)z_1\)</span> 和 <span class="math inline">\(\large kz_2\)</span> 相互独立</p>
+<p><span class="math display">\[
+\large
+\begin{aligned}
+\therefore \sigma{^2}{_\hat{z}} &amp;= Var((1-k)z_1) + Var(kz_2)\\
+&amp;= (1-k)^2 Var(z_1) + k^2 Var(z_2)\\
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\large
+\begin{aligned}
+\because  Var(z_1) = \sigma{^2}{_1} 、Var(z_2) = \sigma{^2}{_2}\\
+= (1-k)^2\sigma{^2}{_1} + k^2\sigma{^2}{_2}
+\end{aligned}
+\]</span></p>
+<p>然后对 <span class="math inline">\(\large
+\sigma{^2}{_\hat{z}}\)</span> 求导 <span class="math display">\[
+\large
+\begin{aligned}
+\frac{\mathrm{d} \sigma{^2}{_\hat{z}}}{\mathrm{d} k} &amp;= 0\\
+-2(1-k)\sigma{^2}{_1} + 2k\sigma{^2}{_2} &amp;= 0\\
+-\sigma{^2}{_1} + k\sigma^2{_1} + k\sigma{^2}{_2} &amp;= 0\\
+k(\sigma{^2}{_1} + \sigma{^2}{_2}) &amp;= \sigma{^2}{_1}\\
+\\
+\LARGE
+\therefore k = \frac{\sigma{^2}{_1}}{\sigma{^2}{_1} + \sigma{^2}{_2}}
+\end{aligned}
+\]</span> <strong> 这个 <span class="math inline">\(k\)</span> 就是
+“卡尔曼增益”</strong> <span class="math display">\[
+\LARGE
+k = \frac{\sigma{^2}{_1}}{\sigma{^2}{_1} + \sigma{^2}{_2}} =
+\frac{2^2}{2^2 + 4^2} = 0.2
+\]</span> 那么把 <span class="math inline">\(\large k\)</span> 带入
+<span class="math inline">\(\large {\color{red}{\hat{z} = z_1
++k(z_2-z_1)}}\)</span> 可以求出来， <span class="math inline">\(\large
+\hat{z}\)</span> 也就是 <strong>“最优估计”</strong> 是 30.4g 。</p>
+<h2 id="高斯分布相乘">高斯分布相乘</h2>
+<h2 id="两个高斯分布相乘还是高斯分布">两个高斯分布相乘还是高斯分布</h2>
+<p><span class="math display">\[
+\LARGE
+\begin{aligned}
+f(x) =
+\frac{1}{\sqrt{2\pi}\sigma_1}e^{-\frac{(x-\mu_2)^2}{2\sigma{^2_1}}}，g(x)
+= \frac{1}{\sqrt{2\pi}\sigma_2}e^{-\frac{(x-\mu_2)^2}{2\sigma{^2_2}}}\\
+\end{aligned}\\
+\LARGE
+\begin{aligned}
+h(x) &amp;= f(x)\cdot g(x) \\
+&amp;=
+\frac{e^{-\frac{(\mu_1-\mu_2)^2}{2(\sigma_1^2+\sigma_2^2)}}}{\sqrt{2\pi(\sigma{^2_1}+\sigma{^2_2})}}
+\cdot
+\frac{1}{\sqrt{2\pi}\frac{\sigma_1\sigma_2}{\sqrt{\sigma{^2_1}+\sigma{^2_2}}}}e^{-\frac{(x-\frac{\mu_1
+\sigma{^2_2}+\mu_2
+\sigma{^2_1}}{\sigma_1^2+\sigma_2^2})^2}{2\frac{\sigma{^2_1}\sigma{^2_2}}{\sigma{^2_1}+\sigma{^2_2}}}}
+\end{aligned}
+\]</span></p>
+然后，我们令： $$
+<span class="math display">\[\begin {aligned}
+A &amp;=
+\frac {e^{-\frac {(\mu_1-\mu_2)^2}{2 (\sigma_1^2+\sigma_2^2)}}}{\sqrt {2\pi (\sigma {^2_1}+\sigma {^2_2})}}
+（缩放因子）\\
+\sigma_0 &amp;= \frac {\sigma_1\sigma_2}{\sqrt {\sigma {^2_1}+\sigma^2_2}}
+（标准差）\\
+\therefore \sigma_0^2 &amp;=
+\frac {\sigma^2_1\sigma^2_2}{\sigma^2_1+\sigma^2_2} （方差）\\
+\mu_0 &amp;= \frac {\mu_1 \sigma^2_2}{\sigma_1^2+\sigma_2^2} （期望）\\
+
+\end {aligned}\]</span>
+<span class="math display">\[
+所以 $h (x)$ 等于：
+\]</span>
+<span class="math display">\[\begin{aligned}
+h(x) &amp;= A \cdot
+\frac{1}{\sqrt{2\pi}\sigma_0}e^{-\frac{(x-\mu_0)^2}{2\sigma^2_0}}\\
+\end{aligned}\]</span>
+<span class="math display">\[
+然后我们再改写一下 $\mu_0$ 和 $\sigma_0$ ：
+\]</span>
+<span class="math display">\[\begin{aligned}
+\sigma_0^2 &amp;= \sigma_1^2 -
+\frac{\sigma^4_1}{\sigma^2_1+\sigma^2_2}\\
+\mu_0 &amp;= \mu_1 +
+\frac{\sigma^2_1}{\sigma^2_1+\sigma^2_2}(\mu_2-\mu_1)
+\end{aligned}\]</span>
+<p>$$</p>
+<p>因为 <span class="math inline">\(\LARGE k =
+\frac{\sigma{^2}{_1}}{\sigma{^2}{_1} + \sigma{^2}{_2}}\)</span>
+也可以写成： <span class="math display">\[
+\LARGE
+\begin{aligned}
+\sigma_0^2 &amp;= \sigma_1^2 - {\color{red}{k}}\sigma_1^2\\
+\mu_0 &amp;= \mu_1 + {\color{red}{k}}(\mu_2-\mu_1)
+\end{aligned}
+\]</span></p>
+<p>再返回去看上面的例子，你会发现，其实是一样的，
+<strong>记住这三个式子，后面也会用到</strong></p>
+<h1 id="图解kalman">图解 kalman</h1>
+<blockquote>
+
+</blockquote>
+<h2 id="我们能用卡尔曼滤波做什么">我们能用卡尔曼滤波做什么？</h2>
+<p>让我们举个例子：你造了一个可以在树林里四处溜达的小机器人，为了让它实现导航，机器人需要知道自己所处的位置。</p>
+<figure>
+<img data-src="image/kalman_1.jpg" alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>也就是说，机器人有一个包含位置信息和速度信息的状态 <span class="math inline">\(\vec{x_k}\)</span> ： <span class="math display">\[
+\large
+\vec{x_k} = (\vec{p}, \vec{v})
+\]</span></p>
+<p>注意，在这个例子中，状态是位置和速度，放进其他问题里，它也可以是水箱里的液体体积、汽车引擎温度、触摸板上指尖的位置，或者其他任何数据。</p>
+<p>我们的小机器人装有 GPS <strong>传感器</strong>，定位精度 10 米。虽然一般来说这点精度够用了，但我们希望它的定位误差能再小点，毕竟树林里到处都是土坑和陡坡，如果机器人稍稍偏了那么几米，它就有可能滚落山坡。所以 GPS 提供的信息还不够充分。</p>
+<figure>
+<img data-src="image/kalman_2.jpg" alt="img">
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p>我们也可以<strong>预测</strong>机器人是怎么移动的：它会把指令发送给控制轮子的马达，如果这一刻它始终朝一个方向前进，没有遇到任何障碍物，那么下一刻它可能会继续坚持这个路线。但是机器人对自己的状态不是全知的：它可能会逆风行驶，轮子打滑，滚落颠簸地形…… 所以车轮转动次数并不能完全代表实际行驶距离，基于这个距离的预测也不完美。</p>
+<p>这个问题下，<strong>GPS</strong> 为我们提供了一些关于状态的信息，但那是间接的、不准确的；我们的<strong>预测</strong>提供了关于机器人轨迹的信息，但那也是间接的、不准确的。</p>
+<p>但以上就是我们能够获得的全部信息，在它们的基础上，我们能得到一个比这两个估计值本身更好的答案吗？答案当然是肯定的，这就是我们接下来要讲到的卡尔曼滤波器。</p>
+<h2 id="卡尔曼滤波是如何看到你的问题的"><strong>卡尔曼滤波是如何看到你的问题的</strong></h2>
+<p>下面我们继续以只有位置和速度这两个状态的简单例子做解释。 <span class="math display">\[
+\large
+\vec{x} = \begin{bmatrix}
+p\\
+v
+\end{bmatrix}
+\]</span>
+我们并不知道实际的位置和速度，它们之间有很多种可能正确的组合，但其中一些的可能性要大于其它部分</p>
+<p>卡尔曼滤波假设这两个变量（在我们的例子中是位置和速度）是随机且符合<a href="https://zh.wikipedia.org/wiki/正态分布">高斯分布</a>的，每一个变量有一个<strong>平均值</strong>
+<span class="math inline"> \(\large \mu\)</span>
+，以及<strong>方差</strong> <span class="math inline"> \(\large
+\sigma^2\)</span></p>
+<ul>
+<li>如果位置和速度是<strong>不相关</strong>的，这意味着由其中一个变量的状态无法推测出另一个变量可能的值。</li>
+<li>但如果位置和速度是<strong>相关</strong>的，观测特定位置的可能性取决于当前的速度：</li>
+</ul>
+<p>这种情况是有可能发生的，例如，我们基于旧的位置来估计新位置。如果速度过高，我们可能已经移动很远了。如果缓慢移动，则距离不会很远。
+　　这种相关性用<strong><a href="https://en.wikipedia.org/wiki/Covariance_matrix">协方差矩阵</a></strong>来表示，简而言之，矩阵中的每个元素
+<span class="math inline">\(\large \Sigma_{ij}\)</span> 表示第 i 个和第
+j 个状态变量之间的相关度。（协方差矩阵是一个<strong><a href="https://en.wikipedia.org/wiki/Symmetric_matrix">对称矩阵</a></strong>，这意味着可以任意交换
+i 和 j)。协方差矩阵通常用 "<span class="math inline">\(\large \mathbf
+{\Sigma}\)</span>"来表示，其中的元素则表示为"<span class="math inline">\(\large \Sigma_{ij}\)</span>" 。</p>
+<h2 id="使用矩阵来描述问题"><strong>使用矩阵来描述问题</strong></h2>
+　　我们基于高斯分布来建立状态变量，所以在时刻 <span class="math inline">\(k\)</span> 需要两个信息：最佳估计 <span class="math inline">\(\mathbf{\hat{x}_k}\)</span> （即均值，其它地方常用
+<span class="math inline">\(\mu\)</span> 表示)，以及协方差矩阵 <span class="math inline">\(\mathbf{P_k}\)</span> 。 <span class="math display">\[
+\large
+\begin{equation} \label{eq:statevars} \begin{aligned}\mathbf{\hat{x}}_k
+&amp;=
+\begin{bmatrix}
+\text{position}\\
+\text{velocity}
+\end{bmatrix}\\
+\mathbf{P}_k &amp;=
+\begin{bmatrix}
+\Sigma_{pp} &amp; \Sigma_{pv} \\
+\Sigma_{vp} &amp; \Sigma_{vv} \\
+\end{bmatrix}
+\end{aligned}
+\end{equation}
+\]</span> 这里的 <span class="math inline">\(\mathbf{P_k}\)</span>
+可以用这种方法来计算 <span class="math display">\[
+\large
+\begin{equation}
+\mathbf{P_k} = E\begin{bmatrix}
+\hat{x_k}&amp;\hat{x^\mathrm{T}_k}
+\end{bmatrix}
+\end{equation}
+\]</span> 证明： $$
+<span class="math display">\[\begin {aligned}
+
+
+\mathbf {P_k} &amp;= E\begin {bmatrix}
+\begin {bmatrix}
+P\\
+v
+\end {bmatrix}
+\begin {bmatrix}
+P&amp;
+v
+\end {bmatrix}
+\end {bmatrix}
+\\
+&amp;=E\begin {bmatrix}
+\begin {bmatrix}
+P^2&amp;pv\\
+vp&amp;v^2
+\end {bmatrix}
+\end {bmatrix}\\
+&amp;=
+\begin {bmatrix}
+E\begin {bmatrix} P^2\end {bmatrix}&amp;E\begin {bmatrix} pv\end {bmatrix}\\
+E\begin {bmatrix} vp\end {bmatrix}&amp;E\begin {bmatrix} v^2\end {bmatrix}
+\end {bmatrix}\\
+&amp;=
+\begin {bmatrix}
+E\begin {bmatrix} P^2\end {bmatrix}&amp;E\begin {bmatrix} pv\end {bmatrix}\\
+E\begin {bmatrix} vp\end {bmatrix}&amp;E\begin {bmatrix} v^2\end {bmatrix}
+\end {bmatrix}\\
+\because &amp;VAR (X) = E (x^2) - E (x)^2 \Longrightarrow  方差计算公式 \\
+\mathbf {P_k} &amp;=
+\begin {bmatrix}
+\sigma^2_p&amp;\sigma^2_p\sigma^2_v\\
+\sigma^2_v\sigma^2_p&amp;\sigma^2_v
+\end {bmatrix}\\
+&amp;=
+\begin {bmatrix}
+\Sigma_{pp} &amp; \Sigma_{pv} \\
+\Sigma_{vp} &amp; \Sigma_{vv} \\
+\end {bmatrix}
+\end {aligned}\]</span>
+<p>$$</p>
+<p>(此处我们仅使用了位置和速度两个变量，在实际应用中状态向量可包含任意个变量，用来表示你所关心的任何信息)。</p>
+<p>接下来，我们很关心如何得到当前状态 (<strong>k-1</strong>) 和预测下一状态 (<strong>k</strong>)，注意我们并不知道状态值是否真实，但是预测函数对此并不关心，它仅在所有状态可能性的基础上给出一个新的预测分布：</p>
+<p><img data-src="image/kalman_5.jpg" alt="img" style="zoom:80%;"></p>
+<p>　　我们可以用矩阵 <span class="math inline">\(F_k\)</span>
+来表示这个预测过程：</p>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/kalman_6.jpg" alt="img" style="zoom:80%;"></p>
+<p>从上图可看出，每一个可能的向量 <span class="math inline">\(X_{k-1}\)</span> （原始估计）都可通过矩阵 <span class="math inline">\(F_k\)</span> 转换到 <span class="math inline">\(X_{k}\)</span> (预测值),
+若原始估计值正确，则系统下一个时刻的状态很可能为预测值.</p>
+<p>在我们这个机器人的小例子中，如何使用矩阵来预测下一时刻的位置和速度呢？使用基本的运动学公式：（这里认为两个时刻的速度近似不变）
+<span class="math display">\[
+\large
+\begin{split}
+\color{deeppink}{p_k} &amp;= \color{royalblue}{p_{k-1}} + \Delta t
+&amp;\color{royalblue}{v_{k-1}} \\
+\color{deeppink}{v_k} &amp;= &amp;\color{royalblue}{v_{k-1}}
+\end{split}
+\]</span> 既： <span class="math display">\[
+\large
+\begin{align} \color{deeppink}{\mathbf{\hat{x}}_k} &amp;=
+\begin{bmatrix}
+1 &amp; \Delta t \\
+0 &amp; 1
+\end{bmatrix}
+\color{royalblue}{\mathbf{\hat{x}}} \\ &amp;= \mathbf{F}_k
+\color{royalblue}{\mathbf{\hat{x}}}\label{statevars} \end{align}
+\]</span></p>
+<p>现在我们得出了<strong>预测矩阵</strong> <span class="math inline"> \(F_k\)</span>
+，能告诉下一个状态；但如何更新协方差矩阵仍未知呢？</p>
+<p>这里我们需要使用另外一个公式，如果对每一个具有概率分布的点乘以矩阵
+<span class="math inline">\(A\)</span> ，其协方差矩阵 $$ 会如何？ <span class="math display">\[
+\large
+\begin{equation}
+\begin{split}
+Cov(x) &amp;= \Sigma\\
+Cov(\color{firebrick}{\mathbf{A}}x) &amp;=
+\color{firebrick}{\mathbf{A}}\Sigma \color{firebrick}{\mathbf{A}}^T
+\end{split} \label{covident}
+\end{equation}
+\]</span> 　　结合上面两个式子可以得到：</p>
+<p><span class="math display">\[
+\large
+\begin{equation}
+\begin{split}
+\color{deeppink}{\mathbf{\hat{x}}_k} &amp;=
+\mathbf{F}_k\color{royalblue}{\mathbf{\hat{x}}_{k-1}} \\
+\color{deeppink}{\mathbf{P}_k} &amp;=
+\mathbf{F_k}\color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T
+\end{split}　\label{eq5}
+\end{equation}
+\]</span></p>
+<h2 id="外部影响"><strong>外部影响</strong></h2>
+<p>然而我们并未考虑完全，外部环境的某些变化可能<strong>与状态向量不相关</strong>，但仍能影响系统。
+　　例如：若上节中的状态向量表示了列车的运动，列车驾驶员可能推动油门，使列车加速。类似的，在我们的机器人中，导航软件可能发出使轮子转动或停止的指令。如果知道实际情况中这些额外的信息，我们可以将其放在向量
+<span class="math inline">\(\color{darkorange}{\vec{\mathbf{u}_k}}\)</span>
+中，利用这个向量对我们的预测做进一步纠正。比</p>
+<p>方说根据油门或控制指令，我们知道预期的加速度 <span class="math inline">\(a\)</span> ，可以得到： <span class="math display">\[
+\large
+\begin{split}
+\color{deeppink}{p_k} &amp;= \color{royalblue}{p_{k-1}} + {\Delta t}
+&amp;\color{royalblue}{v_{k-1}} + &amp;\frac{1}{2} \color{darkorange}{a}
+{\Delta t}^2 \\
+\color{deeppink}{v_k} &amp;= &amp;\color{royalblue}{v_{k-1}} +
+&amp;\color{darkorange}{a} {\Delta t}
+\end{split}
+\]</span> 　　以矩阵的形式表示就是：</p>
+<p><span class="math display">\[
+\large
+\begin{equation}
+\begin{split}
+\color{deeppink}{\mathbf{\hat{x}}_k} &amp;=
+\mathbf{F}_k\color{royalblue}{\mathbf{\hat{x}}_{k-1}} + \begin{bmatrix}
+\frac{\Delta t^2}{2} \\
+\Delta t
+\end{bmatrix} \color{darkorange}{a} \\
+&amp;= \mathbf{F}_k \color{royalblue}{\mathbf{\hat{x}}_{k-1}}
++\mathbf{B}_k \color{darkorange}{\vec{\mathbf{u}_k}}
+\end{split} \label{eq6}
+\end{equation}
+\]</span> <span class="math inline">\(\mathbf{B}_k\)</span>
+称之为<strong>控制矩阵</strong>， <span class="math inline">\(\color{darkorange}{\vec{\mathbf{u}_k}}\)</span>
+为<strong>控制向量</strong>。（对于简单无外部干扰的系统，可忽略这两者）</p>
+<p>我们可以加入更多细节，但若预测模型并非 100% 准确将会发生什么？</p>
+<h2 id="外部不确定性"><strong>外部不确定性</strong></h2>
+<p>如果状态向量按照其固有属性发展，一切好说。如果系统在有外界力的作用下发展，只要我们知道这些力，仍没问题。</p>
+<p>但如果我们不知道这些力，怎么办？例如，强风的影响，轮子打滑，路面颠簸.
+我们无法对这些全部考虑，而这些事情会导致我们的预测失灵。</p>
+<p>通过给每一步预测添加表示不确定的量，我们可以给环境的这种不确定性建模：</p>
+<p><img data-src="image/kalman_7.jpg" style="zoom:80%;"></p>
+<p>如上图所示，k-1 时刻的估计值 <span class="math inline">\(\color{royalblue}{\mathbf{\hat{x}}_{k-1}}\)</span>
+经过预测步骤后，可能以协方差 <span class="math inline">\(\color{mediumaquamarine}{\mathbf{Q}_k}\)</span>
+移动至紫色高斯分布（Gaussian
+blob）内某个位置，也可以说将未知的环境影响视为协方差为 <span class="math inline">\(\color{mediumaquamarine}{\mathbf{Q}_k}\)</span>
+的<strong>噪音</strong>。</p>
+<p><img data-src="image/kalman_9.jpg" alt="img" style="zoom:80%;"></p>
+<p>这将产生一个新的高斯分布，但有不同的协方差（相同的平均值）：</p>
+<p><img data-src="image/kalman_8-16595833520501.jpg" alt="img" style="zoom:80%;"></p>
+<p>我们通过简单地添加 <span class="math inline">\(\color{mediumaquamarine}{\mathbf{Q}_k}\)</span>
+得到扩展的协方差，下面给出预测步骤的完整表达式： <span class="math display">\[
+\large
+\begin{equation}
+\begin{split}
+\color{deeppink}{\mathbf{\hat{x}}_k} &amp;=
+\mathbf{F}_k\color{royalblue}{\mathbf{\hat{x}}_{k-1}} +
+\mathbf{B}_k\color{darkorange}{\vec{\mathbf{u}_k}} \\
+\color{deeppink}{\mathbf{P}_k} &amp;=
+\mathbf{F_k}\color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T
++\color{mediumaquamarine}{\mathbf{Q}_k}
+\end{split}
+\label{kalpredictfull}
+\end{equation}
+\]</span> 也就是说：</p>
+<ul>
+<li>== 新的最佳估计 == 是对 == 上一步最佳估计 == 的<strong>预测</strong>，并加上考虑已知的 == 外界影响 == 后的<strong>修正量</strong></li>
+<li> == 新的不确定性 == 是从 == 上一步的不确定性 == <strong>预测</strong>得来，并加上 == 环境的额外不确定性 ==</li>
+</ul>
+<blockquote>
+<p>In other words, the <strong>new best estimate</strong> is a
+<strong>prediction</strong> made from <strong>previous best
+estimate</strong>, plus a <strong>correction</strong> for <strong>known
+external influences</strong>.</p>
+<p>And the <strong>new uncertainty</strong> is
+<strong>predicted</strong> from the <strong>old uncertainty</strong>,
+with some <strong>additional uncertainty from the
+environment</strong>.</p>
+</blockquote>
+<p>上面两个式子分别就是卡尔曼中的：</p>
+<ul>
+<li><strong>“计算先验估计 (1)”</strong></li>
+<li><strong>“计算先验估计协方差 (2)”</strong></li>
+</ul>
+<h2 id="用测量值来修正估计值"><strong>用测量值来修正估计值</strong></h2>
+<p>我们可能有一些能给出系统状态信息的传感器.
+目前它们能测什么没什么关系，可能有的传感器能测位置，有的能测速度.
+每个传感器能<strong>间接地（indirect）</strong>给出状态的某些信息，也就是说，传感器对系统状态进行某种操作，从而给出<strong>读数</strong>。</p>
+<p>注意到传感器读数的<strong>单位和比例</strong>与我们所关心的系统状态的单位和比例可能不同，你可能猜得到，我们以矩阵
+<span class="math inline">\(\mathbf{H}_k\)</span>
+给传感器这种行为建模。</p>
+<p>我们可以弄明白传感器读数的分布， <span class="math inline">\(\mathbf{H}_k\)</span> 就是单位转换矩阵 <span class="math display">\[
+\large
+\begin {equation}
+\begin {aligned}
+\vec {\mu}_{\text {观测}} &amp;=
+\mathbf {H}_k\color {deeppink}{\mathbf {\hat {x}}_k} \\
+\mathbf {\Sigma}_{\text {观测}} &amp;=
+\mathbf {H}_k\color {deeppink}{\mathbf {P}_k} \mathbf {H}_k^T
+\end {aligned}
+\end {equation}
+\]</span> 我们将此不确定性 (例如传感器噪音) 的<strong>协方差</strong>称为
+<span class="math inline">\(\color{mediumaquamarine}{\mathbf{R}_k}\)</span>
+，此分布的<strong>均值</strong>就是我们观测到的读数 <span class="math inline">\(\color{yellowgreen}{\vec{\mathbf{z}_k}}\)</span>
+。</p>
+<p>现在我们有两个高斯分布，一个的中心是预测的转换 <span class="math inline">\(\mathbf{H}_k\color{deeppink}{\mathbf{\hat{x}}_k}\)</span>
+后的均值，另一个的中心是传感器读数 <span class="math inline">\(\color{yellowgreen}{\vec{\mathbf{z}_k}}\)</span>
+。</p>
+<p>上面的这个式子就和 “状态空间表达” 的式子非常显示 <span class="math display">\[
+\large
+\begin {aligned}
+\hat {x_k} &amp;= A\hat {X_{k-1}} + BU_{k} {\color {Red} +  W_{k-1}} \\
+Z_k &amp;= H\hat {x_{kmea}}  {\color {Red} + V_k}
+\end {aligned}
+\\
+\large
+\hat {x_k} 是算出来的值 \\
+\large
+\hat {x_{kmea}} 是测出来的值
+\]</span></p>
+<ul>
+<li>这里的思路是把 <span class="math inline">\(Z_k\)</span> 测量的值乘上
+<span class="math inline">\(H^-\)</span> 也就是：测量值 <span class="math inline">\(\hat {x_{测量}} = H^-Z_k\)</span></li>
+<li> 而上面的思路是把观测的值 <span class="math inline">\(\hat{x_k}\)</span> 乘上 <span class="math inline">\(H\)</span> ，也就是：观测值 <span class="math inline">\(\hat {x_{观测}}=H\hat {x_k}\)</span></li>
+</ul>
+<p>本质上都是把<strong>观测值</strong>和<strong>测量值</strong>的单位转化为一致</p>
+<h2 id="结合高斯分布">结合高斯分布</h2>
+<p>在 <strong>“数据融合”</strong> 里面我们已经知道了 <span class="math display">\[
+\large
+\begin{equation} \label{gainformula}
+\color{purple}{\mathbf{k}} = \frac{\sigma_1^2}{\sigma_1^2 +\sigma_2^2}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\large
+\begin{equation}
+\begin{split}
+\color{royalblue}{\mu’} &amp;= \mu_1 + &amp;\color{purple}{\mathbf{k}}
+(\mu_2 – \mu_1)\\
+\color{mediumblue}{\sigma’}^2 &amp;= \sigma_1^2 –
+&amp;\color{purple}{\mathbf{k}} \sigma_1^2
+\end{split} \label{update}
+\end{equation}
+\]</span></p>
+<p>再把上述公式写成矩阵版本。若 <span class="math inline">\(\large
+\sigma\)</span> 为高斯分布的协方差矩阵， <span class="math inline">\(\large \vec{\mu}\)</span> 为其均值，则有： <span class="math display">\[
+\large
+\begin{equation} \label{matrixgain}
+\color{purple}{\mathbf{K}} = \Sigma_1 (\Sigma_1 +\Sigma_2)^{-1}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\large
+\begin{equation}
+\begin{split}
+\color{royalblue}{\vec{\mu}’} &amp;= \vec{\mu_1} +
+&amp;\color{purple}{\mathbf{K}} (\vec{\mu_2} – \vec{\mu_1})\\
+\color{mediumblue}{\Sigma’} &amp;= \Sigma_1 –
+&amp;\color{purple}{\mathbf{K}} \Sigma_1
+\end{split} \label{matrixupdate}
+\end{equation}
+\]</span></p>
+<p>将 <span class="math inline">\(\large
+\color{purple}{\mathbf{K}}\)</span>
+矩阵称为<strong>卡尔曼增益</strong></p>
+<h2 id="综上所述">综上所述</h2>
+<p>我们有两个分布：</p>
+<ul>
+<li>预测值的测量 <span class="math inline">\(\large
+(\color{fuchsia}{\mu_1},\color{deeppink}{\Sigma_1}) =
+(\color{fuchsia}{\mathbf{H}_k\mathbf{\hat{x}}_k},
+\color{deeppink}{\mathbf{H}_k \mathbf{P}_k\mathbf{H}_k^T})\)</span></li>
+<li> 观测到的测量 <span class="math inline">\(\large
+(\color{yellowgreen}{\mu_2},\color{mediumaquamarine}{\Sigma_2}) =
+(\color{yellowgreen}{\vec{\mathbf{z}_k}},\color{mediumaquamarine}{\mathbf{R}_k})\)</span></li>
+</ul>
+<p>将他们代入上面的式子中： <span class="math display">\[
+\large
+\begin{equation}
+\begin{aligned}
+\mathbf{H}_k \color{royalblue}{\mathbf{\hat{x}}_k’}
+&amp;=\color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} &amp; +
+&amp;\color{purple}{\mathbf{K}} (\color{yellowgreen}{\vec{\mathbf{z}_k}}
+–\color{fuchsia}{\mathbf{H}_k \mathbf{\hat{x}}_k} ) \\
+\mathbf{H}_k \color{royalblue}{\mathbf{P}_k’} \mathbf{H}_k^T
+&amp;=\color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} &amp; –
+&amp;\color{purple}{\mathbf{K}}
+\color{deeppink}{\mathbf{H}_k\mathbf{P}_k \mathbf{H}_k^T}
+\end{aligned} \label {kalunsimplified}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\large
+\begin{equation} \label{eq:kalgainunsimplified}
+\color{purple}{\mathbf{K}} = \color{deeppink}{\mathbf{H}_k\mathbf{P}_k
+\mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k\mathbf{P}_k
+\mathbf{H}_k^T} +\color{mediumaquamarine}{\mathbf{R}_k})^{-1}
+\end{equation}
+\]</span></p>
+<p>再把上面的式子化简一下，去掉 <span class="math inline">\(\large
+\mathbf{H}_k,\mathbf{H}_k^T\)</span> ： <span class="math display">\[
+\LARGE
+\begin{equation}
+\begin{split}
+\color{royalblue}{\mathbf{\hat{x}}_k’}
+&amp;=\color{fuchsia}{\mathbf{\hat{x}}_k} &amp; +
+&amp;\color{purple}{\mathbf{K}’}
+(\color{yellowgreen}{\vec{\mathbf{z}_k}} –\color{fuchsia}{\mathbf{H}_k
+\mathbf{\hat{x}}_k} ) \\
+\color{royalblue}{\mathbf{P}_k’} &amp;= \color{deeppink}{\mathbf{P}_k}
+&amp; – &amp; \color{purple}{\mathbf{K}’}
+\color{deeppink}{\mathbf{H}_k\mathbf{P}_k}
+\end{split}
+\label{kalupdatefull}
+\end{equation}
+\]</span></p>
+<p><span class="math display">\[
+\LARGE
+\begin{equation}
+\color{purple}{\mathbf{K}’} =
+\color{deeppink}{\mathbf{P}_k\mathbf{H}_k^T} (
+\color{deeppink}{\mathbf{H}_k \mathbf{P}_k\mathbf{H}_k^T} +
+\color{mediumaquamarine}{\mathbf{R}_k})^{-1}
+\label{kalgainfull}
+\end{equation}
+\]</span></p>
+<p>上面的三个式子分别就是卡尔曼公式中的</p>
+<ul>
+<li><strong>“计算后验估计 (4)” </strong></li>
+<li><strong>“更新误差协方差 (5)”</strong></li>
+<li><strong>"计算更新卡尔曼增益 (3)" </strong></li>
+</ul>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/kalman_4.jpg" alt="Kalman filter information flow diagram" style="zoom:50%;"></p>
+<p><img data-src="image/kalman_01.png" alt="image-20210601003039180" style="zoom:150%;"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/14/notes/markdown/%E8%A1%A8%E6%83%85%E7%AC%A6%E5%8F%B7%E7%AE%80%E7%A0%81%E5%88%97%E8%A1%A8/</url>
+    <content><![CDATA[<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>:bowtie: <code>:bowtie:</code></th>
+<th>:smile: <code>:smile:</code></th>
+<th>:laughing: <code>:laughing:</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>:blush: <code>:blush:</code></td>
+<td>:smiley: <code>:smiley:</code></td>
+<td>:relaxed: <code>:relaxed:</code></td>
+</tr>
+<tr class="even">
+<td>:smirk: <code>:smirk:</code></td>
+<td>:heart_eyes: <code>:heart_eyes:</code></td>
+<td>:kissing_heart: <code>:kissing_heart:</code></td>
+</tr>
+<tr class="odd">
+<td>:kissing_closed_eyes: <code>:kissing_closed_eyes:</code></td>
+<td>:flushed: <code>:flushed:</code></td>
+<td>:relieved: <code>:relieved:</code></td>
+</tr>
+<tr class="even">
+<td>:satisfied: <code>:satisfied:</code></td>
+<td>:grin: <code>:grin:</code></td>
+<td>:wink: <code>:wink:</code></td>
+</tr>
+<tr class="odd">
+<td>:stuck_out_tongue_winking_eye:
+<code>:stuck_out_tongue_winking_eye:</code></td>
+<td>:stuck_out_tongue_closed_eyes:
+<code>:stuck_out_tongue_closed_eyes:</code></td>
+<td>:grinning: <code>:grinning:</code></td>
+</tr>
+<tr class="even">
+<td>:kissing: <code>:kissing:</code></td>
+<td>:kissing_smiling_eyes: <code>:kissing_smiling_eyes:</code></td>
+<td>:stuck_out_tongue: <code>:stuck_out_tongue:</code></td>
+</tr>
+<tr class="odd">
+<td>:sleeping: <code>:sleeping:</code></td>
+<td>:worried: <code>:worried:</code></td>
+<td>:frowning: <code>:frowning:</code></td>
+</tr>
+<tr class="even">
+<td>:anguished: <code>:anguished:</code></td>
+<td>:open_mouth: <code>:open_mouth:</code></td>
+<td>:grimacing: <code>:grimacing:</code></td>
+</tr>
+<tr class="odd">
+<td>:confused: <code>:confused:</code></td>
+<td>:hushed: <code>:hushed:</code></td>
+<td>:expressionless: <code>:expressionless:</code></td>
+</tr>
+<tr class="even">
+<td>:unamused: <code>:unamused:</code></td>
+<td>:sweat_smile: <code>:sweat_smile:</code></td>
+<td>:sweat: <code>:sweat:</code></td>
+</tr>
+<tr class="odd">
+<td>:disappointed_relieved: <code>:disappointed_relieved:</code></td>
+<td>:weary: <code>:weary:</code></td>
+<td>:pensive: <code>:pensive:</code></td>
+</tr>
+<tr class="even">
+<td>:disappointed: <code>:disappointed:</code></td>
+<td>:confounded: <code>:confounded:</code></td>
+<td>:fearful: <code>:fearful:</code></td>
+</tr>
+<tr class="odd">
+<td>:cold_sweat: <code>:cold_sweat:</code></td>
+<td>:persevere: <code>:persevere:</code></td>
+<td>:cry: <code>:cry:</code></td>
+</tr>
+<tr class="even">
+<td>:sob: <code>:sob:</code></td>
+<td>:joy: <code>:joy:</code></td>
+<td>:astonished: <code>:astonished:</code></td>
+</tr>
+<tr class="odd">
+<td>:scream: <code>:scream:</code></td>
+<td>:neckbeard: <code>:neckbeard:</code></td>
+<td>:tired_face: <code>:tired_face:</code></td>
+</tr>
+<tr class="even">
+<td>:angry: <code>:angry:</code></td>
+<td>:rage: <code>:rage:</code></td>
+<td>:triumph: <code>:triumph:</code></td>
+</tr>
+<tr class="odd">
+<td>:sleepy: <code>:sleepy:</code></td>
+<td>:yum: <code>:yum:</code></td>
+<td>:mask: <code>:mask:</code></td>
+</tr>
+<tr class="even">
+<td>:sunglasses: <code>:sunglasses:</code></td>
+<td>:dizzy_face: <code>:dizzy_face:</code></td>
+<td>:imp: <code>:imp:</code></td>
+</tr>
+<tr class="odd">
+<td>:smiling_imp: <code>:smiling_imp:</code></td>
+<td>:neutral_face: <code>:neutral_face:</code></td>
+<td>:no_mouth: <code>:no_mouth:</code></td>
+</tr>
+<tr class="even">
+<td>:innocent: <code>:innocent:</code></td>
+<td>:alien: <code>:alien:</code></td>
+<td>:yellow_heart: <code>:yellow_heart:</code></td>
+</tr>
+<tr class="odd">
+<td>:blue_heart: <code>:blue_heart:</code></td>
+<td>:purple_heart: <code>:purple_heart:</code></td>
+<td>:heart: <code>:heart:</code></td>
+</tr>
+<tr class="even">
+<td>:green_heart: <code>:green_heart:</code></td>
+<td>:broken_heart: <code>:broken_heart:</code></td>
+<td>:heartbeat: <code>:heartbeat:</code></td>
+</tr>
+<tr class="odd">
+<td>:heartpulse: <code>:heartpulse:</code></td>
+<td>:two_hearts: <code>:two_hearts:</code></td>
+<td>:revolving_hearts: <code>:revolving_hearts:</code></td>
+</tr>
+<tr class="even">
+<td>:cupid: <code>:cupid:</code></td>
+<td>:sparkling_heart: <code>:sparkling_heart:</code></td>
+<td>:sparkles: <code>:sparkles:</code></td>
+</tr>
+<tr class="odd">
+<td>:star: <code>:star:</code></td>
+<td>:star2: <code>:star2:</code></td>
+<td>:dizzy: <code>:dizzy:</code></td>
+</tr>
+<tr class="even">
+<td>:boom: <code>:boom:</code></td>
+<td>:collision: <code>:collision:</code></td>
+<td>:anger: <code>:anger:</code></td>
+</tr>
+<tr class="odd">
+<td>:exclamation: <code>:exclamation:</code></td>
+<td>:question: <code>:question:</code></td>
+<td>:grey_exclamation: <code>:grey_exclamation:</code></td>
+</tr>
+<tr class="even">
+<td>:grey_question: <code>:grey_question:</code></td>
+<td>:zzz: <code>:zzz:</code></td>
+<td>:dash: <code>:dash:</code></td>
+</tr>
+<tr class="odd">
+<td>:sweat_drops: <code>:sweat_drops:</code></td>
+<td>:notes: <code>:notes:</code></td>
+<td>:musical_note: <code>:musical_note:</code></td>
+</tr>
+<tr class="even">
+<td>:fire: <code>:fire:</code></td>
+<td>:hankey: <code>:hankey:</code></td>
+<td>:poop: <code>:poop:</code></td>
+</tr>
+<tr class="odd">
+<td>:shit: <code>:shit:</code></td>
+<td>:+1: <code>:+1:</code></td>
+<td>:thumbsup: <code>:thumbsup:</code></td>
+</tr>
+<tr class="even">
+<td>:-1: <code>:-1:</code></td>
+<td>:thumbsdown: <code>:thumbsdown:</code></td>
+<td>:ok_hand: <code>:ok_hand:</code></td>
+</tr>
+<tr class="odd">
+<td>:punch: <code>:punch:</code></td>
+<td>:facepunch: <code>:facepunch:</code></td>
+<td>:fist: <code>:fist:</code></td>
+</tr>
+<tr class="even">
+<td>:v: <code>:v:</code></td>
+<td>:wave: <code>:wave:</code></td>
+<td>:hand: <code>:hand:</code></td>
+</tr>
+<tr class="odd">
+<td>:raised_hand: <code>:raised_hand:</code></td>
+<td>:open_hands: <code>:open_hands:</code></td>
+<td>:point_up: <code>:point_up:</code></td>
+</tr>
+<tr class="even">
+<td>:point_down: <code>:point_down:</code></td>
+<td>:point_left: <code>:point_left:</code></td>
+<td>:point_right: <code>:point_right:</code></td>
+</tr>
+<tr class="odd">
+<td>:raised_hands: <code>:raised_hands:</code></td>
+<td>:pray: <code>:pray:</code></td>
+<td>:point_up_2: <code>:point_up_2:</code></td>
+</tr>
+<tr class="even">
+<td>:clap: <code>:clap:</code></td>
+<td>:muscle: <code>:muscle:</code></td>
+<td>:metal: <code>:metal:</code></td>
+</tr>
+<tr class="odd">
+<td>:fu: <code>:fu:</code></td>
+<td>:walking: <code>:walking:</code></td>
+<td>:runner: <code>:runner:</code></td>
+</tr>
+<tr class="even">
+<td>:running: <code>:running:</code></td>
+<td>:couple: <code>:couple:</code></td>
+<td>:family: <code>:family:</code></td>
+</tr>
+<tr class="odd">
+<td>:two_men_holding_hands: <code>:two_men_holding_hands:</code></td>
+<td>:two_women_holding_hands:
+<code>:two_women_holding_hands:</code></td>
+<td>:dancer: <code>:dancer:</code></td>
+</tr>
+<tr class="even">
+<td>:dancers: <code>:dancers:</code></td>
+<td>:ok_woman: <code>:ok_woman:</code></td>
+<td>:no_good: <code>:no_good:</code></td>
+</tr>
+<tr class="odd">
+<td>:information_desk_person:
+<code>:information_desk_person:</code></td>
+<td>:raising_hand: <code>:raising_hand:</code></td>
+<td>:bride_with_veil: <code>:bride_with_veil:</code></td>
+</tr>
+<tr class="even">
+<td>:person_with_pouting_face:
+<code>:person_with_pouting_face:</code></td>
+<td>:person_frowning: <code>:person_frowning:</code></td>
+<td>:bow: <code>:bow:</code></td>
+</tr>
+<tr class="odd">
+<td>:couplekiss: <code>:couplekiss:</code></td>
+<td>:couple_with_heart: <code>:couple_with_heart:</code></td>
+<td>:massage: <code>:massage:</code></td>
+</tr>
+<tr class="even">
+<td>:haircut: <code>:haircut:</code></td>
+<td>:nail_care: <code>:nail_care:</code></td>
+<td>:boy: <code>:boy:</code></td>
+</tr>
+<tr class="odd">
+<td>:girl: <code>:girl:</code></td>
+<td>:woman: <code>:woman:</code></td>
+<td>:man: <code>:man:</code></td>
+</tr>
+<tr class="even">
+<td>:baby: <code>:baby:</code></td>
+<td>:older_woman: <code>:older_woman:</code></td>
+<td>:older_man: <code>:older_man:</code></td>
+</tr>
+<tr class="odd">
+<td>:person_with_blond_hair: <code>:person_with_blond_hair:</code></td>
+<td>:man_with_gua_pi_mao: <code>:man_with_gua_pi_mao:</code></td>
+<td>:man_with_turban: <code>:man_with_turban:</code></td>
+</tr>
+<tr class="even">
+<td>:construction_worker: <code>:construction_worker:</code></td>
+<td>:cop: <code>:cop:</code></td>
+<td>:angel: <code>:angel:</code></td>
+</tr>
+<tr class="odd">
+<td>:princess: <code>:princess:</code></td>
+<td>:smiley_cat: <code>:smiley_cat:</code></td>
+<td>:smile_cat: <code>:smile_cat:</code></td>
+</tr>
+<tr class="even">
+<td>:heart_eyes_cat: <code>:heart_eyes_cat:</code></td>
+<td>:kissing_cat: <code>:kissing_cat:</code></td>
+<td>:smirk_cat: <code>:smirk_cat:</code></td>
+</tr>
+<tr class="odd">
+<td>:scream_cat: <code>:scream_cat:</code></td>
+<td>:crying_cat_face: <code>:crying_cat_face:</code></td>
+<td>:joy_cat: <code>:joy_cat:</code></td>
+</tr>
+<tr class="even">
+<td>:pouting_cat: <code>:pouting_cat:</code></td>
+<td>:japanese_ogre: <code>:japanese_ogre:</code></td>
+<td>:japanese_goblin: <code>:japanese_goblin:</code></td>
+</tr>
+<tr class="odd">
+<td>:see_no_evil: <code>:see_no_evil:</code></td>
+<td>:hear_no_evil: <code>:hear_no_evil:</code></td>
+<td>:speak_no_evil: <code>:speak_no_evil:</code></td>
+</tr>
+<tr class="even">
+<td>:guardsman: <code>:guardsman:</code></td>
+<td>:skull: <code>:skull:</code></td>
+<td>:feet: <code>:feet:</code></td>
+</tr>
+<tr class="odd">
+<td>:lips: <code>:lips:</code></td>
+<td>:kiss: <code>:kiss:</code></td>
+<td>:droplet: <code>:droplet:</code></td>
+</tr>
+<tr class="even">
+<td>:ear: <code>:ear:</code></td>
+<td>:eyes: <code>:eyes:</code></td>
+<td>:nose: <code>:nose:</code></td>
+</tr>
+<tr class="odd">
+<td>:tongue: <code>:tongue:</code></td>
+<td>:love_letter: <code>:love_letter:</code></td>
+<td>:bust_in_silhouette: <code>:bust_in_silhouette:</code></td>
+</tr>
+<tr class="even">
+<td>:busts_in_silhouette: <code>:busts_in_silhouette:</code></td>
+<td>:speech_balloon: <code>:speech_balloon:</code></td>
+<td>:thought_balloon: <code>:thought_balloon:</code></td>
+</tr>
+<tr class="odd">
+<td>:feelsgood: <code>:feelsgood:</code></td>
+<td>:finnadie: <code>:finnadie:</code></td>
+<td>:goberserk: <code>:goberserk:</code></td>
+</tr>
+<tr class="even">
+<td>:godmode: <code>:godmode:</code></td>
+<td>:hurtrealbad: <code>:hurtrealbad:</code></td>
+<td>:rage1: <code>:rage1:</code></td>
+</tr>
+<tr class="odd">
+<td>:rage2: <code>:rage2:</code></td>
+<td>:rage3: <code>:rage3:</code></td>
+<td>:rage4: <code>:rage4:</code></td>
+</tr>
+<tr class="even">
+<td>:suspect: <code>:suspect:</code></td>
+<td>:trollface: <code>:trollface:</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Nature</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>:sunny: <code>:sunny:</code></th>
+<th>:umbrella: <code>:umbrella:</code></th>
+<th>:cloud: <code>:cloud:</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>:snowflake: <code>:snowflake:</code></td>
+<td>:snowman: <code>:snowman:</code></td>
+<td>:zap: <code>:zap:</code></td>
+</tr>
+<tr class="even">
+<td>:cyclone: <code>:cyclone:</code></td>
+<td>:foggy: <code>:foggy:</code></td>
+<td>:ocean: <code>:ocean:</code></td>
+</tr>
+<tr class="odd">
+<td>:cat: <code>:cat:</code></td>
+<td>:dog: <code>:dog:</code></td>
+<td>:mouse: <code>:mouse:</code></td>
+</tr>
+<tr class="even">
+<td>:hamster: <code>:hamster:</code></td>
+<td>:rabbit: <code>:rabbit:</code></td>
+<td>:wolf: <code>:wolf:</code></td>
+</tr>
+<tr class="odd">
+<td>:frog: <code>:frog:</code></td>
+<td>:tiger: <code>:tiger:</code></td>
+<td>:koala: <code>:koala:</code></td>
+</tr>
+<tr class="even">
+<td>:bear: <code>:bear:</code></td>
+<td>:pig: <code>:pig:</code></td>
+<td>:pig_nose: <code>:pig_nose:</code></td>
+</tr>
+<tr class="odd">
+<td>:cow: <code>:cow:</code></td>
+<td>:boar: <code>:boar:</code></td>
+<td>:monkey_face: <code>:monkey_face:</code></td>
+</tr>
+<tr class="even">
+<td>:monkey: <code>:monkey:</code></td>
+<td>:horse: <code>:horse:</code></td>
+<td>:racehorse: <code>:racehorse:</code></td>
+</tr>
+<tr class="odd">
+<td>:camel: <code>:camel:</code></td>
+<td>:sheep: <code>:sheep:</code></td>
+<td>:elephant: <code>:elephant:</code></td>
+</tr>
+<tr class="even">
+<td>:panda_face: <code>:panda_face:</code></td>
+<td>:snake: <code>:snake:</code></td>
+<td>:bird: <code>:bird:</code></td>
+</tr>
+<tr class="odd">
+<td>:baby_chick: <code>:baby_chick:</code></td>
+<td>:hatched_chick: <code>:hatched_chick:</code></td>
+<td>:hatching_chick: <code>:hatching_chick:</code></td>
+</tr>
+<tr class="even">
+<td>:chicken: <code>:chicken:</code></td>
+<td>:penguin: <code>:penguin:</code></td>
+<td>:turtle: <code>:turtle:</code></td>
+</tr>
+<tr class="odd">
+<td>:bug: <code>:bug:</code></td>
+<td>:honeybee: <code>:honeybee:</code></td>
+<td>:ant: <code>:ant:</code></td>
+</tr>
+<tr class="even">
+<td>:beetle: <code>:beetle:</code></td>
+<td>:snail: <code>:snail:</code></td>
+<td>:octopus: <code>:octopus:</code></td>
+</tr>
+<tr class="odd">
+<td>:tropical_fish: <code>:tropical_fish:</code></td>
+<td>:fish: <code>:fish:</code></td>
+<td>:whale: <code>:whale:</code></td>
+</tr>
+<tr class="even">
+<td>:whale2: <code>:whale2:</code></td>
+<td>:dolphin: <code>:dolphin:</code></td>
+<td>:cow2: <code>:cow2:</code></td>
+</tr>
+<tr class="odd">
+<td>:ram: <code>:ram:</code></td>
+<td>:rat: <code>:rat:</code></td>
+<td>:water_buffalo: <code>:water_buffalo:</code></td>
+</tr>
+<tr class="even">
+<td>:tiger2: <code>:tiger2:</code></td>
+<td>:rabbit2: <code>:rabbit2:</code></td>
+<td>:dragon: <code>:dragon:</code></td>
+</tr>
+<tr class="odd">
+<td>:goat: <code>:goat:</code></td>
+<td>:rooster: <code>:rooster:</code></td>
+<td>:dog2: <code>:dog2:</code></td>
+</tr>
+<tr class="even">
+<td>:pig2: <code>:pig2:</code></td>
+<td>:mouse2: <code>:mouse2:</code></td>
+<td>:ox: <code>:ox:</code></td>
+</tr>
+<tr class="odd">
+<td>:dragon_face: <code>:dragon_face:</code></td>
+<td>:blowfish: <code>:blowfish:</code></td>
+<td>:crocodile: <code>:crocodile:</code></td>
+</tr>
+<tr class="even">
+<td>:dromedary_camel: <code>:dromedary_camel:</code></td>
+<td>:leopard: <code>:leopard:</code></td>
+<td>:cat2: <code>:cat2:</code></td>
+</tr>
+<tr class="odd">
+<td>:poodle: <code>:poodle:</code></td>
+<td>:paw_prints: <code>:paw_prints:</code></td>
+<td>:bouquet: <code>:bouquet:</code></td>
+</tr>
+<tr class="even">
+<td>:cherry_blossom: <code>:cherry_blossom:</code></td>
+<td>:tulip: <code>:tulip:</code></td>
+<td>:four_leaf_clover: <code>:four_leaf_clover:</code></td>
+</tr>
+<tr class="odd">
+<td>:rose: <code>:rose:</code></td>
+<td>:sunflower: <code>:sunflower:</code></td>
+<td>:hibiscus: <code>:hibiscus:</code></td>
+</tr>
+<tr class="even">
+<td>:maple_leaf: <code>:maple_leaf:</code></td>
+<td>:leaves: <code>:leaves:</code></td>
+<td>:fallen_leaf: <code>:fallen_leaf:</code></td>
+</tr>
+<tr class="odd">
+<td>:herb: <code>:herb:</code></td>
+<td>:mushroom: <code>:mushroom:</code></td>
+<td>:cactus: <code>:cactus:</code></td>
+</tr>
+<tr class="even">
+<td>:palm_tree: <code>:palm_tree:</code></td>
+<td>:evergreen_tree: <code>:evergreen_tree:</code></td>
+<td>:deciduous_tree: <code>:deciduous_tree:</code></td>
+</tr>
+<tr class="odd">
+<td>:chestnut: <code>:chestnut:</code></td>
+<td>:seedling: <code>:seedling:</code></td>
+<td>:blossom: <code>:blossom:</code></td>
+</tr>
+<tr class="even">
+<td>:ear_of_rice: <code>:ear_of_rice:</code></td>
+<td>:shell: <code>:shell:</code></td>
+<td>:globe_with_meridians: <code>:globe_with_meridians:</code></td>
+</tr>
+<tr class="odd">
+<td>:sun_with_face: <code>:sun_with_face:</code></td>
+<td>:full_moon_with_face: <code>:full_moon_with_face:</code></td>
+<td>:new_moon_with_face: <code>:new_moon_with_face:</code></td>
+</tr>
+<tr class="even">
+<td>:new_moon: <code>:new_moon:</code></td>
+<td>:waxing_crescent_moon: <code>:waxing_crescent_moon:</code></td>
+<td>:first_quarter_moon: <code>:first_quarter_moon:</code></td>
+</tr>
+<tr class="odd">
+<td>:waxing_gibbous_moon: <code>:waxing_gibbous_moon:</code></td>
+<td>:full_moon: <code>:full_moon:</code></td>
+<td>:waning_gibbous_moon: <code>:waning_gibbous_moon:</code></td>
+</tr>
+<tr class="even">
+<td>:last_quarter_moon: <code>:last_quarter_moon:</code></td>
+<td>:waning_crescent_moon: <code>:waning_crescent_moon:</code></td>
+<td>:last_quarter_moon_with_face:
+<code>:last_quarter_moon_with_face:</code></td>
+</tr>
+<tr class="odd">
+<td>:first_quarter_moon_with_face:
+<code>:first_quarter_moon_with_face:</code></td>
+<td>:moon: <code>:moon:</code></td>
+<td>:earth_africa: <code>:earth_africa:</code></td>
+</tr>
+<tr class="even">
+<td>:earth_americas: <code>:earth_americas:</code></td>
+<td>:earth_asia: <code>:earth_asia:</code></td>
+<td>:volcano: <code>:volcano:</code></td>
+</tr>
+<tr class="odd">
+<td>:milky_way: <code>:milky_way:</code></td>
+<td>:partly_sunny: <code>:partly_sunny:</code></td>
+<td>:octocat: <code>:octocat:</code></td>
+</tr>
+<tr class="even">
+<td>:squirrel: <code>:squirrel:</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Objects</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>:bamboo: <code>:bamboo:</code></th>
+<th>:gift_heart: <code>:gift_heart:</code></th>
+<th>:dolls: <code>:dolls:</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>:school_satchel: <code>:school_satchel:</code></td>
+<td>:mortar_board: <code>:mortar_board:</code></td>
+<td>:flags: <code>:flags:</code></td>
+</tr>
+<tr class="even">
+<td>:fireworks: <code>:fireworks:</code></td>
+<td>:sparkler: <code>:sparkler:</code></td>
+<td>:wind_chime: <code>:wind_chime:</code></td>
+</tr>
+<tr class="odd">
+<td>:rice_scene: <code>:rice_scene:</code></td>
+<td>:jack_o_lantern: <code>:jack_o_lantern:</code></td>
+<td>:ghost: <code>:ghost:</code></td>
+</tr>
+<tr class="even">
+<td>:santa: <code>:santa:</code></td>
+<td>:christmas_tree: <code>:christmas_tree:</code></td>
+<td>:gift: <code>:gift:</code></td>
+</tr>
+<tr class="odd">
+<td>:bell: <code>:bell:</code></td>
+<td>:no_bell: <code>:no_bell:</code></td>
+<td>:tanabata_tree: <code>:tanabata_tree:</code></td>
+</tr>
+<tr class="even">
+<td>:tada: <code>:tada:</code></td>
+<td>:confetti_ball: <code>:confetti_ball:</code></td>
+<td>:balloon: <code>:balloon:</code></td>
+</tr>
+<tr class="odd">
+<td>:crystal_ball: <code>:crystal_ball:</code></td>
+<td>:cd: <code>:cd:</code></td>
+<td>:dvd: <code>:dvd:</code></td>
+</tr>
+<tr class="even">
+<td>:floppy_disk: <code>:floppy_disk:</code></td>
+<td>:camera: <code>:camera:</code></td>
+<td>:video_camera: <code>:video_camera:</code></td>
+</tr>
+<tr class="odd">
+<td>:movie_camera: <code>:movie_camera:</code></td>
+<td>:computer: <code>:computer:</code></td>
+<td>:tv: <code>:tv:</code></td>
+</tr>
+<tr class="even">
+<td>:iphone: <code>:iphone:</code></td>
+<td>:phone: <code>:phone:</code></td>
+<td>:telephone: <code>:telephone:</code></td>
+</tr>
+<tr class="odd">
+<td>:telephone_receiver: <code>:telephone_receiver:</code></td>
+<td>:pager: <code>:pager:</code></td>
+<td>:fax: <code>:fax:</code></td>
+</tr>
+<tr class="even">
+<td>:minidisc: <code>:minidisc:</code></td>
+<td>:vhs: <code>:vhs:</code></td>
+<td>:sound: <code>:sound:</code></td>
+</tr>
+<tr class="odd">
+<td>:speaker: <code>:speaker:</code></td>
+<td>:mute: <code>:mute:</code></td>
+<td>:loudspeaker: <code>:loudspeaker:</code></td>
+</tr>
+<tr class="even">
+<td>:mega: <code>:mega:</code></td>
+<td>:hourglass: <code>:hourglass:</code></td>
+<td>:hourglass_flowing_sand: <code>:hourglass_flowing_sand:</code></td>
+</tr>
+<tr class="odd">
+<td>:alarm_clock: <code>:alarm_clock:</code></td>
+<td>:watch: <code>:watch:</code></td>
+<td>:radio: <code>:radio:</code></td>
+</tr>
+<tr class="even">
+<td>:satellite: <code>:satellite:</code></td>
+<td>:loop: <code>:loop:</code></td>
+<td>:mag: <code>:mag:</code></td>
+</tr>
+<tr class="odd">
+<td>:mag_right: <code>:mag_right:</code></td>
+<td>:unlock: <code>:unlock:</code></td>
+<td>:lock: <code>:lock:</code></td>
+</tr>
+<tr class="even">
+<td>:lock_with_ink_pen: <code>:lock_with_ink_pen:</code></td>
+<td>:closed_lock_with_key: <code>:closed_lock_with_key:</code></td>
+<td>:key: <code>:key:</code></td>
+</tr>
+<tr class="odd">
+<td>:bulb: <code>:bulb:</code></td>
+<td>:flashlight: <code>:flashlight:</code></td>
+<td>:high_brightness: <code>:high_brightness:</code></td>
+</tr>
+<tr class="even">
+<td>:low_brightness: <code>:low_brightness:</code></td>
+<td>:electric_plug: <code>:electric_plug:</code></td>
+<td>:battery: <code>:battery:</code></td>
+</tr>
+<tr class="odd">
+<td>:calling: <code>:calling:</code></td>
+<td>:email: <code>:email:</code></td>
+<td>:mailbox: <code>:mailbox:</code></td>
+</tr>
+<tr class="even">
+<td>:postbox: <code>:postbox:</code></td>
+<td>:bath: <code>:bath:</code></td>
+<td>:bathtub: <code>:bathtub:</code></td>
+</tr>
+<tr class="odd">
+<td>:shower: <code>:shower:</code></td>
+<td>:toilet: <code>:toilet:</code></td>
+<td>:wrench: <code>:wrench:</code></td>
+</tr>
+<tr class="even">
+<td>:nut_and_bolt: <code>:nut_and_bolt:</code></td>
+<td>:hammer: <code>:hammer:</code></td>
+<td>:seat: <code>:seat:</code></td>
+</tr>
+<tr class="odd">
+<td>:moneybag: <code>:moneybag:</code></td>
+<td>:yen: <code>:yen:</code></td>
+<td>:dollar: <code>:dollar:</code></td>
+</tr>
+<tr class="even">
+<td>:pound: <code>:pound:</code></td>
+<td>:euro: <code>:euro:</code></td>
+<td>:credit_card: <code>:credit_card:</code></td>
+</tr>
+<tr class="odd">
+<td>:money_with_wings: <code>:money_with_wings:</code></td>
+<td>:e-mail: <code>:e-mail:</code></td>
+<td>:inbox_tray: <code>:inbox_tray:</code></td>
+</tr>
+<tr class="even">
+<td>:outbox_tray: <code>:outbox_tray:</code></td>
+<td>:envelope: <code>:envelope:</code></td>
+<td>:incoming_envelope: <code>:incoming_envelope:</code></td>
+</tr>
+<tr class="odd">
+<td>:postal_horn: <code>:postal_horn:</code></td>
+<td>:mailbox_closed: <code>:mailbox_closed:</code></td>
+<td>:mailbox_with_mail: <code>:mailbox_with_mail:</code></td>
+</tr>
+<tr class="even">
+<td>:mailbox_with_no_mail: <code>:mailbox_with_no_mail:</code></td>
+<td>:door: <code>:door:</code></td>
+<td>:smoking: <code>:smoking:</code></td>
+</tr>
+<tr class="odd">
+<td>:bomb: <code>:bomb:</code></td>
+<td>:gun: <code>:gun:</code></td>
+<td>:hocho: <code>:hocho:</code></td>
+</tr>
+<tr class="even">
+<td>:pill: <code>:pill:</code></td>
+<td>:syringe: <code>:syringe:</code></td>
+<td>:page_facing_up: <code>:page_facing_up:</code></td>
+</tr>
+<tr class="odd">
+<td>:page_with_curl: <code>:page_with_curl:</code></td>
+<td>:bookmark_tabs: <code>:bookmark_tabs:</code></td>
+<td>:bar_chart: <code>:bar_chart:</code></td>
+</tr>
+<tr class="even">
+<td>:chart_with_upwards_trend:
+<code>:chart_with_upwards_trend:</code></td>
+<td>:chart_with_downwards_trend:
+<code>:chart_with_downwards_trend:</code></td>
+<td>:scroll: <code>:scroll:</code></td>
+</tr>
+<tr class="odd">
+<td>:clipboard: <code>:clipboard:</code></td>
+<td>:calendar: <code>:calendar:</code></td>
+<td>:date: <code>:date:</code></td>
+</tr>
+<tr class="even">
+<td>:card_index: <code>:card_index:</code></td>
+<td>:file_folder: <code>:file_folder:</code></td>
+<td>:open_file_folder: <code>:open_file_folder:</code></td>
+</tr>
+<tr class="odd">
+<td>:scissors: <code>:scissors:</code></td>
+<td>:pushpin: <code>:pushpin:</code></td>
+<td>:paperclip: <code>:paperclip:</code></td>
+</tr>
+<tr class="even">
+<td>:black_nib: <code>:black_nib:</code></td>
+<td>:pencil2: <code>:pencil2:</code></td>
+<td>:straight_ruler: <code>:straight_ruler:</code></td>
+</tr>
+<tr class="odd">
+<td>:triangular_ruler: <code>:triangular_ruler:</code></td>
+<td>:closed_book: <code>:closed_book:</code></td>
+<td>:green_book: <code>:green_book:</code></td>
+</tr>
+<tr class="even">
+<td>:blue_book: <code>:blue_book:</code></td>
+<td>:orange_book: <code>:orange_book:</code></td>
+<td>:notebook: <code>:notebook:</code></td>
+</tr>
+<tr class="odd">
+<td>:notebook_with_decorative_cover:
+<code>:notebook_with_decorative_cover:</code></td>
+<td>:ledger: <code>:ledger:</code></td>
+<td>:books: <code>:books:</code></td>
+</tr>
+<tr class="even">
+<td>:bookmark: <code>:bookmark:</code></td>
+<td>:name_badge: <code>:name_badge:</code></td>
+<td>:microscope: <code>:microscope:</code></td>
+</tr>
+<tr class="odd">
+<td>:telescope: <code>:telescope:</code></td>
+<td>:newspaper: <code>:newspaper:</code></td>
+<td>:football: <code>:football:</code></td>
+</tr>
+<tr class="even">
+<td>:basketball: <code>:basketball:</code></td>
+<td>:soccer: <code>:soccer:</code></td>
+<td>:baseball: <code>:baseball:</code></td>
+</tr>
+<tr class="odd">
+<td>:tennis: <code>:tennis:</code></td>
+<td>:8ball: <code>:8ball:</code></td>
+<td>:rugby_football: <code>:rugby_football:</code></td>
+</tr>
+<tr class="even">
+<td>:bowling: <code>:bowling:</code></td>
+<td>:golf: <code>:golf:</code></td>
+<td>:mountain_bicyclist: <code>:mountain_bicyclist:</code></td>
+</tr>
+<tr class="odd">
+<td>:bicyclist: <code>:bicyclist:</code></td>
+<td>:horse_racing: <code>:horse_racing:</code></td>
+<td>:snowboarder: <code>:snowboarder:</code></td>
+</tr>
+<tr class="even">
+<td>:swimmer: <code>:swimmer:</code></td>
+<td>:surfer: <code>:surfer:</code></td>
+<td>:ski: <code>:ski:</code></td>
+</tr>
+<tr class="odd">
+<td>:spades: <code>:spades:</code></td>
+<td>:hearts: <code>:hearts:</code></td>
+<td>:clubs: <code>:clubs:</code></td>
+</tr>
+<tr class="even">
+<td>:diamonds: <code>:diamonds:</code></td>
+<td>:gem: <code>:gem:</code></td>
+<td>:ring: <code>:ring:</code></td>
+</tr>
+<tr class="odd">
+<td>:trophy: <code>:trophy:</code></td>
+<td>:musical_score: <code>:musical_score:</code></td>
+<td>:musical_keyboard: <code>:musical_keyboard:</code></td>
+</tr>
+<tr class="even">
+<td>:violin: <code>:violin:</code></td>
+<td>:space_invader: <code>:space_invader:</code></td>
+<td>:video_game: <code>:video_game:</code></td>
+</tr>
+<tr class="odd">
+<td>:black_joker: <code>:black_joker:</code></td>
+<td>:flower_playing_cards: <code>:flower_playing_cards:</code></td>
+<td>:game_die: <code>:game_die:</code></td>
+</tr>
+<tr class="even">
+<td>:dart: <code>:dart:</code></td>
+<td>:mahjong: <code>:mahjong:</code></td>
+<td>:clapper: <code>:clapper:</code></td>
+</tr>
+<tr class="odd">
+<td>:memo: <code>:memo:</code></td>
+<td>:pencil: <code>:pencil:</code></td>
+<td>:book: <code>:book:</code></td>
+</tr>
+<tr class="even">
+<td>:art: <code>:art:</code></td>
+<td>:microphone: <code>:microphone:</code></td>
+<td>:headphones: <code>:headphones:</code></td>
+</tr>
+<tr class="odd">
+<td>:trumpet: <code>:trumpet:</code></td>
+<td>:saxophone: <code>:saxophone:</code></td>
+<td>:guitar: <code>:guitar:</code></td>
+</tr>
+<tr class="even">
+<td>:shoe: <code>:shoe:</code></td>
+<td>:sandal: <code>:sandal:</code></td>
+<td>:high_heel: <code>:high_heel:</code></td>
+</tr>
+<tr class="odd">
+<td>:lipstick: <code>:lipstick:</code></td>
+<td>:boot: <code>:boot:</code></td>
+<td>:shirt: <code>:shirt:</code></td>
+</tr>
+<tr class="even">
+<td>:tshirt: <code>:tshirt:</code></td>
+<td>:necktie: <code>:necktie:</code></td>
+<td>:womans_clothes: <code>:womans_clothes:</code></td>
+</tr>
+<tr class="odd">
+<td>:dress: <code>:dress:</code></td>
+<td>:running_shirt_with_sash:
+<code>:running_shirt_with_sash:</code></td>
+<td>:jeans: <code>:jeans:</code></td>
+</tr>
+<tr class="even">
+<td>:kimono: <code>:kimono:</code></td>
+<td>:bikini: <code>:bikini:</code></td>
+<td>:ribbon: <code>:ribbon:</code></td>
+</tr>
+<tr class="odd">
+<td>:tophat: <code>:tophat:</code></td>
+<td>:crown: <code>:crown:</code></td>
+<td>:womans_hat: <code>:womans_hat:</code></td>
+</tr>
+<tr class="even">
+<td>:mans_shoe: <code>:mans_shoe:</code></td>
+<td>:closed_umbrella: <code>:closed_umbrella:</code></td>
+<td>:briefcase: <code>:briefcase:</code></td>
+</tr>
+<tr class="odd">
+<td>:handbag: <code>:handbag:</code></td>
+<td>:pouch: <code>:pouch:</code></td>
+<td>:purse: <code>:purse:</code></td>
+</tr>
+<tr class="even">
+<td>:eyeglasses: <code>:eyeglasses:</code></td>
+<td>:fishing_pole_and_fish: <code>:fishing_pole_and_fish:</code></td>
+<td>:coffee: <code>:coffee:</code></td>
+</tr>
+<tr class="odd">
+<td>:tea: <code>:tea:</code></td>
+<td>:sake: <code>:sake:</code></td>
+<td>:baby_bottle: <code>:baby_bottle:</code></td>
+</tr>
+<tr class="even">
+<td>:beer: <code>:beer:</code></td>
+<td>:beers: <code>:beers:</code></td>
+<td>:cocktail: <code>:cocktail:</code></td>
+</tr>
+<tr class="odd">
+<td>:tropical_drink: <code>:tropical_drink:</code></td>
+<td>:wine_glass: <code>:wine_glass:</code></td>
+<td>:fork_and_knife: <code>:fork_and_knife:</code></td>
+</tr>
+<tr class="even">
+<td>:pizza: <code>:pizza:</code></td>
+<td>:hamburger: <code>:hamburger:</code></td>
+<td>:fries: <code>:fries:</code></td>
+</tr>
+<tr class="odd">
+<td>:poultry_leg: <code>:poultry_leg:</code></td>
+<td>:meat_on_bone: <code>:meat_on_bone:</code></td>
+<td>:spaghetti: <code>:spaghetti:</code></td>
+</tr>
+<tr class="even">
+<td>:curry: <code>:curry:</code></td>
+<td>:fried_shrimp: <code>:fried_shrimp:</code></td>
+<td>:bento: <code>:bento:</code></td>
+</tr>
+<tr class="odd">
+<td>:sushi: <code>:sushi:</code></td>
+<td>:fish_cake: <code>:fish_cake:</code></td>
+<td>:rice_ball: <code>:rice_ball:</code></td>
+</tr>
+<tr class="even">
+<td>:rice_cracker: <code>:rice_cracker:</code></td>
+<td>:rice: <code>:rice:</code></td>
+<td>:ramen: <code>:ramen:</code></td>
+</tr>
+<tr class="odd">
+<td>:stew: <code>:stew:</code></td>
+<td>:oden: <code>:oden:</code></td>
+<td>:dango: <code>:dango:</code></td>
+</tr>
+<tr class="even">
+<td>:egg: <code>:egg:</code></td>
+<td>:bread: <code>:bread:</code></td>
+<td>:doughnut: <code>:doughnut:</code></td>
+</tr>
+<tr class="odd">
+<td>:custard: <code>:custard:</code></td>
+<td>:icecream: <code>:icecream:</code></td>
+<td>:ice_cream: <code>:ice_cream:</code></td>
+</tr>
+<tr class="even">
+<td>:shaved_ice: <code>:shaved_ice:</code></td>
+<td>:birthday: <code>:birthday:</code></td>
+<td>:cake: <code>:cake:</code></td>
+</tr>
+<tr class="odd">
+<td>:cookie: <code>:cookie:</code></td>
+<td>:chocolate_bar: <code>:chocolate_bar:</code></td>
+<td>:candy: <code>:candy:</code></td>
+</tr>
+<tr class="even">
+<td>:lollipop: <code>:lollipop:</code></td>
+<td>:honey_pot: <code>:honey_pot:</code></td>
+<td>:apple: <code>:apple:</code></td>
+</tr>
+<tr class="odd">
+<td>:green_apple: <code>:green_apple:</code></td>
+<td>:tangerine: <code>:tangerine:</code></td>
+<td>:lemon: <code>:lemon:</code></td>
+</tr>
+<tr class="even">
+<td>:cherries: <code>:cherries:</code></td>
+<td>:grapes: <code>:grapes:</code></td>
+<td>:watermelon: <code>:watermelon:</code></td>
+</tr>
+<tr class="odd">
+<td>:strawberry: <code>:strawberry:</code></td>
+<td>:peach: <code>:peach:</code></td>
+<td>:melon: <code>:melon:</code></td>
+</tr>
+<tr class="even">
+<td>:banana: <code>:banana:</code></td>
+<td>:pear: <code>:pear:</code></td>
+<td>:pineapple: <code>:pineapple:</code></td>
+</tr>
+<tr class="odd">
+<td>:sweet_potato: <code>:sweet_potato:</code></td>
+<td>:eggplant: <code>:eggplant:</code></td>
+<td>:tomato: <code>:tomato:</code></td>
+</tr>
+<tr class="even">
+<td>:corn: <code>:corn:</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Places</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>:house: <code>:house:</code></th>
+<th>:house_with_garden: <code>:house_with_garden:</code></th>
+<th>:school: <code>:school:</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>:office: <code>:office:</code></td>
+<td>:post_office: <code>:post_office:</code></td>
+<td>:hospital: <code>:hospital:</code></td>
+</tr>
+<tr class="even">
+<td>:bank: <code>:bank:</code></td>
+<td>:convenience_store: <code>:convenience_store:</code></td>
+<td>:love_hotel: <code>:love_hotel:</code></td>
+</tr>
+<tr class="odd">
+<td>:hotel: <code>:hotel:</code></td>
+<td>:wedding: <code>:wedding:</code></td>
+<td>:church: <code>:church:</code></td>
+</tr>
+<tr class="even">
+<td>:department_store: <code>:department_store:</code></td>
+<td>:european_post_office: <code>:european_post_office:</code></td>
+<td>:city_sunrise: <code>:city_sunrise:</code></td>
+</tr>
+<tr class="odd">
+<td>:city_sunset: <code>:city_sunset:</code></td>
+<td>:japanese_castle: <code>:japanese_castle:</code></td>
+<td>:european_castle: <code>:european_castle:</code></td>
+</tr>
+<tr class="even">
+<td>:tent: <code>:tent:</code></td>
+<td>:factory: <code>:factory:</code></td>
+<td>:tokyo_tower: <code>:tokyo_tower:</code></td>
+</tr>
+<tr class="odd">
+<td>:japan: <code>:japan:</code></td>
+<td>:mount_fuji: <code>:mount_fuji:</code></td>
+<td>:sunrise_over_mountains: <code>:sunrise_over_mountains:</code></td>
+</tr>
+<tr class="even">
+<td>:sunrise: <code>:sunrise:</code></td>
+<td>:stars: <code>:stars:</code></td>
+<td>:statue_of_liberty: <code>:statue_of_liberty:</code></td>
+</tr>
+<tr class="odd">
+<td>:bridge_at_night: <code>:bridge_at_night:</code></td>
+<td>:carousel_horse: <code>:carousel_horse:</code></td>
+<td>:rainbow: <code>:rainbow:</code></td>
+</tr>
+<tr class="even">
+<td>:ferris_wheel: <code>:ferris_wheel:</code></td>
+<td>:fountain: <code>:fountain:</code></td>
+<td>:roller_coaster: <code>:roller_coaster:</code></td>
+</tr>
+<tr class="odd">
+<td>:ship: <code>:ship:</code></td>
+<td>:speedboat: <code>:speedboat:</code></td>
+<td>:boat: <code>:boat:</code></td>
+</tr>
+<tr class="even">
+<td>:sailboat: <code>:sailboat:</code></td>
+<td>:rowboat: <code>:rowboat:</code></td>
+<td>:anchor: <code>:anchor:</code></td>
+</tr>
+<tr class="odd">
+<td>:rocket: <code>:rocket:</code></td>
+<td>:airplane: <code>:airplane:</code></td>
+<td>:helicopter: <code>:helicopter:</code></td>
+</tr>
+<tr class="even">
+<td>:steam_locomotive: <code>:steam_locomotive:</code></td>
+<td>:tram: <code>:tram:</code></td>
+<td>:mountain_railway: <code>:mountain_railway:</code></td>
+</tr>
+<tr class="odd">
+<td>:bike: <code>:bike:</code></td>
+<td>:aerial_tramway: <code>:aerial_tramway:</code></td>
+<td>:suspension_railway: <code>:suspension_railway:</code></td>
+</tr>
+<tr class="even">
+<td>:mountain_cableway: <code>:mountain_cableway:</code></td>
+<td>:tractor: <code>:tractor:</code></td>
+<td>:blue_car: <code>:blue_car:</code></td>
+</tr>
+<tr class="odd">
+<td>:oncoming_automobile: <code>:oncoming_automobile:</code></td>
+<td>:car: <code>:car:</code></td>
+<td>:red_car: <code>:red_car:</code></td>
+</tr>
+<tr class="even">
+<td>:taxi: <code>:taxi:</code></td>
+<td>:oncoming_taxi: <code>:oncoming_taxi:</code></td>
+<td>:articulated_lorry: <code>:articulated_lorry:</code></td>
+</tr>
+<tr class="odd">
+<td>:bus: <code>:bus:</code></td>
+<td>:oncoming_bus: <code>:oncoming_bus:</code></td>
+<td>:rotating_light: <code>:rotating_light:</code></td>
+</tr>
+<tr class="even">
+<td>:police_car: <code>:police_car:</code></td>
+<td>:oncoming_police_car: <code>:oncoming_police_car:</code></td>
+<td>:fire_engine: <code>:fire_engine:</code></td>
+</tr>
+<tr class="odd">
+<td>:ambulance: <code>:ambulance:</code></td>
+<td>:minibus: <code>:minibus:</code></td>
+<td>:truck: <code>:truck:</code></td>
+</tr>
+<tr class="even">
+<td>:train: <code>:train:</code></td>
+<td>:station: <code>:station:</code></td>
+<td>:train2: <code>:train2:</code></td>
+</tr>
+<tr class="odd">
+<td>:bullettrain_front: <code>:bullettrain_front:</code></td>
+<td>:bullettrain_side: <code>:bullettrain_side:</code></td>
+<td>:light_rail: <code>:light_rail:</code></td>
+</tr>
+<tr class="even">
+<td>:monorail: <code>:monorail:</code></td>
+<td>:railway_car: <code>:railway_car:</code></td>
+<td>:trolleybus: <code>:trolleybus:</code></td>
+</tr>
+<tr class="odd">
+<td>:ticket: <code>:ticket:</code></td>
+<td>:fuelpump: <code>:fuelpump:</code></td>
+<td>:vertical_traffic_light: <code>:vertical_traffic_light:</code></td>
+</tr>
+<tr class="even">
+<td>:traffic_light: <code>:traffic_light:</code></td>
+<td>:warning: <code>:warning:</code></td>
+<td>:construction: <code>:construction:</code></td>
+</tr>
+<tr class="odd">
+<td>:beginner: <code>:beginner:</code></td>
+<td>:atm: <code>:atm:</code></td>
+<td>:slot_machine: <code>:slot_machine:</code></td>
+</tr>
+<tr class="even">
+<td>:busstop: <code>:busstop:</code></td>
+<td>:barber: <code>:barber:</code></td>
+<td>:hotsprings: <code>:hotsprings:</code></td>
+</tr>
+<tr class="odd">
+<td>:checkered_flag: <code>:checkered_flag:</code></td>
+<td>:crossed_flags: <code>:crossed_flags:</code></td>
+<td>:izakaya_lantern: <code>:izakaya_lantern:</code></td>
+</tr>
+<tr class="even">
+<td>:moyai: <code>:moyai:</code></td>
+<td>:circus_tent: <code>:circus_tent:</code></td>
+<td>:performing_arts: <code>:performing_arts:</code></td>
+</tr>
+<tr class="odd">
+<td>:round_pushpin: <code>:round_pushpin:</code></td>
+<td>:triangular_flag_on_post:
+<code>:triangular_flag_on_post:</code></td>
+<td>:jp: <code>:jp:</code></td>
+</tr>
+<tr class="even">
+<td>:kr: <code>:kr:</code></td>
+<td>:cn: <code>:cn:</code></td>
+<td>:us: <code>:us:</code></td>
+</tr>
+<tr class="odd">
+<td>:fr: <code>:fr:</code></td>
+<td>:es: <code>:es:</code></td>
+<td>:it: <code>:it:</code></td>
+</tr>
+<tr class="even">
+<td>:ru: <code>:ru:</code></td>
+<td>:gb: <code>:gb:</code></td>
+<td>:uk: <code>:uk:</code></td>
+</tr>
+<tr class="odd">
+<td>:de: <code>:de:</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Symbols</p>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>:one: <code>:one:</code></th>
+<th>:two: <code>:two:</code></th>
+<th>:three: <code>:three:</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>:four: <code>:four:</code></td>
+<td>:five: <code>:five:</code></td>
+<td>:six: <code>:six:</code></td>
+</tr>
+<tr class="even">
+<td>:seven: <code>:seven:</code></td>
+<td>:eight: <code>:eight:</code></td>
+<td>:nine: <code>:nine:</code></td>
+</tr>
+<tr class="odd">
+<td>:keycap_ten: <code>:keycap_ten:</code></td>
+<td>:1234: <code>:1234:</code></td>
+<td>:zero: <code>:zero:</code></td>
+</tr>
+<tr class="even">
+<td>:hash: <code>:hash:</code></td>
+<td>:symbols: <code>:symbols:</code></td>
+<td>:arrow_backward: <code>:arrow_backward:</code></td>
+</tr>
+<tr class="odd">
+<td>:arrow_down: <code>:arrow_down:</code></td>
+<td>:arrow_forward: <code>:arrow_forward:</code></td>
+<td>:arrow_left: <code>:arrow_left:</code></td>
+</tr>
+<tr class="even">
+<td>:capital_abcd: <code>:capital_abcd:</code></td>
+<td>:abcd: <code>:abcd:</code></td>
+<td>:abc: <code>:abc:</code></td>
+</tr>
+<tr class="odd">
+<td>:arrow_lower_left: <code>:arrow_lower_left:</code></td>
+<td>:arrow_lower_right: <code>:arrow_lower_right:</code></td>
+<td>:arrow_right: <code>:arrow_right:</code></td>
+</tr>
+<tr class="even">
+<td>:arrow_up: <code>:arrow_up:</code></td>
+<td>:arrow_upper_left: <code>:arrow_upper_left:</code></td>
+<td>:arrow_upper_right: <code>:arrow_upper_right:</code></td>
+</tr>
+<tr class="odd">
+<td>:arrow_double_down: <code>:arrow_double_down:</code></td>
+<td>:arrow_double_up: <code>:arrow_double_up:</code></td>
+<td>:arrow_down_small: <code>:arrow_down_small:</code></td>
+</tr>
+<tr class="even">
+<td>:arrow_heading_down: <code>:arrow_heading_down:</code></td>
+<td>:arrow_heading_up: <code>:arrow_heading_up:</code></td>
+<td>:leftwards_arrow_with_hook:
+<code>:leftwards_arrow_with_hook:</code></td>
+</tr>
+<tr class="odd">
+<td>:arrow_right_hook: <code>:arrow_right_hook:</code></td>
+<td>:left_right_arrow: <code>:left_right_arrow:</code></td>
+<td>:arrow_up_down: <code>:arrow_up_down:</code></td>
+</tr>
+<tr class="even">
+<td>:arrow_up_small: <code>:arrow_up_small:</code></td>
+<td>:arrows_clockwise: <code>:arrows_clockwise:</code></td>
+<td>:arrows_counterclockwise:
+<code>:arrows_counterclockwise:</code></td>
+</tr>
+<tr class="odd">
+<td>:rewind: <code>:rewind:</code></td>
+<td>:fast_forward: <code>:fast_forward:</code></td>
+<td>:information_source: <code>:information_source:</code></td>
+</tr>
+<tr class="even">
+<td>:ok: <code>:ok:</code></td>
+<td>:twisted_rightwards_arrows:
+<code>:twisted_rightwards_arrows:</code></td>
+<td>:repeat: <code>:repeat:</code></td>
+</tr>
+<tr class="odd">
+<td>:repeat_one: <code>:repeat_one:</code></td>
+<td>:new: <code>:new:</code></td>
+<td>:top: <code>:top:</code></td>
+</tr>
+<tr class="even">
+<td>:up: <code>:up:</code></td>
+<td>:cool: <code>:cool:</code></td>
+<td>:free: <code>:free:</code></td>
+</tr>
+<tr class="odd">
+<td>:ng: <code>:ng:</code></td>
+<td>:cinema: <code>:cinema:</code></td>
+<td>:koko: <code>:koko:</code></td>
+</tr>
+<tr class="even">
+<td>:signal_strength: <code>:signal_strength:</code></td>
+<td>:u5272: <code>:u5272:</code></td>
+<td>:u5408: <code>:u5408:</code></td>
+</tr>
+<tr class="odd">
+<td>:u55b6: <code>:u55b6:</code></td>
+<td>:u6307: <code>:u6307:</code></td>
+<td>:u6708: <code>:u6708:</code></td>
+</tr>
+<tr class="even">
+<td>:u6709: <code>:u6709:</code></td>
+<td>:u6e80: <code>:u6e80:</code></td>
+<td>:u7121: <code>:u7121:</code></td>
+</tr>
+<tr class="odd">
+<td>:u7533: <code>:u7533:</code></td>
+<td>:u7a7a: <code>:u7a7a:</code></td>
+<td>:u7981: <code>:u7981:</code></td>
+</tr>
+<tr class="even">
+<td>:sa: <code>:sa:</code></td>
+<td>:restroom: <code>:restroom:</code></td>
+<td>:mens: <code>:mens:</code></td>
+</tr>
+<tr class="odd">
+<td>:womens: <code>:womens:</code></td>
+<td>:baby_symbol: <code>:baby_symbol:</code></td>
+<td>:no_smoking: <code>:no_smoking:</code></td>
+</tr>
+<tr class="even">
+<td>:parking: <code>:parking:</code></td>
+<td>:wheelchair: <code>:wheelchair:</code></td>
+<td>:metro: <code>:metro:</code></td>
+</tr>
+<tr class="odd">
+<td>:baggage_claim: <code>:baggage_claim:</code></td>
+<td>:accept: <code>:accept:</code></td>
+<td>:wc: <code>:wc:</code></td>
+</tr>
+<tr class="even">
+<td>:potable_water: <code>:potable_water:</code></td>
+<td>:put_litter_in_its_place:
+<code>:put_litter_in_its_place:</code></td>
+<td>:secret: <code>:secret:</code></td>
+</tr>
+<tr class="odd">
+<td>:congratulations: <code>:congratulations:</code></td>
+<td>:m: <code>:m:</code></td>
+<td>:passport_control: <code>:passport_control:</code></td>
+</tr>
+<tr class="even">
+<td>:left_luggage: <code>:left_luggage:</code></td>
+<td>:customs: <code>:customs:</code></td>
+<td>:ideograph_advantage: <code>:ideograph_advantage:</code></td>
+</tr>
+<tr class="odd">
+<td>:cl: <code>:cl:</code></td>
+<td>:sos: <code>:sos:</code></td>
+<td>:id: <code>:id:</code></td>
+</tr>
+<tr class="even">
+<td>:no_entry_sign: <code>:no_entry_sign:</code></td>
+<td>:underage: <code>:underage:</code></td>
+<td>:no_mobile_phones: <code>:no_mobile_phones:</code></td>
+</tr>
+<tr class="odd">
+<td>:do_not_litter: <code>:do_not_litter:</code></td>
+<td>:non-potable_water: <code>:non-potable_water:</code></td>
+<td>:no_bicycles: <code>:no_bicycles:</code></td>
+</tr>
+<tr class="even">
+<td>:no_pedestrians: <code>:no_pedestrians:</code></td>
+<td>:children_crossing: <code>:children_crossing:</code></td>
+<td>:no_entry: <code>:no_entry:</code></td>
+</tr>
+<tr class="odd">
+<td>:eight_spoked_asterisk: <code>:eight_spoked_asterisk:</code></td>
+<td>:eight_pointed_black_star:
+<code>:eight_pointed_black_star:</code></td>
+<td>:heart_decoration: <code>:heart_decoration:</code></td>
+</tr>
+<tr class="even">
+<td>:vs: <code>:vs:</code></td>
+<td>:vibration_mode: <code>:vibration_mode:</code></td>
+<td>:mobile_phone_off: <code>:mobile_phone_off:</code></td>
+</tr>
+<tr class="odd">
+<td>:chart: <code>:chart:</code></td>
+<td>:currency_exchange: <code>:currency_exchange:</code></td>
+<td>:aries: <code>:aries:</code></td>
+</tr>
+<tr class="even">
+<td>:taurus: <code>:taurus:</code></td>
+<td>:gemini: <code>:gemini:</code></td>
+<td>:cancer: <code>:cancer:</code></td>
+</tr>
+<tr class="odd">
+<td>:leo: <code>:leo:</code></td>
+<td>:virgo: <code>:virgo:</code></td>
+<td>:libra: <code>:libra:</code></td>
+</tr>
+<tr class="even">
+<td>:scorpius: <code>:scorpius:</code></td>
+<td>:sagittarius: <code>:sagittarius:</code></td>
+<td>:capricorn: <code>:capricorn:</code></td>
+</tr>
+<tr class="odd">
+<td>:aquarius: <code>:aquarius:</code></td>
+<td>:pisces: <code>:pisces:</code></td>
+<td>:ophiuchus: <code>:ophiuchus:</code></td>
+</tr>
+<tr class="even">
+<td>:six_pointed_star: <code>:six_pointed_star:</code></td>
+<td>:negative_squared_cross_mark:
+<code>:negative_squared_cross_mark:</code></td>
+<td>:a: <code>:a:</code></td>
+</tr>
+<tr class="odd">
+<td>:b: <code>:b:</code></td>
+<td>:ab: <code>:ab:</code></td>
+<td>:o2: <code>:o2:</code></td>
+</tr>
+<tr class="even">
+<td>:diamond_shape_with_a_dot_inside:
+<code>:diamond_shape_with_a_dot_inside:</code></td>
+<td>:recycle: <code>:recycle:</code></td>
+<td>:end: <code>:end:</code></td>
+</tr>
+<tr class="odd">
+<td>:on: <code>:on:</code></td>
+<td>:soon: <code>:soon:</code></td>
+<td>:clock1: <code>:clock1:</code></td>
+</tr>
+<tr class="even">
+<td>:clock130: <code>:clock130:</code></td>
+<td>:clock10: <code>:clock10:</code></td>
+<td>:clock1030: <code>:clock1030:</code></td>
+</tr>
+<tr class="odd">
+<td>:clock11: <code>:clock11:</code></td>
+<td>:clock1130: <code>:clock1130:</code></td>
+<td>:clock12: <code>:clock12:</code></td>
+</tr>
+<tr class="even">
+<td>:clock1230: <code>:clock1230:</code></td>
+<td>:clock2: <code>:clock2:</code></td>
+<td>:clock230: <code>:clock230:</code></td>
+</tr>
+<tr class="odd">
+<td>:clock3: <code>:clock3:</code></td>
+<td>:clock330: <code>:clock330:</code></td>
+<td>:clock4: <code>:clock4:</code></td>
+</tr>
+<tr class="even">
+<td>:clock430: <code>:clock430:</code></td>
+<td>:clock5: <code>:clock5:</code></td>
+<td>:clock530: <code>:clock530:</code></td>
+</tr>
+<tr class="odd">
+<td>:clock6: <code>:clock6:</code></td>
+<td>:clock630: <code>:clock630:</code></td>
+<td>:clock7: <code>:clock7:</code></td>
+</tr>
+<tr class="even">
+<td>:clock730: <code>:clock730:</code></td>
+<td>:clock8: <code>:clock8:</code></td>
+<td>:clock830: <code>:clock830:</code></td>
+</tr>
+<tr class="odd">
+<td>:clock9: <code>:clock9:</code></td>
+<td>:clock930: <code>:clock930:</code></td>
+<td>:heavy_dollar_sign: <code>:heavy_dollar_sign:</code></td>
+</tr>
+<tr class="even">
+<td>:copyright: <code>:copyright:</code></td>
+<td>:registered: <code>:registered:</code></td>
+<td>:tm: <code>:tm:</code></td>
+</tr>
+<tr class="odd">
+<td>:x: <code>:x:</code></td>
+<td>:heavy_exclamation_mark: <code>:heavy_exclamation_mark:</code></td>
+<td>:bangbang: <code>:bangbang:</code></td>
+</tr>
+<tr class="even">
+<td>:interrobang: <code>:interrobang:</code></td>
+<td>:o: <code>:o:</code></td>
+<td>:heavy_multiplication_x: <code>:heavy_multiplication_x:</code></td>
+</tr>
+<tr class="odd">
+<td>:heavy_plus_sign: <code>:heavy_plus_sign:</code></td>
+<td>:heavy_minus_sign: <code>:heavy_minus_sign:</code></td>
+<td>:heavy_division_sign: <code>:heavy_division_sign:</code></td>
+</tr>
+<tr class="even">
+<td>:white_flower: <code>:white_flower:</code></td>
+<td>:100: <code>:100:</code></td>
+<td>:heavy_check_mark: <code>:heavy_check_mark:</code></td>
+</tr>
+<tr class="odd">
+<td>:ballot_box_with_check: <code>:ballot_box_with_check:</code></td>
+<td>:radio_button: <code>:radio_button:</code></td>
+<td>:link: <code>:link:</code></td>
+</tr>
+<tr class="even">
+<td>:curly_loop: <code>:curly_loop:</code></td>
+<td>:wavy_dash: <code>:wavy_dash:</code></td>
+<td>:part_alternation_mark: <code>:part_alternation_mark:</code></td>
+</tr>
+<tr class="odd">
+<td>:trident: <code>:trident:</code></td>
+<td>:black_square: <code>:black_square:</code></td>
+<td>:white_square: <code>:white_square:</code></td>
+</tr>
+<tr class="even">
+<td>:white_check_mark: <code>:white_check_mark:</code></td>
+<td>:black_square_button: <code>:black_square_button:</code></td>
+<td>:white_square_button: <code>:white_square_button:</code></td>
+</tr>
+<tr class="odd">
+<td>:black_circle: <code>:black_circle:</code></td>
+<td>:white_circle: <code>:white_circle:</code></td>
+<td>:red_circle: <code>:red_circle:</code></td>
+</tr>
+<tr class="even">
+<td>:large_blue_circle: <code>:large_blue_circle:</code></td>
+<td>:large_blue_diamond: <code>:large_blue_diamond:</code></td>
+<td>:large_orange_diamond: <code>:large_orange_diamond:</code></td>
+</tr>
+<tr class="odd">
+<td>:small_blue_diamond: <code>:small_blue_diamond:</code></td>
+<td>:small_orange_diamond: <code>:small_orange_diamond:</code></td>
+<td>:small_red_triangle: <code>:small_red_triangle:</code></td>
+</tr>
+<tr class="even">
+<td>:small_red_triangle_down:
+<code>:small_red_triangle_down:</code></td>
+<td>:shipit: <code>:shipit:</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/14/notes/%E5%8D%A1%E5%B0%94%E6%9B%BC/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8/</url>
+    <content><![CDATA[<p>[TOC]</p>
+<h1 id="概述">概述</h1>
+<h2 id="关于卡尔曼滤波">关于卡尔曼滤波</h2>
+<p>大多数现代系统都搭载上数量众多的传感器，它们通过传感器返回的一系列测量数据来估算一些有用的信息。例如，我们生活上的 GPS 接收器就是提供位置和速度的装置，它估算的位置和速度就是我们需要的有用数据，而不同时刻的卫星数据就是一系列的测量数据。</p>
+<p>对于一个跟踪和控制系统来说，其中最大的问题就是在存在不确定性的前提下提供一个准确的有用信息。回到刚刚的例子，GPS 接收器测量的卫星数据充满不确定性，这些不确定性往往取决于外部环境的变化，其中包括热噪声，大气层影响，卫星位置的轻微改变，GPS 的内部时钟准确性等等。</p>
+<p>而卡尔曼滤波就是众多常用且重要的估算算法。因为卡尔曼滤波器在进行预估时是默认假设输入数据是不准确的。与此同时，卡尔曼滤波是根据上一次系统的预估值来预估下一次系统的状态。</p>
+<p>这种类型的滤波器是卡尔曼首次公开发表的，因此被命名为卡尔曼滤波器。在 1960 年，卡尔曼发布了一篇描述离散数据线性滤波问题的递归解的问题的论文。</p>
+<p>现在，卡尔曼滤波器常常用于雷达跟踪系统，位置和导航系统，控制系统，计算机图形等等领域。</p>
+<h2 id="一个预测例子">一个预测例子</h2>
+<p>在介绍卡尔曼滤波之前，让我们先来了解一下预测算法。</p>
+<p>我们用一个雷达跟踪系统作为例子。</p>
+<p><img data-src="figures/image-20211205171335051.png" alt="image-20211205171335051" style="zoom:80%;">
+<span class="math display">\[
+\LARGE
+x = x_0 + v_0\Delta t + \frac {1}{2} a\Delta t^2$\\
+\large
+符号说明：\\
+\large
+x：目标位置 \\
+\large
+x_0：目标初始位置 \\
+\large
+v_0：目标初始速度 \\
+\large
+a：目标加速度 \\
+\large
+\Delta t：时间间隔（在本例子未 5s）
+\]</span> 将上述公式映射到三维空间，我们可以将牛顿运动作为系统的方程：
+<span class="math display">\[
+\LARGE
+\left\{\begin{matrix}
+x=x_0+v_{x0}+\frac{1}{2}a_x\Delta t^2\\
+y=y_0+v_{y0}+\frac{1}{2}a_y\Delta t^2\\
+z=z_0+v_{z0}+\frac{1}{2}a_z\Delta t^2
+\end{matrix}\right.
+\]</span> 这些目标参数 $ [x,y,z,v_x,v_y,v_z,a_x,a_y,a_z]$ 被称为
+<strong>系统状态</strong>.
+通过当前系统状态代入到系统方程中，我们可以得到目标的下一个系统状态。</p>
+<p>上面的方程被称为 <strong>动态模型</strong>
+(或者<strong>空间状态模型</strong>).
+动态模型是一种描述输入和输出关系的方法。</p>
+<p>回到我们的例子，我们知道当我们有了当前系统状态和掌握系统的动态模型之后，我们就能很容易地预测出目标的下一个状态。</p>
+<p>然而并不是这样的。首先，雷达系统的测量数值不是完全可靠，它包含随机误差 (或者这类型的不确定性)。这些随机错误的大小取决于很多因素，例如雷达自身的准确性，发射光束的宽度，返回信号强弱等等。这些测量误差被称为<strong>测量噪声</strong>。</p>
+<p>此外，
+因为有很多外部因素会做成干扰，目标运动并不是完全按着运动方程。例如：风向，空气流动，驾驶策略等等。这个动态模型误差被称为
+<strong>处理噪声</strong>。</p>
+<p>因为测量噪声和处理噪声的存在，这个根据上诉系统方程估算出来的目标位置会真实的目标位置相差很大。假若这样，雷达系统会向错误的方向发射跟踪射束并且丢失目标。</p>
+<p>为了提高雷达跟踪系统的表现，这就需要能够将处理噪声和测量噪声考虑进来的预测算法。</p>
+<p>对于此类算法，应用得最广泛无疑是<strong>卡尔曼滤波</strong>.</p>
+<h1 id="背景知识">背景知识</h1>
+<p>在正式介绍卡尔曼滤波器之前，我想先回顾一些基础概念：方差，标准差，正态分布，估计，准确度，精密度，均值，期望值和随机变量。</p>
+<p>可能许多读者已经十分了解这些统计学基础，但我还是想确保所有读者都能掌握这部分背景知识，以便更好地理解卡尔曼滤波器的工作原理。如果您非常熟悉这些内容，可以直接跳至下一节。</p>
+<h2 id="均值和期望值">均值和期望值</h2>
+<p><strong>均值 Mean</strong> 和 <strong>期望值 Expected Value</strong>
+是两个相似但不相同的概念。</p>
+<p>比方说我们有 5 枚硬币：2 枚 5 分和 3 枚 10 分。我们很容易就能计算出它们的均值。</p>
+<p><img data-src="image/卡尔曼滤波_2_01.png"> <span class="math display">\[
+\LARGE
+V_{均值} = \frac {1}{N}\sum_{n=1}^{N} V_n = \frac {1}{5}(5+5+10+10+10) = 8
+分
+\]</span> 上述的结果并不是期望值，因为系统的状态（硬币的值）是可观测的，
+并且我们用所有个体（全部的 5 枚硬币）来计算均值。</p>
+<p>现在比方说一个人测量了 5 次体重，5 次的结果分别是：79.8kg，80kg，80.1kg，79.8kg，和 80.2kg。</p>
+<p><img data-src="image/卡尔曼滤波_2_02.png"></p>
+<p>体重秤的随机测量误差导致每次的测量结果不同。我们无法知道体重的真实值，因为它是一个<strong>隐变量
+Hidden Variable</strong>，但我们可以通过平均多次测量值来估计体重。 <span class="math display">\[
+\LARGE
+W=\frac{1}{N}\sum_{n=1}^{N}W_n = \frac{1}{5}(79.8+80+80.0+79.8+80.2) =
+79.98kg
+\]</span> 估计的结果就叫做体重的期望值。</p>
+<p>均值通常用希腊字母 <span class="math inline">\(\mu\)</span>
+表示。</p>
+<p>期望值通常用 <span class="math inline">\(E\)</span> 表示。</p>
+<h2 id="方差和标准差">方差和标准差</h2>
+<p><strong>方差 Variance</strong> 用来衡量一组数据的离散程度。</p>
+<p><strong>标准差 Standard Deviation</strong> 是方差的算数平方根。</p>
+<p>标准差用希腊字母 <span class="math inline">\(\sigma\)</span>
+（sigma）表示，方差即为 <span class="math inline">\(\sigma^2\)</span>。</p>
+<p>假设我们想比较两所高中篮球队的身高，各队队员的身高和平均身高如下表所示。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">队员 1</th>
+<th style="text-align: center;"> 队员 2</th>
+<th style="text-align: center;"> 队员 3</th>
+<th style="text-align: center;"> 队员 4</th>
+<th style="text-align: center;"> 队员 5</th>
+<th style="text-align: center;"> 平均值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"> A 队</td>
+<td style="text-align: center;"> 1.89m</td>
+<td style="text-align: center;">2.1m</td>
+<td style="text-align: center;">1.75m</td>
+<td style="text-align: center;">1.98m</td>
+<td style="text-align: center;">1.85m</td>
+<td style="text-align: center;">1.914m</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B 队</td>
+<td style="text-align: center;"> 1.94m</td>
+<td style="text-align: center;">1.9m</td>
+<td style="text-align: center;">1.97m</td>
+<td style="text-align: center;">1.89m</td>
+<td style="text-align: center;">1.87m</td>
+<td style="text-align: center;">1.914m</td>
+</tr>
+</tbody>
+</table>
+<p>两队平均身高相同，我们可以进一步比较两队身高的标准差。</p>
+<p>方差用来衡量一组数据的离散程度，即个体数据与均值的偏差。第一步，用个体值减均值来计算个体值到均值的距离。</p>
+<p>我们用 <span class="math inline">\(x\)</span> 表示身高，希腊字母
+<span class="math inline">\(\mu\)</span> 表示平均身高。个体值到平均值的距离为：
+<span class="math display">\[
+\LARGE
+x_n−\mu=x_n−1.914m
+\]</span> 下表列出了每个个体值到平均值的距离。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">队员 1</th>
+<th style="text-align: center;"> 队员 2</th>
+<th style="text-align: center;"> 队员 3</th>
+<th style="text-align: center;"> 队员 4</th>
+<th style="text-align: center;"> 队员 5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A 队</td>
+<td style="text-align: center;"> -0.024m</td>
+<td style="text-align: center;">0.186m</td>
+<td style="text-align: center;">-0.164m</td>
+<td style="text-align: center;">0.066m</td>
+<td style="text-align: center;">-0.064m</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B 队</td>
+<td style="text-align: center;"> 0.026m</td>
+<td style="text-align: center;">-0.014m</td>
+<td style="text-align: center;">0.056m</td>
+<td style="text-align: center;">-0.024m</td>
+<td style="text-align: center;">-0.044m</td>
+</tr>
+</tbody>
+</table>
+<p>为了去掉负值，第二步，求出离均值距离的平方： <span class="math display">\[
+\LARGE
+(x_n−\mu)^2=(x_n−1.914m)^2
+\]</span> 结果如下表所示：</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">队员 1</th>
+<th style="text-align: center;"> 队员 2</th>
+<th style="text-align: center;"> 队员 3</th>
+<th style="text-align: center;"> 队员 4</th>
+<th style="text-align: center;"> 队员 5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A 队</td>
+<td style="text-align: center;"> 0.000576m2</td>
+<td style="text-align: center;">0.034596m2</td>
+<td style="text-align: center;">0.026896m2</td>
+<td style="text-align: center;">0.004356m2</td>
+<td style="text-align: center;">0.004096m2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">B 队</td>
+<td style="text-align: center;"> 0.000676m2</td>
+<td style="text-align: center;">0.000196m2</td>
+<td style="text-align: center;">0.003136m2</td>
+<td style="text-align: center;">0.000576m2</td>
+<td style="text-align: center;">0.001936m2</td>
+</tr>
+</tbody>
+</table>
+<p>最后，平均各队离均值距离的平方得到方差: <span class="math display">\[
+\LARGE
+\sigma^2 = \frac{1}{N}\sum_{n=1}^{N}(x_n-\mu)^2
+\]</span> A 队的方差为： <span class="math display">\[
+\large
+σ_A^2=\frac{1}{N}\sum_{n=1}^{N}(x_n-\mu
+)^2(0.000576+0.034596+0.026896+0.004356+0.004096)=0.014m^2
+\]</span> B 队的方差为： <span class="math display">\[
+\large
+σ_B^2=\frac{1}{N}\sum_{n=1}^{N}(x_n-\mu
+)^2(0.000676+0.000196+0.003136+0.000576+0.001936)=0.013m^2
+\]</span>
+虽然两支队伍的身高均值相同，但是 A 队的身高离散程度比 B 队高。这意味着 A 队的球员更加多样化，有不同位置的球员，比如持球手、中锋和后卫，B 队就不是很全面。</p>
+<p>由于方差的单位是平方，因此使用标准差比较方便。标准差就是方差的算数平方根。
+<span class="math display">\[
+\large
+\sigma = \sqrt{\frac{1}{N} \sum_{n=1}^{N} (x_n-\mu )^2}
+\]</span> A 队队员身高的标准差为 0.12m。</p>
+<p>B 队队员身高的标准差为 0.036m。</p>
+<p>如果我们想计算所有高中全部队员身高的均值和方差，是非常困难的，我们需要收集所有高中球员的身高数据。</p>
+<p>不过，我们也可以先收集一个大数据集，通过计算这个数据集来估计所有队员身高的均值和方差。</p>
+<p>随机选取 100 个队员，获得的数据集足以进行准确的估计。</p>
+<p>注意这时计算方差的方程略有不同。除数不是 <span class="math inline">\(N\)</span> , 而是 <span class="math inline">\(N-1\)</span>: <span class="math display">\[
+\large
+\sigma^2 =\frac{1}{N-1}\sum_{n=1}^{N} (x_n-\mu )^2
+\]</span>
+这个网站有上面公式的数学证明：http://www.visiondummy.com/2014/03/divide-variance-n-1/</p>
+<h2 id="正态分布">正态分布</h2>
+<p>研究表明，许多自然现象都遵循<strong>正态分布 Normal
+Distribution</strong>。继续以篮球运动员的身高为例，如果我们随机抽取运动员建立一个大数据集，并绘制身高出现次数与身高的图表，我们会得到一条 “钟形” 曲线，如下图所示：</p>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A21_03.png"></p>
+<p>你可以看到这条曲线是沿均值 1.9m 对称的，并且均值附近值的出现次数高于远端值的出现次数。</p>
+<p>这组数据的标准差为 0.2m，68.26% 的值位于距均值的一个标准差内。如下图所示，68.26% 的值在 1.7m 到 2.1m 之间（绿色面积为曲线下总面积的 68.26%）。</p>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A21_04.png"></p>
+<p>95.44% 的值位于距均值的两个标准差内。</p>
+<p>99.74% 的值位于距均值的三个标准差内。</p>
+<p>正态分布又名<strong>高斯分布</strong>（以数学家 Carl Friedrich
+Gauss 的名字命名）, 其公式如下: <span class="math display">\[
+\LARGE
+f(x;\mu ,\sigma^2) = \frac{1}{\sqrt{2\pi \sigma ^2} }e^{\frac{-(x-\mu
+)^2}{s\sigma ^2} }
+\]</span>
+高斯分布也被称为正态分布的<strong>概率密度函数（PDF）</strong>。</p>
+<p>测量误差通常呈正态分布。因此，我们在设计卡尔曼滤波器的时候假设测量误差呈正态分布。</p>
+<h2 id="随机变量">随机变量</h2>
+<p>一位数学家，一位物理学家和一位工程师正在一条限速 60 英里 / 时的公路行驶时，不幸被一个拿着激光测速枪的警察拦住了。</p>
+<p>测速枪测出车速是 70 英里 / 时，测量结果呈正态分布，标准差为 5 英里 / 时。</p>
+<p>测速枪的测量值是一个<strong>随机变量 Random
+Variable</strong>。我们不知道的车速的精确值，只知道其<strong>期望值
+Expected Value</strong> 是 70 英里 / 时。</p>
+<p>数学家会说，汽车的速度可以是负无穷到正无穷之间的任何数字，而速度在 65 到 75 英里 / 时之间的概率是 68.26%。</p>
+<p>物理学家会说，汽车的速度可以是比负光速大，比正光速小的任何数字。</p>
+<p>工程师会说，汽车的速度可以是任何高于 0 低于 140 英里 / 时的数字（因为汽车朝正方向运动，而汽车的最大速度是 140 英里 / 时）。</p>
+<p>警察会说车速是 70 英里 / 时，并开罚单。</p>
+<p>随机变量可以是连续的，也可以是离散的:</p>
+<ul>
+<li>电池充电时间和马拉松比赛时间是连续随机变量。</li>
+<li>网站访问者的人数或班级学生的人数是离散随机变量，因为人数是可数的。</li>
+</ul>
+<p>所有的测量值都是连续随机变量。</p>
+<h2 id="估计准确度和精密度">估计，准确度和精密度</h2>
+<p><strong>估计
+Estimate</strong> 用来估算系统的不可见状态。飞机的真实位置对观察者来说是不可见的。我们可以用雷达等传感器估计飞机的位置，并通过使用多个传感器和高级估计及追踪算法（如卡尔曼滤波器）来显著地提升估计的准确度。测量或计算出的的参数都是估计值。</p>
+<p><strong>准确度 Accuracy</strong> 表示测量值与真实值的接近程度。</p>
+<p><strong>精密度
+Precision</strong> 表示测量结果的再现性。估计需要考虑系统的准确性与精密性。</p>
+<p>下图说明了准确度和精密度的关系。</p>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A21_05.png"></p>
+<p>随机测量误差会导致方差，高精密度系统的方差较小（不确定度低），而低精密度系统的方差较大（不确定度高）。</p>
+<p>低精度系统被称为<strong>有偏
+biased</strong> 系统，因为其测量值都存在一个固有的系统性误差（偏差）。</p>
+<p>对测量值进行平均或平滑处理可以显著降低方差的影响。例如，如果我们使用带有随机测量误差的温度计来测量温度，随机的误差将导致一些测量值高于真实值，一些低于真实值。我们可以进行多次测量并对其求平均值，这个估计值会接近真实值，测量次数越多，估计值就越接近。</p>
+<p>但如果温度计有偏差，估计值会有一个固定的系统误差。</p>
+<p>本教程中的所有例子都假设为<strong>无偏 unbiased</strong> 系统。</p>
+<h2 id="小结">小结</h2>
+<p>下图为测量值的统计学表达。</p>
+<p><img data-src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A21_06.png"></p>
+<p>测量值是一个由<strong>概率密度函数 Probability Density Function
+(PDF)</strong> 描述的<strong>随机变量 random variable</strong>。</p>
+<p>测量值的均值即为随机变量的<strong>期望值 Expected
+Value</strong>。</p>
+<p>测量值的均值和真实值的差名为<strong>偏差 bias</strong> 或
+<strong>系统误差 systematic measurement
+error</strong>，用来表明<strong>测量精度 measurements
+accuracy</strong>。</p>
+<p>分布的离散程度就是测量值的<strong>精密度
+precision</strong>，又名<strong>测量噪声 measurement
+noise</strong> 或<strong>随机测量误差 random measurement
+error</strong> 或<strong>测量不确定性 measurement
+uncertainty</strong>.</p>
+<h1 id="递归算法">递归算法</h1>
+<blockquote>
+<p>最优化 递归 数字处理 算法</p>
+</blockquote>
+<p>$$ \begin{eqnarray} &amp;=&amp; (z_1 + z_2 + z_3 + ... + z_k) \
+&amp;=&amp; (z_1 + z_2 + z_3 + ... + z_{k-1}) + z_k \ &amp;=&amp;
+\frac{k-1}{</p>
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2023/05/14/notes/%E5%8D%A1%E5%B0%94%E6%9B%BC/%E8%B5%84%E6%96%99/</url>
+    <content><![CDATA[<p>经典书籍推荐：</p>
+<p>[1]Simon, Dan. Optimal State Estimation (Kalman, H∞, and Nonlinear
+Approaches) || References[J]. 2006:501-520</p>
+<p>这本书讲解非常细致，由浅入深，所有推导和知识点都是慢慢推进，是非常值得一读的一本书。</p>
+<p>[2] 卡尔曼滤波与组合导航原理，西北工业大学出版社，也是比较经典的一本教材，在 B 站上也有相应的课程，由西工大<a href="https://www.zhihu.com/search?q=严恭敏&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A1995934889%7D">严恭敏</a>老师讲授，跟着听一遍课可以对卡尔曼滤波有大致的认识，西工大严恭敏老师也提供了很多资源，真的很有用，推荐</p>
+<p>严恭敏老师的博客:</p>
+<p><a href="https://link.zhihu.com/?target=http%3A//blog.sina.cn/dpool/blog/ygm905%23type%3D-1">yangongmin 的博客 blog.sina.cn/dpool/blog/ygm905#type=-1<img data-src="image/v2-a1d7ca2d41c77efc480202334b602c97_ipico.jpg" alt="img"></a></p>
+<p>严恭敏老师的惯导网站:</p>
+<p><a href="https://link.zhihu.com/?target=http%3A//www.psins.org.cn/">首页 - PSINSwww.psins.org.cn/<img data-src="https://pic4.zhimg.com/v2-a142fd95b2ac12930ed991162655fcaf_ipico.jpg" alt="img"></a></p>
+<p>[3] 卡尔曼滤波，宋文尧，张牙编著，科学出版社，也是一本好的中文教材，推导详细，讲解也很好。</p>
+<p>作者：Mr.Bo
+链接：https://www.zhihu.com/question/41823401/answer/1995934889
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+]]></content>
+  </entry>
+</search>

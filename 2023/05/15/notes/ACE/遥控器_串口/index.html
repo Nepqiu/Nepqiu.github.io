@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/favicon/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/black/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nepqiu.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="[TOC] 遥控器数据协议说明 遥控器发送的数据总为为 18 个字节，串口配置 100kbps， 数据长度 8，偶校验，结束位 1，流控无。 多个开源代码中都有对遥控器的数据进行处理，接收数据的稳定对机器人的稳定性有着至关重要的影响，以下简单介绍遥控器接收上进行处理。 1、ICRA 机器人 接收处理方法 官方在 github 上开源代码，开源在这个网站上 https:&#x2F;&#x2F;github.com&#x2F;Ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nepqiu的废话篓子">
+<meta property="og:url" content="https://nepqiu.com/2023/05/15/notes/ACE/%E9%81%A5%E6%8E%A7%E5%99%A8_%E4%B8%B2%E5%8F%A3/index.html">
+<meta property="og:site_name" content="nepqiu的废话篓子">
+<meta property="og:description" content="[TOC] 遥控器数据协议说明 遥控器发送的数据总为为 18 个字节，串口配置 100kbps， 数据长度 8，偶校验，结束位 1，流控无。 多个开源代码中都有对遥控器的数据进行处理，接收数据的稳定对机器人的稳定性有着至关重要的影响，以下简单介绍遥控器接收上进行处理。 1、ICRA 机器人 接收处理方法 官方在 github 上开源代码，开源在这个网站上 https:&#x2F;&#x2F;github.com&#x2F;Ro">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-14T16:06:59.669Z">
+<meta property="article:modified_time" content="2023-04-22T12:32:58.851Z">
+<meta property="article:author" content="nepqiu">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://nepqiu.com/2023/05/15/notes/ACE/%E9%81%A5%E6%8E%A7%E5%99%A8_%E4%B8%B2%E5%8F%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://nepqiu.com/2023/05/15/notes/ACE/%E9%81%A5%E6%8E%A7%E5%99%A8_%E4%B8%B2%E5%8F%A3/","path":"2023/05/15/notes/ACE/遥控器_串口/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | nepqiu的废话篓子</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">nepqiu的废话篓子</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">響け！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%A5%E6%8E%A7%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%8F%E8%AE%AE%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">遥控器数据协议说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#icra-%E6%9C%BA%E5%99%A8%E4%BA%BA-%E6%8E%A5%E6%94%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">1、ICRA 机器人 接收处理方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E5%85%B5%E4%BB%A3%E7%A0%81-%E6%8E%A5%E6%94%B6%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">2、2019 步兵代码 接收处理方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dma%E4%B8%AD%E6%96%AD%E6%8E%A5%E6%94%B6"><span class="nav-number">1.3.</span> <span class="nav-text">3、DMA 中断接收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%B2%E5%8F%A3dma%E7%A9%BA%E9%97%B2%E4%B8%AD%E6%96%AD%E6%97%A0%E9%94%81%E9%98%9F%E5%88%97"><span class="nav-number">1.4.</span> <span class="nav-text">4、串口 + DMA 空闲中断 + 无锁队列</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nepqiu"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">nepqiu</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Nepqiu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Nepqiu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nepqiu@qq.com" title="E-Mail → mailto:nepqiu@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/15/notes/ACE/%E9%81%A5%E6%8E%A7%E5%99%A8_%E4%B8%B2%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="nepqiu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nepqiu的废话篓子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | nepqiu的废话篓子">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-15 00:06:59" itemprop="dateCreated datePublished" datetime="2023-05-15T00:06:59+08:00">2023-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-04-22 20:32:58" itemprop="dateModified" datetime="2023-04-22T20:32:58+08:00">2023-04-22</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>599</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>[TOC]</p>
+<h1 id="遥控器数据协议说明">遥控器数据协议说明</h1>
+<p>遥控器发送的数据总为为 18 个字节，串口配置 100kbps，
+数据长度 8，偶校验，结束位 1，流控无。</p>
+<p>多个开源代码中都有对遥控器的数据进行处理，接收数据的稳定对机器人的稳定性有着至关重要的影响，以下简单介绍遥控器接收上进行处理。</p>
+<h2 id="icra-机器人-接收处理方法">1、ICRA 机器人 接收处理方法</h2>
+<p>官方在 github 上开源代码，开源在这个网站上</p>
+<p>https://github.com/RoboMaster/RoboRTS-Firmware</p>
+<p>详细代码查看 bsp/boards/drv_dr16.c
+主要通过开启串口空闲中断，使用 DMA 接收，在进入空闲中断的时候进行字节数判断为 18
+才进行解包。</p>
+<p>中断处理过程为进入中断服务函数：第一步清除串口标志位，第二步
+失能 DMA，第三步判断接收包长度是否为 18，成立进入解包函数。不成立跳出。</p>
+<h2 id="步兵代码-接收处理方法">2、2019 步兵代码 接收处理方法</h2>
+<p>官方在论坛上开源代码</p>
+<p>https://bbs.robomaster.com/thread-7717-1-1.html</p>
+<p>详细代码查看</p>
+<p>user/hardware/rc.c 进行硬件配置</p>
+<p>user/app/remote_control 进行中断接收</p>
+<p>主要通过开启串口空闲中断，使用 DMA 双缓冲接收，在进入空闲中断的时候先切换缓冲区，防止新来数据进入当前缓冲区，使新来的数据去另一个缓冲区，然后判断接收区缓冲区长度为 18
+才进行解包， 同时对解包的数据进行判断如果某个通道超过
+RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
+<p>中断处理过程为：第一步判断中断类型；第二步如果是空闲中断，接收一个字节，目的是消除中断标志位；第三步判断几号接收缓冲区，第四步失能 DMA，第五步计算当前缓冲区接收长度，第五步重新设置 DMA 接收长度，第六步设置缓冲区为另一个缓冲区，第六步清除 DMA 标志位，第七步使能 DMA，第六判断当前缓冲区接收长度是否为 18，成立进行解包，同时调用离线检测模块的钩子函数，在钩子函数中判断解包数据是不是正确的。</p>
+<h2 id="dma中断接收">3、DMA 中断接收</h2>
+<h2 id="串口dma空闲中断无锁队列">4、串口 + DMA 空闲中断 + 无锁队列</h2>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/15/notes/ACE/%E8%B6%85%E7%BA%A7%E7%94%B5%E5%AE%B9%E4%BB%A3%E7%A0%81/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nepqiu的废话篓子</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">18k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:06</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="180" alpha="0.3" zIndex="-2" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
