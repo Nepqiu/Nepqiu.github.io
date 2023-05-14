@@ -1,7 +1,3 @@
----
-title: Markdown进阶
----
-
 [TOC]
 
 # Markdown进阶
@@ -193,7 +189,7 @@ Markdown语法
 
 相同文件夹下的文件之间相互跳转
 
-<img src="image/image-20210720002146552.png" alt="image-20210720002146552" style="zoom:67%;" />
+![image-20210720002146552](image/image-20210720002146552.png)
 
 ```
 [下一章](./C2.md) 	//C1.md
@@ -258,7 +254,7 @@ $$
 
 - `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`
 
-<img src="image/image-20210705101407137-1683878442749-3.png" alt="image-20210705101407137" style="zoom:80%;" />
+<img src="https://raw.githubusercontent.com/Nepqiu/gallery/master/img/image-20210705101407137.png" alt="image-20210705101407137" style="zoom:80%;" />
 
 **注意：**
 
@@ -301,7 +297,7 @@ $$
 
 输出结果为：
 
-![img](image/81999271-F914-428D-B7BF-164BDC67CAAC.jpg)
+![img](https://raw.githubusercontent.com/Nepqiu/gallery/master/img/81999271-F914-428D-B7BF-164BDC67CAAC.jpg)
 
 ## 九、转义
 

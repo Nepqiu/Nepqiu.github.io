@@ -20,27 +20,16 @@ minify: false
 # Create your custom files in site directory `source/_data` and uncomment needed files below.
 custom_file_path:
   # head: source/_data/head.njk
-  # #header: source/_data/header.njk
-  # #sidebar: source/_data/sidebar.njk
-  # #postMeta: source/_data/post-meta.njk
+  # header: source/_data/header.njk
+  # sidebar: source/_data/sidebar.njk
+  # postMeta: source/_data/post-meta.njk
   # postBodyEnd: source/_data/post-body-end.njk
   # footer: source/_data/footer.njk
   # bodyEnd: source/_data/body-end.njk
-  # variable: source/_data/variables.styl
+  variable: source/_data/variables.styl
   # mixin: source/_data/mixins.styl
-  # style: source/_data/styles.styl
+  style: source/_data/styles.styl
 
-  #head: source/_data/head.njk
-  #header: source/_data/header.njk
-  #sidebar: source/_data/sidebar.njk
-  #postMeta: source/_data/post-meta.njk
-  #postBodyStart: source/_data/post-body-start.njk
-  #postBodyEnd: source/_data/post-body-end.njk
-  #footer: source/_data/footer.njk
-  #bodyEnd: source/_data/body-end.njk
-  #variable: source/_data/variables.styl
-  #mixin: source/_data/mixins.styl
-  #style: source/_data/styles.styl
 
 
 # ---------------------------------------------------------------
@@ -123,7 +112,7 @@ menu_settings:
 
 
 # ---------------------------------------------------------------
-# Sidebar Settings
+# Sidebar Settings 侧边栏设置
 # See: https://theme-next.js.org/docs/theme-settings/sidebar
 # ---------------------------------------------------------------
 
@@ -142,7 +131,7 @@ sidebar:
   #  - always  expand for all pages automatically.
   #  - hide    expand only when click on the sidebar toggle icon.
   #  - remove  totally remove sidebar including sidebar toggle.
-  display: post
+  display: post  # 自动展开
 
   # Sidebar padding in pixels.
   padding: 18
@@ -190,22 +179,22 @@ links_settings:
 links:
   #Title: https://example.com
 
-# Table of Contents in the Sidebar
+# Table of Contents in the Sidebar 侧边栏目录
 # Front-matter variable (nonsupport wrap expand_all).
 toc:
   enable: true
   # Automatically add list number to toc.
-  number: true
+  number: true  #自动编号到目录
   # If true, all words will placed on next lines if header width longer then sidebar width.
-  wrap: false
+  wrap: true  # 超出范围文字是否换行
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
-  expand_all: false
+  expand_all: false  # 是否一次性全部显示
   # Maximum heading depth of generated toc.
-  max_depth: 6
+  max_depth: 3  # 最小 <h3> 标题
 
 
 # ---------------------------------------------------------------
-# Footer Settings
+# Footer Settings 页脚设置
 # See: https://theme-next.js.org/docs/theme-settings/footer
 # ---------------------------------------------------------------
 
@@ -214,22 +203,22 @@ language_switcher: false
 
 footer:
   # Specify the year when the site was setup. If not defined, current year will be used.
-  since: 2023
+  since: 2023  # 建站年份
 
   # Icon between year and copyright info.
   icon:
     # Icon name in Font Awesome. See: https://fontawesome.com/icons
     name: fa fa-heart
     # If you want to animate the icon, set it to true.
-    animated: false
+    animated: true
     # Change the color of icon, using Hex Code.
-    color: "#ff0000"
+    color: "#f06292"  # "#ff0000"
 
   # If not defined, `author` from Hexo `_config.yml` will be used.
-  copyright:
+  copyright: 'nepqiu的废话篓子'
 
   # Powered by Hexo & NexT
-  powered: true
+  powered: false
 
   # Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn
   beian:
@@ -244,12 +233,13 @@ footer:
 
 
 # ---------------------------------------------------------------
-# Post Settings
+# Post Settings 发布设置
 # See: https://theme-next.js.org/docs/theme-settings/posts
 # ---------------------------------------------------------------
 
 # Use `description` in front-matter to specify post excerpt.
-excerpt_description: true
+# 使用前面的 `description` 来指定帖子摘录。
+excerpt_description: true  # 阅读更多 <!-- more -->
 
 # Read more button
 # If true, the read more button will be displayed in excerpt section.
@@ -271,7 +261,7 @@ symbols_count_time:
   item_text_total: false
 
 # Use icon instead of the symbol # to indicate the tag at the bottom of the post
-tag_icon: false
+tag_icon: true  # 使用图标而不是 # 
 
 # Donate (Sponsor) settings
 # Front-matter variable (nonsupport animation).
@@ -357,7 +347,7 @@ text_align:
 # Reduce padding / margin indents on devices with narrow width.
 mobile_layout_economy: false
 
-# Browser header panel color.
+# Browser header panel color. 侧板栏标题面板颜色
 theme_color:
   light: "#222"
   dark: "#222"
@@ -370,19 +360,19 @@ body_scrollbar:
   stable: false
 
 codeblock:
-  # Code Highlight theme
+  # Code Highlight theme 代码高亮主题
   # All available themes: https://theme-next.js.org/highlight/
   theme:
     light: default
     dark: stackoverflow-dark
   prism:
     light: prism
-    dark: prism-dark
+    dark: prism-okaidia  # prism-dark
   # Add copy button on codeblock
   copy_button:
-    enable: false
+    enable: true
     # Available values: default | flat | mac
-    style:
+    style: flat
 
 back2top:
   enable: true
@@ -391,7 +381,7 @@ back2top:
   # Scroll percent label in b2t button.
   scrollpercent: false
 
-# Reading progress bar
+# Reading progress bar 阅读进度条
 reading_progress:
   enable: false
   # Available values: left | right
@@ -418,7 +408,7 @@ github_banner:
 
 
 # ---------------------------------------------------------------
-# Font Settings
+# Font Settings 字体设置
 # ---------------------------------------------------------------
 # Find fonts on Google Fonts (https://fonts.google.com)
 # All fonts set here will have the following styles:
@@ -501,7 +491,7 @@ baidu_site_verification:
 
 
 # ---------------------------------------------------------------
-# Tags Settings
+# Tags Settings 标签 Tags 设置
 # See: https://theme-next.js.org/docs/tag-plugins/
 # ---------------------------------------------------------------
 
@@ -551,7 +541,7 @@ mermaid:
 # ---------------------------------------------------------------
 
 # ---------------------------------------------------------------
-# Math Formulas Render Support
+# Math Formulas Render Support 数学公式提供支持
 # See: https://theme-next.js.org/docs/third-party-services/math-equations
 # Warning: Please install / uninstall the relevant renderer according to the documentation.
 # Server-side plugin: https://github.com/next-theme/hexo-filter-mathjax
@@ -561,12 +551,13 @@ math:
   # Default (false) will load mathjax / katex script on demand.
   # That is it only render those page which has `mathjax: true` in front-matter.
   # If you set it to true, it will load mathjax / katex script EVERY PAGE.
-  every_page: false
+  every_page: true
 
   mathjax:
-    enable: false
+    enable: true
+    # See: https://github.com/hexojs/hexo-renderer-pandoc 功能较多
     # Available values: none | ams | all
-    tags: none
+    tags: none  # 自动编号
 
   katex:
     enable: false
@@ -575,26 +566,26 @@ math:
 
 
 # ---------------------------------------------------------------
-# External Libraries
+# External Libraries 扩展插件
 # See: https://theme-next.js.org/docs/third-party-services/external-libraries
 # ---------------------------------------------------------------
 
 # Easily enable fast Ajax navigation on your website.
 # For more information: https://github.com/next-theme/pjax
-pjax: false
+pjax: true  # 提供快速的浏览体验
 
 # FancyBox is a tool that offers a nice and elegant way to add zooming functionality for images.
 # For more information: https://fancyapps.com/fancybox/
-fancybox: false
+fancybox: true  # 它提供了一种很好的优雅方式来添加图像缩放功能
 
 # Medium Zoom is a JavaScript library for zooming images like Medium.
 # Warning: Do not enable both `fancybox` and `mediumzoom`.
 # For more information: https://medium-zoom.francoischalifour.com
-mediumzoom: false
+mediumzoom: false  # 缩放图像 （感觉有bug）
 
 # Vanilla JavaScript plugin for lazyloading images.
 # For more information: https://apoorv.pro/lozad.js/demo/
-lazyload: false
+lazyload: true  # 延迟加载图像
 
 # Automatically insert whitespace between CJK and half-width characters.
 # For more information: https://github.com/vinta/pangu.js
@@ -621,7 +612,7 @@ quicklink:
 
 
 # ---------------------------------------------------------------
-# Animation Settings
+# Animation Settings 动画设置
 # ---------------------------------------------------------------
 
 # Use Animate.css to animate everything.
@@ -654,14 +645,14 @@ pace:
 # Generate a ribbon in your website with HTML5 canvas.
 # For more information: https://github.com/hustcc/ribbon.js
 canvas_ribbon:
-  enable: false
-  size: 300 # The width of the ribbon
-  alpha: 0.6 # The transparency of the ribbon
-  zIndex: -1 # The display level of the ribbon
+  enable: true  # 丝带效果背景
+  size: 180 # 宽度
+  alpha: 0.3 # 透明度
+  zIndex: -2 # The display level of the ribbon
 
 
 # ---------------------------------------------------------------
-# Comments Settings
+# Comments Settings 评论设置
 # See: https://theme-next.js.org/docs/third-party-services/comments
 # ---------------------------------------------------------------
 
@@ -762,7 +753,7 @@ addtoany:
 
 
 # ---------------------------------------------------------------
-# Statistics and Analytics
+# Statistics and Analytics 统计和分析
 # See: https://theme-next.js.org/docs/third-party-services/statistics-and-analytics
 # ---------------------------------------------------------------
 
@@ -847,7 +838,7 @@ busuanzi_count:
 
 
 # ---------------------------------------------------------------
-# Search Services
+# Search Services 搜索服务
 # See: https://theme-next.js.org/docs/third-party-services/search-services
 # ---------------------------------------------------------------
 
@@ -874,7 +865,7 @@ local_search:
 
 
 # ---------------------------------------------------------------
-# Chat Services
+# Chat Services 聊天服务
 # See: https://theme-next.js.org/docs/third-party-services/chat-services
 # ---------------------------------------------------------------
 
@@ -908,7 +899,7 @@ gitter:
 
 
 # ---------------------------------------------------------------
-# CDN Settings
+# CDN Settings 内容分发网络
 # See: https://theme-next.js.org/docs/advanced-settings/vendors
 # ---------------------------------------------------------------
 
