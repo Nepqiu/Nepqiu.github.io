@@ -3,18 +3,22 @@
   <entry>
     <title>Hello World</title>
     <url>/2023/05/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start">Quick Start</h2>
-<h3 id="Create-a-new-post">Create a new post</h3>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very
+first post. Check <a href="https://hexo.io/docs/">documentation</a> for
+more info. If you get any problems when using Hexo, you can find the
+answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or
+you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server">Run server</h3>
+<h3 id="run-server">Run server</h3>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files">Generate static files</h3>
+<h3 id="generate-static-files">Generate static files</h3>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites">Deploy to remote sites</h3>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
@@ -22,111 +26,120 @@
   <entry>
     <title>测试博客</title>
     <url>/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h1>测试博客搭建</h1>
+    <content><![CDATA[<h1 id="测试博客搭建">测试博客搭建</h1>
 <p>简单的测试一些博客显示的功能，包括照片的显示，公式的显示，代码的显示等等。</p>
 <span id="more"></span>
-<h1>Front-matter</h1>
-<p><a href="https://hexo.io/zh-cn/docs/front-matter">Front-matter | Hexo</a></p>
+<h1 id="front-matter">Front-matter</h1>
+<p><a href="https://hexo.io/zh-cn/docs/front-matter">Front-matter |
+Hexo</a></p>
 <p>以下是预先定义的参数，您可在模板中使用这些参数值并加以利用。</p>
 <table>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 43%">
+<col style="width: 43%">
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">描述</th>
-<th style="text-align:left">默认值</th>
+<tr class="header">
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">描述</th>
+<th style="text-align: left;">默认值</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center"><code>layout</code></td>
-<td style="text-align:center">布局 </td>
-<td style="text-align:left"><a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>config.default_layout</code></a></td>
+<tr class="odd">
+<td style="text-align: center;"><code>layout</code></td>
+<td style="text-align: center;">布局 </td>
+<td style="text-align: left;"><a href="https://hexo.io/zh-cn/docs/configuration#文章"><code>config.default_layout</code></a></td>
 </tr>
-<tr>
-<td style="text-align:center"><code>title</code></td>
-<td style="text-align:center">标题</td>
-<td style="text-align:left">文章的文件名</td>
+<tr class="even">
+<td style="text-align: center;"><code>title</code></td>
+<td style="text-align: center;">标题</td>
+<td style="text-align: left;">文章的文件名</td>
 </tr>
-<tr>
-<td style="text-align:center"><code>date</code></td>
-<td style="text-align:center">建立日期</td>
-<td style="text-align:left">文件建立日期</td>
+<tr class="odd">
+<td style="text-align: center;"><code>date</code></td>
+<td style="text-align: center;">建立日期</td>
+<td style="text-align: left;">文件建立日期</td>
 </tr>
-<tr>
-<td style="text-align:center"><code>updated</code></td>
-<td style="text-align:center">更新日期</td>
-<td style="text-align:left">文件更新日期</td>
+<tr class="even">
+<td style="text-align: center;"><code>updated</code></td>
+<td style="text-align: center;">更新日期</td>
+<td style="text-align: left;">文件更新日期</td>
 </tr>
-<tr>
-<td style="text-align:center"><code>comments</code></td>
-<td style="text-align:center">开启文章的评论功能</td>
-<td style="text-align:left"> true</td>
+<tr class="odd">
+<td style="text-align: center;"><code>comments</code></td>
+<td style="text-align: center;">开启文章的评论功能</td>
+<td style="text-align: left;"> true</td>
 </tr>
-<tr>
-<td style="text-align:center"><code>tags</code></td>
-<td style="text-align:center">标签（不适用于分页）</td>
-<td style="text-align:left"></td>
+<tr class="even">
+<td style="text-align: center;"><code>tags</code></td>
+<td style="text-align: center;">标签（不适用于分页）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:center"><code>categories</code></td>
-<td style="text-align:center">分类（不适用于分页）</td>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: center;"><code>categories</code></td>
+<td style="text-align: center;">分类（不适用于分页）</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:center"><code>permalink</code></td>
-<td style="text-align:center">覆盖文章的永久链接，永久链接应该以 <code>/</code> 或 <code>.html</code> 结尾</td>
-<td style="text-align:left"><code>null</code></td>
+<tr class="even">
+<td style="text-align: center;"><code>permalink</code></td>
+<td style="text-align: center;">覆盖文章的永久链接，永久链接应该以
+<code>/</code> 或 <code>.html</code> 结尾</td>
+<td style="text-align: left;"><code>null</code></td>
 </tr>
-<tr>
-<td style="text-align:center"><code>excerpt</code></td>
-<td style="text-align:center">纯文本的页面摘要。使用 <a href="https://hexo.io/zh-cn/docs/tag-plugins#%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%92%8C%E6%88%AA%E6%96%AD">该插件</a> 来格式化文本</td>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: center;"><code>excerpt</code></td>
+<td style="text-align: center;">纯文本的页面摘要。使用 <a href="https://hexo.io/zh-cn/docs/tag-plugins#文章摘要和截断">该插件</a>
+来格式化文本</td>
+<td style="text-align: left;"></td>
 </tr>
-<tr>
-<td style="text-align:center"><code>disableNunjucks</code></td>
-<td style="text-align:center">启用时禁用 Nunjucks 标签 <code>{{ }}</code>/<code>{% %}</code> 和 <a href="https://hexo.io/zh-cn/docs/tag-plugins">标签插件</a> 的渲染功能</td>
-<td style="text-align:left"> false</td>
+<tr class="even">
+<td style="text-align: center;"><code>disableNunjucks</code></td>
+<td style="text-align: center;">启用时禁用 Nunjucks 标签
+<code>{{ }}</code>/<code>{% %}</code> 和 <a href="https://hexo.io/zh-cn/docs/tag-plugins">标签插件</a>
+的渲染功能</td>
+<td style="text-align: left;"> false</td>
 </tr>
-<tr>
-<td style="text-align:center"><code>lang</code></td>
-<td style="text-align:center">设置语言以覆盖 <a href="https://hexo.io/zh-cn/docs/internationalization#%E8%B7%AF%E5%BE%84">自动检测</a></td>
-<td style="text-align:left">继承自 <code>_config.yml</code></td>
+<tr class="odd">
+<td style="text-align: center;"><code>lang</code></td>
+<td style="text-align: center;">设置语言以覆盖 <a href="https://hexo.io/zh-cn/docs/internationalization#路径">自动检测</a></td>
+<td style="text-align: left;">继承自 <code>_config.yml</code></td>
 </tr>
 </tbody>
 </table>
-<h1>测试部分</h1>
+<h1 id="测试部分">测试部分</h1>
 <h2 id="公式测试">公式测试</h2>
-<p>对于任意实数 $x$ ，以下等式恒成立：<br>
-$$<br>
-\large<br>
-e^{ix} = \cos x+i\sin x<br>
-$$<br>
-由此也可以推导出<br>
-$$<br>
-\large<br>
-{\displaystyle \sin x={\frac {e^{ix}-e^{-ix}}{2i}}}<br>
-$$<br>
-和<br>
-$$<br>
-\large<br>
-{\displaystyle \cos x={\frac {e^{ix}+e^{-ix}}{2}}}<br>
-$$<br>
-当 $x=\pi$ 时，欧拉公式的特殊形式为：<br>
-$$<br>
-\large<br>
-e^{i \pi} + 1 = 0<br>
-$$</p>
+<p>对于任意实数 <span class="math inline">\(x\)</span>
+，以下等式恒成立： <span class="math display">\[
+\large
+e^{ix} = \cos x+i\sin x
+\]</span> 由此也可以推导出 <span class="math display">\[
+\large
+{\displaystyle \sin x={\frac {e^{ix}-e^{-ix}}{2i}}}
+\]</span> 和 <span class="math display">\[
+\large
+{\displaystyle \cos x={\frac {e^{ix}+e^{-ix}}{2}}}
+\]</span> 当 <span class="math inline">\(x=\pi\)</span>
+时，欧拉公式的特殊形式为： <span class="math display">\[
+\large
+e^{i \pi} + 1 = 0\
+\]</span></p>
 <h2 id="动图插入测试">动图插入测试</h2>
 <p>同名文件夹，相对路径</p>
-<p><img data-src="202002121434asfa06515.gif" alt=""></p>
-<p>在主页中也会显示</p>
-<img data-src="/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/202002121434asfa06515.gif" class="">
+<figure>
+<img data-src="202002121434asfa06515.gif" alt="在这里插入图片描述">
+<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<p>在主页中也会显示 <img data-src="/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/202002121434asfa06515.gif" class=""></p>
 <h2 id="相对路径图片插入测试">相对路径图片插入测试</h2>
 <p>同名文件夹，相对路径</p>
-<p><img data-src="800px-Euler's_f1ormul.png" alt=""></p>
-<img data-src="800px-Euler's_f1ormul.png" alt="800px-Euler's_f1ormul.png" style="zoom:80%;">
-<p>在主页中也会显示</p>
-<img data-src="/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/800px-Euler's_f1ormul.png" class="">
+<figure>
+<img data-src="800px-Euler's_f1ormul.png" alt="800px-Euler's_formul">
+<figcaption aria-hidden="true">800px-Euler's_formul</figcaption>
+</figure>
+<p><img data-src="800px-Euler's_f1ormul.png" alt="800px-Euler's_f1ormul.png" style="zoom:80%;"></p>
+<p>在主页中也会显示 <img data-src="/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/800px-Euler's_f1ormul.png" class=""></p>
 <h2 id="代码测试">代码测试</h2>
 ]]></content>
       <tags>
