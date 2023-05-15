@@ -184,11 +184,11 @@ links:
 toc:
   enable: true
   # Automatically add list number to toc.
-  number: true  #自动编号到目录
+  number: false  #自动编号到目录
   # If true, all words will placed on next lines if header width longer then sidebar width.
   wrap: true  # 超出范围文字是否换行
   # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
-  expand_all: false  # 是否一次性全部显示
+  expand_all: true  # 是否一次性全部显示
   # Maximum heading depth of generated toc.
   max_depth: 3  # 最小 <h3> 标题
 

@@ -435,13 +435,7 @@ That is so funny! 😂
 
 
 
-效果如下：
-
-<iframe 
-    width="800" 
-    height="450" 
-    src="//player.bilibili.com/player.html?aid=716453458&bvid=BV1AX4y1w7Nt&cid=364874249&page=5" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> 
-    </iframe>
+> 测试是成功的，但是每次打开都自动播放，所有删掉了
 
 
 
