@@ -151,9 +151,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -186,7 +190,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/15/notes/ACE/%E9%81%A5%E6%8E%A7%E5%99%A8_%E4%B8%B2%E5%8F%A3/">
+    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -204,7 +208,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/15/notes/ACE/%E9%81%A5%E6%8E%A7%E5%99%A8_%E4%B8%B2%E5%8F%A3/" class="post-title-link" itemprop="url">未命名</a>
+          <a href="/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">测试博客</a>
         </h2>
 
         <div class="post-meta-container">
@@ -215,14 +219,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-15 00:06:59" itemprop="dateCreated datePublished" datetime="2023-05-15T00:06:59+08:00">2023-05-15</time>
+      <time title="创建时间：2023-05-11 22:15:06" itemprop="dateCreated datePublished" datetime="2023-05-11T22:15:06+08:00">2023-05-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-22 20:32:58" itemprop="dateModified" datetime="2023-04-22T20:32:58+08:00">2023-04-22</time>
+      <time title="修改时间：2023-05-15 13:14:49" itemprop="dateModified" datetime="2023-05-15T13:14:49+08:00">2023-05-15</time>
     </span>
 
   
@@ -232,251 +236,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>599</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h1 id="遥控器数据协议说明">遥控器数据协议说明</h1>
-<p>遥控器发送的数据总为为 18 个字节，串口配置 100kbps，
-数据长度 8，偶校验，结束位 1，流控无。</p>
-<p>多个开源代码中都有对遥控器的数据进行处理，接收数据的稳定对机器人的稳定性有着至关重要的影响，以下简单介绍遥控器接收上进行处理。</p>
-<h2 id="icra-机器人-接收处理方法">1、ICRA 机器人 接收处理方法</h2>
-<p>官方在 github 上开源代码，开源在这个网站上</p>
-<p>https://github.com/RoboMaster/RoboRTS-Firmware</p>
-<p>详细代码查看 bsp/boards/drv_dr16.c
-主要通过开启串口空闲中断，使用 DMA 接收，在进入空闲中断的时候进行字节数判断为 18
-才进行解包。</p>
-<p>中断处理过程为进入中断服务函数：第一步清除串口标志位，第二步
-失能 DMA，第三步判断接收包长度是否为 18，成立进入解包函数。不成立跳出。</p>
-<h2 id="步兵代码-接收处理方法">2、2019 步兵代码 接收处理方法</h2>
-<p>官方在论坛上开源代码</p>
-<p>https://bbs.robomaster.com/thread-7717-1-1.html</p>
-<p>详细代码查看</p>
-<p>user/hardware/rc.c 进行硬件配置</p>
-<p>user/app/remote_control 进行中断接收</p>
-<p>主要通过开启串口空闲中断，使用 DMA 双缓冲接收，在进入空闲中断的时候先切换缓冲区，防止新来数据进入当前缓冲区，使新来的数据去另一个缓冲区，然后判断接收区缓冲区长度为 18
-才进行解包， 同时对解包的数据进行判断如果某个通道超过
-RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
-<p>中断处理过程为：第一步判断中断类型；第二步如果是空闲中断，接收一个字节，目的是消除中断标志位；第三步判断几号接收缓冲区，第四步失能 DMA，第五步计算当前缓冲区接收长度，第五步重新设置 DMA 接收长度，第六步设置缓冲区为另一个缓冲区，第六步清除 DMA 标志位，第七步使能 DMA，第六判断当前缓冲区接收长度是否为 18，成立进行解包，同时调用离线检测模块的钩子函数，在钩子函数中判断解包数据是不是正确的。</p>
-<h2 id="dma中断接收">3、DMA 中断接收</h2>
-<h2 id="串口dma空闲中断无锁队列">4、串口 + DMA 空闲中断 + 无锁队列</h2>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/15/notes/ACE/%E8%B6%85%E7%BA%A7%E7%94%B5%E5%AE%B9%E4%BB%A3%E7%A0%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="nepqiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="nepqiu的废话篓子">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | nepqiu的废话篓子">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/15/notes/ACE/%E8%B6%85%E7%BA%A7%E7%94%B5%E5%AE%B9%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-05-15 00:06:59" itemprop="dateCreated datePublished" datetime="2023-05-15T00:06:59+08:00">2023-05-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-22 20:32:58" itemprop="dateModified" datetime="2023-04-22T20:32:58+08:00">2023-04-22</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h1 id="超级电容">超级电容</h1>
-<h2 id="控制逻辑">控制逻辑</h2>
-<p>分两种情况</p>
-<ol type="1">
-<li>不使用超级电容：
-不使用的时候，使用 pid，通过控制 <code>gain</code> 使超级电容电压稳定在固定数值</li>
-<li>使用超级电容： 目前方案是根据实际情况提高 <code>gain</code>
-的数值</li>
-</ol>
-<h2 id="接收">接收</h2>
-<h3 id="接收数据结构体">接收数据结构体</h3>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span>		</span><br><span class="line">	<span class="type">float</span> input_voltage;  <span class="comment">//输入电压</span></span><br><span class="line">	<span class="type">float</span> Capacitance_voltage;  <span class="comment">//电容电压</span></span><br><span class="line">	<span class="type">float</span> Input_current;  <span class="comment">//输入电流</span></span><br><span class="line">	<span class="type">float</span> Set_power;  <span class="comment">//设定功率</span></span><br><span class="line">} Supercapacitor_receive_t;</span><br><span class="line"></span><br><span class="line">Supercapacitor_receive_t Supercap_receive;</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="接收数据函数">接收数据函数</h3>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          超级电容can接收函数</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  * @attention      在can接收中断中调用</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">can1_receive</span><span class="params">(CanRxMsg *rx_message)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">switch</span> (rx_message-&gt;StdId)</span><br><span class="line">    {</span><br><span class="line">		<span class="keyword">case</span> <span class="number">0x211</span>: <span class="comment">//超级电容接收</span></span><br><span class="line">		{</span><br><span class="line">			<span class="type">uint16_t</span> *cap_redata = (<span class="type">uint16_t</span> *)rx_message-&gt;Data;</span><br><span class="line">			Supercap_receive.input_voltage = (<span class="type">float</span>)(cap_redata[<span class="number">0</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			Supercap_receive.Capacitance_voltage = (<span class="type">float</span>)(cap_redata[<span class="number">1</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			Supercap_receive.Input_current = (<span class="type">float</span>)(cap_redata[<span class="number">2</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			</span><br><span class="line">			Supercap_receive.Set_power = (<span class="type">float</span>)(cap_redata[<span class="number">3</span>] / <span class="number">100.0f</span>);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="发送">发送</h2>
-<p><strong>！！！发送频率控制在 10Hz 左右！！！</strong></p>
-<h3 id="can发送函数">can 发送函数</h3>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">can1_cap_setmsg</span><span class="params">(<span class="type">int16_t</span> Chassis_power)</span></span><br><span class="line">{</span><br><span class="line">    <span class="type">uint8_t</span> mbox;</span><br><span class="line">    <span class="type">uint16_t</span> i = <span class="number">0</span>;</span><br><span class="line">    CanTxMsg CAN1_TxMessage; <span class="comment">//定义一个发送信息的结构体</span></span><br><span class="line">	</span><br><span class="line">	Chassis_power = Chassis_power * <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    CAN1_TxMessage.StdId = <span class="number">0x210</span>;       <span class="comment">//根据820r设置标识符</span></span><br><span class="line">    CAN1_TxMessage.IDE = CAN_ID_STD;    <span class="comment">//指定将要传输的消息的标识符的类型</span></span><br><span class="line">    CAN1_TxMessage.RTR = CAN_RTR_DATA;  <span class="comment">//指定的帧将被传输的消息的类型   数据帧或远程帧</span></span><br><span class="line">    CAN1_TxMessage.DLC = <span class="number">2</span>;             <span class="comment">// 发送两帧信息</span></span><br><span class="line">	</span><br><span class="line">    CAN1_TxMessage.Data[<span class="number">0</span>] = (<span class="type">uint8_t</span>)(Chassis_power &gt;&gt; <span class="number">8</span>);</span><br><span class="line">    CAN1_TxMessage.Data[<span class="number">1</span>] = (<span class="type">uint8_t</span>)(Chassis_power);</span><br><span class="line"></span><br><span class="line">    mbox = CAN_Transmit(CAN1, &amp;CAN1_TxMessage); <span class="comment">//发送信息</span></span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> ((CAN_TransmitStatus(CAN1, mbox) == CAN_TxStatus_Failed) &amp;&amp; (i &lt; <span class="number">0XFFF</span>)) <span class="comment">//等待发送结束</span></span><br><span class="line">        i++;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="创建软件定时器">创建软件定时器</h3>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">TimerHandle_t CAP_Timer_Handle; <span class="comment">//周期定时器句柄</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          软件定时器创建函数</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  * @attention      </span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_send_create</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    taskENTER_CRITICAL(); <span class="comment">//进入临界区</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建can1发送定时器</span></span><br><span class="line">    CAP_Timer_Handle = xTimerCreate((<span class="type">const</span> <span class="type">char</span> *)<span class="string">"CAP_Timer"</span>,</span><br><span class="line">                                     (TickType_t)<span class="number">100</span>,                               <span class="comment">//10Hz - 100ms一次</span></span><br><span class="line">                                     (UBaseType_t)pdTRUE,                           <span class="comment">//周期执行</span></span><br><span class="line">                                     (<span class="type">void</span> *)<span class="number">0</span>,                                     <span class="comment">//编号一般给0</span></span><br><span class="line">                                     (TimerCallbackFunction_t)CAP_Timer_Callback);  <span class="comment">//回调函数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启定时器,仅且仅能开启一次，否则会出错，不开启则不会发数据</span></span><br><span class="line">    <span class="keyword">if</span> (CAP_Timer_Handle != <span class="literal">NULL</span>)</span><br><span class="line">    {</span><br><span class="line">        xTimerStart(CAP_Timer_Handle, <span class="number">0</span>); <span class="comment">//不等待</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    taskEXIT_CRITICAL(); <span class="comment">//退出临界区</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="软件定时器回调函数">软件定时器回调函数</h3>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          软件定时回调函数</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  * @attention      禁用delay</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">CAP_Timer_Callback</span><span class="params">(TimerHandle_t xTimer)</span></span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* 函数主体 - 10Hz频率调用 */</span></span><br><span class="line">	<span class="type">uint16_t</span> power = referee_chassis_power_limit();</span><br><span class="line">	<span class="keyword">if</span> (power &gt;= <span class="number">50</span> &amp;&amp; power &lt;= <span class="number">120</span>)</span><br><span class="line">	{</span><br><span class="line">		can1_cap_setmsg(power);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		can1_cap_setmsg(<span class="number">80</span>);</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="在主函数调用">在主函数调用</h3>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timer_send_create();    <span class="comment">//创建软件定时器</span></span><br></pre></td></tr></tbody></table></figure>
-<h2 id="功率限制">功率限制</h2>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          底盘功率限制</span></span><br><span class="line"><span class="comment">  * @param[in]      *chassis_power_limit_f：底盘主结构体</span></span><br><span class="line"><span class="comment">  * @retval         none</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">extern</span> Supercapacitor_receive_t Supercap_receive;</span><br><span class="line"><span class="type">void</span> <span class="title function_">chassis_power_limit_control_2</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_pl_f)</span></span><br><span class="line">{</span><br><span class="line">	<span class="keyword">if</span> (chassis_pl_f-&gt;SuperCap_discharge_flag == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		chassis_pl_f-&gt;chassis_speed_gain = (referee_chassis_power_limit() / <span class="number">5.0f</span>) * <span class="number">1.1f</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (Supercap_receive.Capacitance_voltage &gt; <span class="number">12.0f</span>)</span><br><span class="line">		{</span><br><span class="line">			<span class="type">uint16_t</span> power = referee_chassis_power_limit();</span><br><span class="line">			</span><br><span class="line">			chassis_pl_f-&gt;chassis_power_pid.SetValue = <span class="number">19.5f</span>; <span class="comment">//不使用超级电容的时候，使电容电压稳定在19.5f</span></span><br><span class="line">			increment_pid(&amp;chassis_pl_f-&gt;chassis_power_pid, Supercap_receive.Capacitance_voltage);</span><br><span class="line">			</span><br><span class="line">			chassis_pl_f-&gt;chassis_speed_gain += -chassis_pl_f-&gt;chassis_power_pid.out;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span> (power &gt; <span class="number">100</span> &amp;&amp; power &lt;= <span class="number">120</span>) <span class="comment">//TODO 根据最大功率来选择 gain参数的限制范围</span></span><br><span class="line">			{</span><br><span class="line">				chassis_pl_f-&gt;chassis_speed_gain = float_limit(chassis_pl_f-&gt;chassis_speed_gain, <span class="number">24.0f</span>, <span class="number">10.0f</span>);</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			{</span><br><span class="line">				chassis_pl_f-&gt;chassis_speed_gain = float_limit(chassis_pl_f-&gt;chassis_speed_gain, <span class="number">18.0f</span>, <span class="number">3.0f</span>);</span><br><span class="line">			}</span><br><span class="line">			<span class="comment">//简单的滤波</span></span><br><span class="line">			chassis_pl_f-&gt;chassis_speed_gain = (<span class="number">1</span><span class="number">-0.04f</span>) * chassis_pl_f-&gt;chassis_last_speed_gain + (<span class="number">0.04f</span>) * chassis_pl_f-&gt;chassis_speed_gain;</span><br><span class="line">			chassis_pl_f-&gt;chassis_last_speed_gain = chassis_pl_f-&gt;chassis_speed_gain;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (Supercap_receive.Capacitance_voltage == <span class="number">0.0f</span>)</span><br><span class="line">		{</span><br><span class="line">			chassis_pl_f-&gt;chassis_speed_gain = <span class="number">8.0f</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="pid">pid</h2>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">		pid_init(&amp;chassis_move_init_f-&gt;chassis_power_pid, <span class="number">100.0f</span>, <span class="number">20.0f</span>, <span class="number">12.5f</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">		chassis_move_init_f-&gt;chassis_power_pid.errorabsmin = <span class="number">0.5f</span>;</span><br><span class="line">		chassis_move_init_f-&gt;chassis_power_pid.errorabsmax = <span class="number">5.0f</span>;</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> //<span class="title">pid</span>结构体变量</span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    fp32 Kp;</span><br><span class="line">    fp32 Ki;</span><br><span class="line">    fp32 Kd;</span><br><span class="line"></span><br><span class="line">    fp32 max_out;  <span class="comment">//最大输出</span></span><br><span class="line">    fp32 max_iout; <span class="comment">//最大积分输出</span></span><br><span class="line"></span><br><span class="line">    fp32 SetValue;</span><br><span class="line">    fp32 ActualValue;</span><br><span class="line"></span><br><span class="line">    fp32 out;</span><br><span class="line">	fp32 lastout;</span><br><span class="line">	</span><br><span class="line">    fp32 Pout;</span><br><span class="line">    fp32 Iout;</span><br><span class="line">    fp32 Dout;</span><br><span class="line">	</span><br><span class="line">	fp32 Ierror;</span><br><span class="line">    fp32 Derror[<span class="number">3</span>];  <span class="comment">//微分项 0最新 1上一次 2上上次</span></span><br><span class="line">    fp32 error[<span class="number">3</span>];   <span class="comment">//误差项 0最新 1上一次 2上上次</span></span><br><span class="line">	</span><br><span class="line">	fp32 stepIn;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 误差死区 */</span></span><br><span class="line">	fp32 deadband;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 积分分离 */</span></span><br><span class="line">    fp32 epsilon; <span class="comment">//积分分离阈(yu)值</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* 不完全微分 */</span></span><br><span class="line">	fp32 alpha;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 抗积分饱和 */</span></span><br><span class="line">    fp32 maximum; <span class="comment">//最大值</span></span><br><span class="line">    fp32 minimum; <span class="comment">//最小值</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 变积分 */</span></span><br><span class="line">    fp32 errorabsmax; <span class="comment">//偏差绝对值最大值</span></span><br><span class="line">    fp32 errorabsmin; <span class="comment">//偏差绝对值最小值</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">/* 微分先行 */</span></span><br><span class="line">    fp32 gama; <span class="comment">//微分先行滤波系数</span></span><br><span class="line">	</span><br><span class="line">	pid_mode_e pid_mode;</span><br><span class="line">} PidTypeDef;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="title function_">increment_pid</span><span class="params">(PidTypeDef *pid , <span class="type">float</span> actualValue)</span></span><br><span class="line">{</span><br><span class="line">	<span class="comment">//error</span></span><br><span class="line">	pid-&gt;error[<span class="number">0</span>] = pid-&gt;SetValue - actualValue;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//微分项 记录</span></span><br><span class="line">	pid-&gt;Derror[<span class="number">0</span>] = pid-&gt;error[<span class="number">0</span>] - <span class="number">2</span> * pid-&gt;error[<span class="number">1</span>] + pid-&gt;error[<span class="number">2</span>];</span><br><span class="line">	</span><br><span class="line">	pid-&gt;Ierror = (pid-&gt;error[<span class="number">0</span>] - pid-&gt;error[<span class="number">1</span>]) / <span class="number">2</span>;</span><br><span class="line">	pid-&gt;Ierror *= VariableIntegralCoefficient(pid-&gt;error[<span class="number">0</span>], pid-&gt;errorabsmax, pid-&gt;errorabsmin);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//输出pid运算</span></span><br><span class="line">	pid-&gt;out = (pid-&gt;Kp * (pid-&gt;error[<span class="number">0</span>] - pid-&gt;error[<span class="number">1</span>])) + (pid-&gt;Ki * pid-&gt;Ierror) + (pid-&gt;Kd * pid-&gt;Derror[<span class="number">0</span>]);   </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//PID每一项输出</span></span><br><span class="line">	pid-&gt;Pout = (pid-&gt;Kp * (pid-&gt;error[<span class="number">0</span>] - pid-&gt;error[<span class="number">1</span>]));</span><br><span class="line">	pid-&gt;Iout = (pid-&gt;Ki * pid-&gt;Ierror);</span><br><span class="line">	pid-&gt;Dout = (pid-&gt;Kd * pid-&gt;Derror[<span class="number">0</span>]);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//记录error</span></span><br><span class="line">	pid-&gt;error[<span class="number">2</span>] = pid-&gt;error[<span class="number">1</span>]; <span class="comment">//记录上上次误差</span></span><br><span class="line">	pid-&gt;error[<span class="number">1</span>] = pid-&gt;error[<span class="number">0</span>]; <span class="comment">//记录上次误差</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> pid-&gt;out;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          变积分系数处理函数，实现一个输出0和1之间的分段线性函数</span></span><br><span class="line"><span class="comment">  * @param[in]      error: 当前输入的偏差值</span></span><br><span class="line"><span class="comment">  * @param[in]      absmax: 偏差绝对值的最大值</span></span><br><span class="line"><span class="comment">  * @param[in]      absmin: 偏差绝对值的最小值</span></span><br><span class="line"><span class="comment">  * @retval         factor: 控制积分的比例</span></span><br><span class="line"><span class="comment">  * @attention      当偏差的绝对值小于最小值时，输出为1；当偏差的绝对值大于最大值时，输出为0</span></span><br><span class="line"><span class="comment">  *                 当偏差的绝对值介于最大值和最小值之间时，输出在0和1之间现行变化</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">static</span> fp32 <span class="title function_">VariableIntegralCoefficient</span><span class="params">(fp32 error, fp32 absmax, fp32 absmin)</span></span><br><span class="line">{</span><br><span class="line">    fp32 factor = <span class="number">0.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (float_abs(error) &lt;= absmin) <span class="comment">//最小值</span></span><br><span class="line">    {</span><br><span class="line">        factor = <span class="number">1.0f</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (float_abs(error) &gt; absmax) <span class="comment">//最大值</span></span><br><span class="line">    {</span><br><span class="line">        factor = <span class="number">0.0f</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        factor = (absmax - float_abs(error)) / (absmax - absmin);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> factor;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="注意">注意！！！</h2>
-<ol type="1">
-<li><strong>超级电容电压不能低于 12v，准备低于 12v 就应该做限制，不让底盘超功率运行</strong></li>
-<li><strong>发送给超级电容的频率为 10Hz</strong></li>
-<li>** 发送给超级电容的设定功率要先
-*100，再发送，比如想设定为 80w，那么就应该发送 8000<strong>
-</strong><code>can1_cap_setmsg</code> 函数已经在里面乘了 100，所以直接发送对应的功率就好了，设定功率范围为
-30~130**</li>
-<li><strong> 电源电压对超级电容影响很大，请尽量保持 70% 以上的电进行测试和比赛</strong></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/15/notes/ACE/%E6%AD%A5%E5%85%B5%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="nepqiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="nepqiu的废话篓子">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | nepqiu的废话篓子">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/15/notes/ACE/%E6%AD%A5%E5%85%B5%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-05-15 00:06:59" itemprop="dateCreated datePublished" datetime="2023-05-15T00:06:59+08:00">2023-05-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-22 20:32:58" itemprop="dateModified" datetime="2023-04-22T20:32:58+08:00">2023-04-22</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>181</span>
+      <span>382</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -494,20 +254,16 @@ RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h1 id="代码规范">代码规范</h1>
-<p>代码规范遵循</p>
-<ul>
-<li><a href="./代码规范">《东莞理工 ACE 实验室电控软件组代码规范》</a></li>
-</ul>
-<h1 id="目录">目录</h1>
-<p>目录结构：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├─application   # 主应用文件夹</span><br><span class="line">│  ├─chassis    # 底盘相关任务</span><br><span class="line">│  └─gimbal     # 云台相关任务</span><br><span class="line">├─boards        # 硬件外设初始化</span><br><span class="line">├─components    # 一些开源的软件包 - 暂时没有用</span><br><span class="line">│  ├─ ...</span><br><span class="line">├─control       # 控制相关</span><br><span class="line">├─delay         # 只有延时函数</span><br><span class="line">├─FreeRTOS      # freertos相关</span><br><span class="line">│  ├─ ...</span><br><span class="line">├─FWLIB</span><br><span class="line">│  ├─inc</span><br><span class="line">│  └─src</span><br><span class="line">├─LIBRARIES</span><br><span class="line">│  ├─device</span><br><span class="line">│  ├─dsp_lib      # DSP库</span><br><span class="line">│  │  └─Include</span><br><span class="line">│  └─startup</span><br><span class="line">├─OBJ </span><br><span class="line">├─operation       # 算法相关</span><br><span class="line">│  └─list_of_function</span><br><span class="line">├─referee         # 裁判系统相关     </span><br><span class="line">├─timer           # 软件定时器</span><br><span class="line">└─USER            # user</span><br><span class="line">    ├─.vscode</span><br><span class="line">    ├─DebugConfig</span><br><span class="line">    ├─Listings</span><br><span class="line">    └─Objects</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="git-使用">Git 使用</h1>
-<p>大概就是，建立仓库，上传代码，每一个大版本上传一次，用作备份，要做什么尝试的时候可以建立分支</p>
-<p>https://github.com/Nepqiu/ACE_Infantry_2022</p>
-<h1 id="卡尔曼">卡尔曼</h1>
-
+          <h1>测试博客搭建</h1>
+<p>简单的测试一些博客显示的功能，包括照片的显示，公式的显示，代码的显示等等。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/05/11/%E6%B5%8B%E8%AF%95%E5%8D%9A%E5%AE%A2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -533,7 +289,7 @@ RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/15/notes/ACE/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/">
+    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/11/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -551,7 +307,7 @@ RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/15/notes/ACE/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="post-title-link" itemprop="url">未命名</a>
+          <a href="/2023/05/11/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
         </h2>
 
         <div class="post-meta-container">
@@ -562,14 +318,7 @@ RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-05-15 00:06:59" itemprop="dateCreated datePublished" datetime="2023-05-15T00:06:59+08:00">2023-05-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-22 20:32:58" itemprop="dateModified" datetime="2023-04-22T20:32:58+08:00">2023-04-22</time>
+      <time title="创建时间：2023-05-11 21:28:24" itemprop="dateCreated datePublished" datetime="2023-05-11T21:28:24+08:00">2023-05-11</time>
     </span>
 
   
@@ -579,314 +328,7 @@ RC_CHANNEL_ERROR_VALUE 会进行数据复位。</p>
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h1 id="ace-电控软件编程规范---v1.5">ACE 电控软件编程规范 - V1.5</h1>
-<p>这是一份东莞理工 ACE 实验室电控组的嵌入式开发指引。</p>
-<p>作为 ACE 团队的一员，各个兵种需要由不同的人完成，但是这样的话没有一份统一的规范代码，每个人的代码风格都不一样，会导致很多东西明明是很简单的可以通用的，却要重新写一份代码，导致事倍功半、效率低下，所以我稍微总结的学长的建议、RT-Thread 编程风格、大疆开源的代码风格和自己的习惯，汇总了一份代码规范参考</p>
-<p>请每一位<strong>东莞理工 ACE 实验室电控组的嵌入式开发者</strong>遵守这样的编程风格。</p>
-<p>同时对于使用新人，也可通过这份文档了解代码内部一些约定从而比较容易的把握到各个兵种的开发实战中去。</p>
-<h2 id="目录名称">1. 目录名称</h2>
-<p>目录名称如果无特殊的需求，请使用<strong>全小写</strong>的形式。</p>
-<p>目录名称应能够反应部分的意思，例如各芯片移植由其芯片名称构成或芯片类别构成、components
-目录下能够反映组件的意义。</p>
-<h2 id="文件名称">2. 文件名称</h2>
-<p>文件名称如果无特殊的需求 (如果是引用其他地方，可以保留相应的名称)，请使用<strong>全小写</strong>的形式。另外为了避免文件名重名的问题，一些地方请尽量不要使用通用化、使用频率高的名称。</p>
-<h2 id="头文件定义">3. 头文件定义</h2>
-<p>C 语言头文件为了避免多次重复包含，需要定义一个符号。这个符号的定义形式请采用如下的风格：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __TASK_CHASSIS_H__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __TASK_CHASSIS_H__</span></span><br><span class="line"><span class="comment">/* header file content */</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* __TASK_CHASSIS_H */</span></span></span><br></pre></td></tr></tbody></table></figure>
-<p>即定义的符号左侧采用 <code>"__"</code>
-以避免重名，另外也可以根据文件名中是否包含多个词语而采用
-<code>"_"</code> 连接起来。</p>
-<h2 id="文件头函数注释">4. 文件头、函数注释</h2>
-<p>在每个源文件文件头上，应该包括相应的信息，日期、：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  *****************************东莞理工学院ACE实验室 *****************************</span></span><br><span class="line"><span class="comment">  * @file       文件名字.c/h</span></span><br><span class="line"><span class="comment">  * @brief      简短介绍文件</span></span><br><span class="line"><span class="comment">  * @note       笔记</span></span><br><span class="line"><span class="comment">  * @history    历史信息版本</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  @verbatim   </span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment">  用于建立一个框，来说明整个文件的功能。</span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment">  @endverbatim</span></span><br><span class="line"><span class="comment">  *****************************东莞理工学院ACE实验室 *****************************</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></tbody></table></figure>
-<p>下面是大疆的</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  ****************************(C) COPYRIGHT 2019 DJI****************************</span></span><br><span class="line"><span class="comment">  * @file       chassis.c/h</span></span><br><span class="line"><span class="comment">  * @brief      chassis control task,</span></span><br><span class="line"><span class="comment">  *             底盘控制任务</span></span><br><span class="line"><span class="comment">  * @note       </span></span><br><span class="line"><span class="comment">  * @history</span></span><br><span class="line"><span class="comment">  *  Version    Date            Author          Modification</span></span><br><span class="line"><span class="comment">  *  V1.0.0     Dec-26-2018     RM              1. done</span></span><br><span class="line"><span class="comment">  *  V1.1.0     Nov-11-2019     RM              1. add chassis power control</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  @verbatim</span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  ==============================================================================</span></span><br><span class="line"><span class="comment">  @endverbatim</span></span><br><span class="line"><span class="comment">  ****************************(C) COPYRIGHT 2019 DJI****************************</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></tbody></table></figure>
-<p>函数注释采用这种类似的方式：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief      函数说明</span></span><br><span class="line"><span class="comment">  * @param[in]  传入参数说明(1)</span></span><br><span class="line"><span class="comment">  * @param[in]  传入参数说明(2)</span></span><br><span class="line"><span class="comment">  * @retval     返回参数说明(1)</span></span><br><span class="line"><span class="comment">  * @attention  需要注意的地方</span></span><br><span class="line"><span class="comment">  */</span></span><br></pre></td></tr></tbody></table></figure>
-<p>用如上的形式。</p>
-<h2 id="结构体定义">5. 结构体定义</h2>
-<p>结构体名称请使用<strong>小写英文名</strong>的形式，单词与单词之间采用
-"_" 连接，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">  <span class="type">const</span> <span class="type">motor_measure_t</span> *chassis_motor_measure;</span><br><span class="line">  fp32 accel;</span><br><span class="line">  fp32 speed;</span><br><span class="line">  fp32 speed_set;</span><br><span class="line">  <span class="type">int16_t</span> give_current;</span><br><span class="line">} <span class="type">chassis_motor_t</span>;</span><br></pre></td></tr></tbody></table></figure>
-<p>其中，"{"
-独立占用一行，"}" 后面<strong>空一格</strong>，接上结构体名称加上 "_t"
-的形式作为名称</p>
-<p>结构体等的类型定义，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//底盘控制数据</span></span><br><span class="line"><span class="type">static</span> <span class="type">chassis_control_t</span> chassis_control;</span><br></pre></td></tr></tbody></table></figure>
-<p>为了各个文件之间对象的访问，采用返回结构体地址的形式，在另外一个文件接收，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          返回遥控器控制变量，通过指针传递方式传递信息</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         返回遥控器控制变量 &amp;rc_ctrl</span></span><br><span class="line"><span class="comment">  * @attention</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">const</span> <span class="type">rc_ctrl_t</span> *<span class="title function_">get_remote_control_point</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">return</span> &amp;rc_ctrl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="宏定义">6. 宏定义</h2>
-<p>请使用<strong>全大写英文</strong>名称作为宏定义，单词之间使用
-<code>"_"</code> 连接，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ACE_TRUE   1</span></span><br></pre></td></tr></tbody></table></figure>
-<h2 id="函数名称声明">7. 函数名称、声明</h2>
-<p>函数名称请使用<strong>小写英文</strong>的形式，单词之间使用
-<code>"_"</code>
-连接。提供给上层应用使用的 API 接口，必须在相应的头文件中声明；</p>
-<p>如果函数入口参数是空，必须使用 <code>void</code>
-作为入口参数，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief          返回遥控器控制变量，通过指针传递方式传递信息</span></span><br><span class="line"><span class="comment">  * @param[in]      none</span></span><br><span class="line"><span class="comment">  * @retval         返回遥控器控制变量 &amp;rc_ctrl</span></span><br><span class="line"><span class="comment">  * @attention</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="type">const</span> <span class="type">rc_ctrl_t</span> *<span class="title function_">get_remote_control_point</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">return</span> &amp;rc_ctrl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="变量声明">8. 变量声明</h2>
-<p>最终代码<strong>不要出现全局变量</strong>，全局变量仅仅供调试，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//底盘测试模式 宏定义 0 为不使用测试模式</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CHASSIS_TEST_MODE   1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> CHASSIS_TEST_MODE</span></span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_1;</span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_2;</span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_3;</span><br><span class="line"><span class="type">int</span> JSCOPE_chassis_4;</span><br><span class="line"><span class="type">int</span> temp_1, temp_2, Can_send_time;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> CHASSIS_TEST_MODE</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_jscope_print_curve</span><span class="params">(<span class="type">void</span>)</span>; <span class="comment">/* jscope打印曲线 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> CHASSIS_TEST_MODE</span></span><br><span class="line"><span class="comment">/* jscope打印曲线 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_jscope_print_curve</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">{</span><br><span class="line">	JSCOPE_chassis_1 = chassis_control.chassis_motor[<span class="number">0</span>].output;</span><br><span class="line">	JSCOPE_chassis_2 = chassis_control.chassis_motor[<span class="number">1</span>].output;</span><br><span class="line">	JSCOPE_chassis_3 = chassis_control.chassis_motor[<span class="number">2</span>].output;</span><br><span class="line">	JSCOPE_chassis_4 = chassis_control.chassis_motor[<span class="number">3</span>].output;</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></tbody></table></figure>
-<p>局部变量可以出现简单的存储作用，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint8_t</span> i; <span class="comment">//用于for循环计数</span></span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">{</span><br><span class="line">  <span class="comment">/*循环代码*/</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>重要的变量请在结构体内定义。</p>
-<h2 id="注释编写">9. 注释编写</h2>
-<p>相应提示性的注释以解释一段复杂的算法它是如何工作的。对语句的注释只能写在它的<strong>上方或右方</strong>，其他位置都是非法的。某些函数比较复杂或者特殊可以在函数上方加上对这个函数的<strong>详细解释</strong></p>
-<h2 id="缩进及分行">10. 缩进及分行</h2>
-<p>缩进请采用 <strong>4 个空格</strong>的方式。如果没有什么特殊意义，请在
-<code>"{"</code> 后进行分行，并在下一行都采用缩进的方式，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p><strong>唯一的例外</strong>是 <code>switch</code>
-语句，<code>switch-case</code> 语句采用 <code>case</code> 语句与
-<code>switch</code> 对齐的方式，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (value)</span><br><span class="line">{</span><br><span class="line"><span class="keyword">case</span> value1:</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p><code>case</code> 语句与前面的 <code>switch</code>
-语句对齐，后续的语句则采用缩进的方式。分行上，如果没有什么特殊考虑，请<strong>不要在代码中连续使用两个以上的空行</strong>。</p>
-<h2 id="大括号与空格">11. 大括号与空格</h2>
-<p>从代码阅读角度，建议<strong>每个大括号单独占用一行</strong>，而不是跟在语句的后面，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (condition)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>匹配的大括号单独占用一行，代码阅读起来就会有相应的层次而不会容易出现混淆的情况。</p>
-<p><strong>空格建议在非函数方式的括号调用前留一个空格以和前面的进行区分</strong>，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (x &lt;= y)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; MAX_NUMBER; index ++)</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* others */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>建议在括号前留出一个空格 (涉及的包括
-<code>if、for、while、switch</code>
-语句)，而运算表达式中，运算符与字符串间留一个空格。另外，<strong>不要在括号的表达式两侧留空格</strong>，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( x &lt;= y )</span><br><span class="line">{</span><br><span class="line">    <span class="comment">/* other */</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>这样括号内两侧的空格是不允许的。</p>
-<h2 id="log信息">12.log 信息</h2>
-<p>使用 <strong>letter_shell+elog</strong>
-进行调试。（最终代码删除、注释掉相关调试函数）</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">log_a(<span class="string">"断言(Assert)"</span>);  <span class="comment">//断言(Assert)</span></span><br><span class="line">log_e(<span class="string">"错误(Error)"</span>);   <span class="comment">//错误(Error)</span></span><br><span class="line">log_w(<span class="string">"警告(Warn)"</span>);    <span class="comment">//警告(Warn)</span></span><br><span class="line">log_i(<span class="string">"信息(Info)"</span>);    <span class="comment">//信息(Info)</span></span><br><span class="line">log_d(<span class="string">"调试(Debug)"</span>);   <span class="comment">//调试(Debug)</span></span><br><span class="line">log_v(<span class="string">"详细(Verbose)"</span>); <span class="comment">//详细(Verbose)</span></span><br></pre></td></tr></tbody></table></figure>
-<p>使用方式和 <code>printf</code> 函数类似</p>
-<h2 id="函数模块化">13. 函数（模块化）</h2>
-<p>在编程中，函数应该尽量精简，仅完成相对独立的简单功能。函数的实现不应该太长，函数实现太长，应该反思能够如何修改 (或拆分) 使得函数更为精简、易懂，函数级层不要太多。</p>
-<h2 id="对象">14. 对象</h2>
-<p>采用了 C 语言对象化，命名表现形式，例如：</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*底盘电机数据*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    <span class="type">const</span> <span class="type">motor_measure_t</span> *chassis_motor_measure;</span><br><span class="line">	</span><br><span class="line">    fp32 accel;</span><br><span class="line">    fp32 speed;</span><br><span class="line">    fp32 speed_set;</span><br><span class="line">    fp32 position;</span><br><span class="line">    <span class="type">int16_t</span> output;</span><br><span class="line">} <span class="type">motor_t</span>;</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">mk_data_process</span><span class="params">(<span class="type">chassis_control_t</span> *mk_data_process_f)</span>;         <span class="comment">//键盘鼠标选择</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_mode_choose</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_mode_choose_f)</span>; <span class="comment">//底盘模式选择</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_follow</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_follow_f)</span>;           <span class="comment">//底盘跟随</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_twist</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_twist_f)</span>;             <span class="comment">//底盘扭腰</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_rotation</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_rotation_f)</span>;       <span class="comment">//底盘小陀螺</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">chassis_independent</span><span class="params">(<span class="type">chassis_control_t</span> *chassis_independent_f)</span>; <span class="comment">//底盘不跟随</span></span><br></pre></td></tr></tbody></table></figure>
-<h2 id="用-astyle-自动格式化代码">15. 用 astyle 自动格式化代码</h2>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">参数：--style=allman</span><br><span class="line">      --indent=spaces=4</span><br><span class="line">      --indent-preproc-block</span><br><span class="line">      --pad-oper</span><br><span class="line">      --pad-header</span><br><span class="line">      --unpad-paren</span><br><span class="line">      --suffix=none</span><br><span class="line">      --align-pointer=name</span><br><span class="line">      --lineend=linux</span><br><span class="line">      --convert-tabs</span><br><span class="line">      --verbose</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="doxygen-制作程序文档">16. Doxygen 制作程序文档</h2>
-<table>
-<colgroup>
-<col style="width: 10%">
-<col style="width: 37%">
-<col style="width: 52%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">命令</th>
-<th style="text-align: left;">字段名</th>
-<th style="text-align: left;">语法</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="file"> @file</span></td>
-<td style="text-align: left;"> 文件名</td>
-<td style="text-align: left;"> file [&lt; name &gt;]</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="brief">@brief</span></td>
-<td style="text-align: left;"> 简介</td>
-<td style="text-align: left;"> brief { brief description }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="author">@author</span></td>
-<td style="text-align: left;"> 作者</td>
-<td style="text-align: left;"> author { list of authors }</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="mainpage">@mainpage</span></td>
-<td style="text-align: left;"> 主页信息</td>
-<td style="text-align: left;"> mainpage [(title)]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="date">@date</span></td>
-<td style="text-align: left;"> 年 - 月 - 日</td>
-<td style="text-align: left;"> date { date description }</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="author">@author</span></td>
-<td style="text-align: left;"> 版本号</td>
-<td style="text-align: left;"> version { version number }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="copyright">@copyright</span></td>
-<td style="text-align: left;"> 版权</td>
-<td style="text-align: left;"> copyright { copyright description }</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="param">@param</span></td>
-<td style="text-align: left;"> 参数</td>
-<td style="text-align: left;"> param [(dir)] &lt; parameter-name&gt; {
-parameter description }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="return">@return</span></td>
-<td style="text-align: left;"> 返回</td>
-<td style="text-align: left;"> return { description of the return value
-}</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="retval">@retval</span></td>
-<td style="text-align: left;"> 返回值</td>
-<td style="text-align: left;"> retval { description }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="bug">@bug</span></td>
-<td style="text-align: left;"> 漏洞</td>
-<td style="text-align: left;"> bug { bug description }</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="details">@details</span></td>
-<td style="text-align: left;"> 细节</td>
-<td style="text-align: left;"> details { detailed description }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="pre">@pre</span></td>
-<td style="text-align: left;"> 前提条件</td>
-<td style="text-align: left;"> pre { description of the precondition
-}</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="see">@see</span></td>
-<td style="text-align: left;"> 参考</td>
-<td style="text-align: left;"> see { references }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="link">@link</span></td>
-<td style="text-align: left;"> 连接 (与 @see 类库，{<span class="citation" data-cites="link">@link</span> www.google.com})</td>
-<td style="text-align: left;">link &lt; link-object&gt;</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="throw">@throw</span></td>
-<td style="text-align: left;"> 异常描述</td>
-<td style="text-align: left;"> throw &lt; exception-object&gt; {
-exception description }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="todo">@todo</span></td>
-<td style="text-align: left;"> 待处理</td>
-<td style="text-align: left;"> todo { paragraph describing what is to be
-done }</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="warning">@warning</span></td>
-<td style="text-align: left;"> 警告信息</td>
-<td style="text-align: left;"> warning { warning message }</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="citation" data-cites="deprecated">@deprecated</span></td>
-<td style="text-align: left;"> 弃用说明。可用于描述替代方案，预期寿命等</td>
-<td style="text-align: left;"> deprecated { description }</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="citation" data-cites="example">@example</span></td>
-<td style="text-align: left;"> 弃用说明。可用于描述替代方案，预期寿命等</td>
-<td style="text-align: left;"> deprecated { description }</td>
-</tr>
-</tbody>
-</table>
-<p>以上是写注释是可以加上的，但是实际操作中，并不需要这么多参数。</p>
-<h2 id="最后附上我的工程开头">17. 最后附上我的工程开头</h2>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/************************************ 东莞理工学院ACE实验室 ************************************</span></span><br><span class="line"><span class="comment"> * @project   工程名字</span></span><br><span class="line"><span class="comment"> * @Author    东莞理工学院  ACE机器人战队  蔡瀚源</span></span><br><span class="line"><span class="comment"> * @Date      日期</span></span><br><span class="line"><span class="comment"> * @Version   版本</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                    P                          :u7  :Ii              .                              </span></span><br><span class="line"><span class="comment">                   QBQ                     sQBBQBB  PBBBBQI.        XQBBBBBBBBBQBBBBBBBBBBBBM       </span></span><br><span class="line"><span class="comment">                  bBBBZ                 .MQBQBBBQB  5BBBBBBBBi      uBBBBBBBBBQBBBBBBBBBQBBBP       </span></span><br><span class="line"><span class="comment">                 bBBQQB5               XBBBRQQBBBP  sQBQBQQBBBZ     IBBBBBBBBBBBBBBBBBBBBBBBD       </span></span><br><span class="line"><span class="comment">                 rBBgRQBY             BBQQRBBQr        rgBBBQr                                      </span></span><br><span class="line"><span class="comment">               .  iBBgRQB7           BBQRgBQ:            iE.                                        </span></span><br><span class="line"><span class="comment">              :BY  7BBgRQB:         sBQMgBB                                                         </span></span><br><span class="line"><span class="comment">             .BBB:  uBBgRBB.        BBMDQQ:                         rSU57  UQPdPbPPPPqPPbPdQs       </span></span><br><span class="line"><span class="comment">             BBQBB:  XBQgRBB        QBggQB                          sBEQ1  QBBBBQBBBBBBBBBBBZ       </span></span><br><span class="line"><span class="comment">            BBQgBBB   KBRDRBB       BBgDBB                          jBDQU  QBBBBBBBBBBBQBBBBg       </span></span><br><span class="line"><span class="comment">           BBQgRBB     dQggQBB      BBggQB.                         iXJS7  uDK5XXK5KXKXXSSXg7       </span></span><br><span class="line"><span class="comment">          gBQgRQB   BBggQDggQBQ     YBQDMBB                                                         </span></span><br><span class="line"><span class="comment">         PBQgRBB   BBBBBRQgMgQBg     BBQgRBB:            iZ:                                        </span></span><br><span class="line"><span class="comment">        2BQgMBB.  BBBBBBBBBQRgQBK     BBBRQBBQL.      .rRBBQBr       ..                   ..        </span></span><br><span class="line"><span class="comment">       vQBgRQB:  :uriiiiiirBQQgBB1     XQBQQQBBBBE  uBQBQBQBBBD     SBBBBBBBBBBBBBBBBBBBQBBBD       </span></span><br><span class="line"><span class="comment">      7QBQBBBr             :BBBQBBY     .ZBQBBBBBB  qBBQBBBBB:      UBBBBQBBBBBBBBBBBBBBBBBBd       </span></span><br><span class="line"><span class="comment">     LBBBBBBJ               7BBBBBQu       YRBBBQB  KBBBBBJ.        IBQBBBBBQBBBBBBBBBBBBBBBZ       </span></span><br><span class="line"><span class="comment">                                                7i  .7.                                             </span></span><br><span class="line"><span class="comment">************************************ 东莞理工学院ACE实验室 ************************************/</span></span><br></pre></td></tr></tbody></table></figure>
-<p>:star2:<font face="STCAIYUN" color="red" size="5"> 有任何疑问，或者觉得要改进的地方请提出来，最后组内讨论决定修改该文档</font></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://nepqiu.com/2023/05/15/notes/ACE/STM32%E5%9F%B9%E8%AE%AD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="nepqiu">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="nepqiu的废话篓子">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | nepqiu的废话篓子">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/05/15/notes/ACE/STM32%E5%9F%B9%E8%AE%AD/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-05-15 00:06:59" itemprop="dateCreated datePublished" datetime="2023-05-15T00:06:59+08:00">2023-05-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-22 20:32:58" itemprop="dateModified" datetime="2023-04-22T20:32:58+08:00">2023-04-22</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>55</span>
+      <span>78</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -904,74 +346,20 @@ done }</td>
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h1 id="大纲">大纲</h1>
-<table style="width:100%;">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">主讲人</th>
-<th style="text-align: center;">第一周</th>
-<th style="text-align: center;">第二周</th>
-<th style="text-align: center;">第三周</th>
-<th style="text-align: center;">第四周</th>
-<th style="text-align: center;">第五周</th>
-<th style="text-align: center;">第六周</th>
-<th style="text-align: center;">第七周</th>
-<th style="text-align: center;">第八周</th>
-<th style="text-align: center;">第九周</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">蔡瀚源</td>
-<td style="text-align: center;">点灯</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"> IIC</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">DMA</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"> 刘沅东</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">串口</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"> SPI</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">FLASH</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"> 李海亮</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">定时器</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"> ADC</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">CAN</td>
-</tr>
-</tbody>
-</table>
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start">Quick Start</h2>
+<h3 id="Create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server">Run server</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>
@@ -990,9 +378,6 @@ done }</td>
 
 
 
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
 </div>
   </main>
@@ -1014,13 +399,13 @@ done }</td>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">18k</span>
+    <span title="站点总字数">0k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:06</span>
+    <span title="站点阅读时长">2 分钟</span>
   </span>
 </div>
 
